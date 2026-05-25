@@ -179,9 +179,14 @@ flowchart TB
   Skills --> SkillRepos["martins-awesome-skills<br/>openclaw-apple-findmy-skill<br/>codex-computer-use-eu-activate"]
   Runtime --> Workers["Codex / Claude / Gemini<br/>Research Workers"]
   Runtime --> LocalRepos["Local Agent Repos<br/>mail / voice / bridge / presence"]
+  Runtime --> InboxControl["openclaw-hermes-email-control<br/>emailctl + local bridge checks"]
   Runtime --> Memory["Postgres + pgvector"]
   Runtime --> Vault["Obsidian Markdown Vault<br/>Dataview / Smart Connections / Git"]
   Runtime --> Artifacts["S3 / R2 Artifacts"]
+
+  InboxControl --> Chatwoot["Chatwoot Operator Inbox<br/>localhost:3080"]
+  InboxControl --> MailTools["Himalaya + mbsync/notmuch<br/>local Maildir"]
+  Chatwoot --> Mailpit["Mailpit SMTP/UI<br/>localhost:8025"]
 
   LocalRepos --> AW["ActivityWatch<br/>Presence / Screen Time / WHOOP / YouTube / Icons"]
   AW --> Door["Nuki + Ring Context"]
@@ -189,6 +194,7 @@ flowchart TB
 
   Bridges --> BridgeOps["Bridge Ops<br/>bridge-manager / appservice DBs"]
   BeeperProxy --> BeeperAPI["Local Beeper Desktop API<br/>desktop-api-go + WebSocket trigger"]
+  BeeperAPI --> Chatwoot
   BeeperAPI --> BeeperCloud["Existing Beeper Bridges<br/>WhatsApp / Signal / Telegram / iMessage / more"]
   RTC --> LiveKit["LiveKit SFU<br/>lk-jwt-service / Egress / Agents"]
 
@@ -205,6 +211,7 @@ flowchart LR
   subgraph Interfaces["Human Interfaces"]
     MatrixClient["Matrix Clients<br/>Element / Cinny / Sable"]
     Discord["Discord Voice/Text"]
+    ChatwootInbox["Chatwoot Operator Inbox"]
     Obsidian["Obsidian Vault"]
     Menubar["macOS Menubar / ActivityWatch"]
   end
@@ -213,6 +220,7 @@ flowchart LR
     MatrixRepo["matrix-hermes-agent-stack<br/>Architecture"]
     Matrix["Matrix Homeserver"]
     BeeperProxy["beeper-matrix-proxy"]
+    BeeperAPI["Beeper Desktop API"]
     Redis["Redis Queue"]
   end
 
@@ -232,6 +240,8 @@ flowchart LR
     AppleHealth["aw-importer-apple-health"]
     YouTube["aw-importer-youtube"]
     IconCache["activitywatch-icon-cache"]
+    Maildir["Maildir<br/>Himalaya / mbsync / notmuch"]
+    Mailpit["Mailpit"]
     Voice["discord-voice-obsidian-agent"]
     Pg["Postgres + pgvector"]
     S3["S3/R2 Artifacts"]
@@ -241,11 +251,16 @@ flowchart LR
   Discord --> Voice
   Menubar --> ActivityWatch
   Matrix --> BeeperProxy
+  BeeperAPI --> BeeperProxy
   Matrix --> Redis
   Redis --> Hermes
   Hermes --> Skills
   Hermes --> FindMy
   Hermes --> EmailCtrl
+  EmailCtrl --> ChatwootInbox
+  EmailCtrl --> Maildir
+  EmailCtrl --> Mailpit
+  BeeperAPI --> EmailCtrl
   Hermes --> ComputerUse
   Hermes --> Obsidian
   Hermes --> Pg
