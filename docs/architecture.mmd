@@ -3,6 +3,7 @@ flowchart LR
     Human["Human / Team"]
     Element["Element Web / Element X"]
     Cinny["Cinny / Sable"]
+    HermesDesktop["Hermes Desktop"]
     Discord["Discord Voice MVP"]
     ObsidianUI["Obsidian Notion UI"]
     ChatwootUI["Chatwoot Operator Inbox"]
@@ -74,6 +75,7 @@ flowchart LR
 
   Human --> Element
   Human --> Cinny
+  Human --> HermesDesktop
   Human --> Discord
   Human --> ObsidianUI
   Human --> ChatwootUI
@@ -85,6 +87,7 @@ flowchart LR
   Homeserver --> Bridges
   Homeserver --> Beeper
   Bot --> Authz --> Queue --> Runtime
+  HermesDesktop --> Runtime
   Runtime --> RuntimePolicy
   Runtime --> Workers
   RuntimePolicy --> Skills

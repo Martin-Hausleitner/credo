@@ -24,6 +24,7 @@
 | Commet | Discord-artiger Client | Multi-Account als Designziel | Reife pruefen | Interessant als Alternative | [commet](https://github.com/commetchat/commet) |
 | FluffyChat | Casual/Mobile | Freundlich, plattformuebergreifend | Nicht Power-Agent-Client | Gut fuer Gaeste/Familie | [fluffychat](https://github.com/krille-chan/fluffychat) |
 | Nheko | Power/Desktop | Schnell, nativ, technisch | UX weniger mainstream | Debug/Power-User | [nheko](https://github.com/Nheko-Reborn/nheko) |
+| Hermes Desktop | Agent Desktop | Native GUI fuer Hermes-Installation, lokale/remote API, Skills, Memory, Sessions, Schedules und Gateways | Kein Matrix-Client-Ersatz, muss in Policy/Trace-Modell eingebunden werden | Sehr interessant als lokale Control-Surface fuer Martin | [hermes-desktop](https://github.com/fathah/hermes-desktop) |
 
 ## RTC, Voice und Streaming
 
@@ -55,6 +56,7 @@
 | Komponente | Rolle | Empfehlung | GitHub |
 |---|---|---|---|
 | Hermes Agent | Orchestrator, Gateway, Skills, Memory, Subagents | Kernruntime fuer Agenten | [hermes-agent](https://github.com/NousResearch/hermes-agent) |
+| Hermes Desktop | Desktop Companion fuer Hermes Agent | Lokale Control-Surface fuer Provider, Chat, Sessions, Memory, Skills, Tools, Schedules und Messaging Gateways | [hermes-desktop](https://github.com/fathah/hermes-desktop) |
 | OpenClaw | Lokale Agent-/Skill-Umgebung | Lokale Tool-Ausfuehrung und Skills | [openclaw](https://github.com/openclaw/openclaw) |
 | ClawHub | Skill Registry/Katalog | Versionierung, Trust, Install-Layer | [clawhub](https://github.com/openclaw/clawhub) |
 | agent-secrets | Secret Handling | Keine Tokens in Skills | [agent-secrets](https://github.com/joelhooks/agent-secrets) |
@@ -78,6 +80,7 @@
 | Variante | Stack | Wann nehmen? |
 |---|---|---|
 | Konservativer Start | Synapse + Element Web + Cinny + Hermes Bot + Redis + Postgres + R2 | Wenn Kompatibilitaet wichtiger ist als RAM |
+| Lokale Agent Workbench | Hermes Desktop + Hermes Agent + OpenClaw + Tailscale | Wenn Martin eine native Schaltzentrale fuer Provider, Skills, Sessions, Memory und Gateways will |
 | Ressourcen-Stack | Tuwunel + Element Web + Sable/Cinny + R2 + Postgres | Wenn 8GB/256GB und S3 wichtig sind |
 | Universal Messenger | Synapse/Tuwunel + mautrix WhatsApp/Telegram/Signal + Bridge Manager | Wenn externe Messenger wichtig sind |
 | Voice MVP | Discord.py + OpenAI Realtime + Hermes Tools + pgvector | Wenn schnell sprechender Agent gebraucht wird |

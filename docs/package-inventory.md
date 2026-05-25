@@ -12,6 +12,8 @@ Diese Datei buendelt die technischen Pakete aus README, lokalen Manifesten und S
 | <img src="https://www.google.com/s2/favicons?domain=lucide.dev&sz=64" width="22"> | `lucide-react` | UI-Apps | einheitliche Icons |
 | <img src="https://cdn.simpleicons.org/tauri/24C8DB" width="22"> | `@tauri-apps/*` | Cognitor Tray | native macOS App |
 | <img src="https://cdn.simpleicons.org/expo/000020" width="22"> | `expo` / `react-native` | Mobile Companion | mobile Agent-UX |
+| <img src="https://cdn.simpleicons.org/electron/47848F" width="22"> | `electron` / `electron-vite` / `electron-builder` | Hermes Desktop | native Desktop-Companion, Packaging, Auto-Updater |
+| <img src="https://www.google.com/s2/favicons?domain=sqlite.org&sz=64" width="22"> | `better-sqlite3` / SQLite FTS5 | Hermes Desktop | lokale Sessionsuche und Desktop-State |
 | <img src="https://www.google.com/s2/favicons?domain=playwright.dev&sz=64" width="22"> | `playwright` | Workspace | Browser-Validierung und Screenshots |
 
 ## 🤖 Agenten, APIs und Worker

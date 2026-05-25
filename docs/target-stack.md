@@ -56,6 +56,7 @@ Jeder Agentenlauf soll als kleiner Vertrag modelliert werden. Das macht spaeter 
 | <img src="https://cdn.simpleicons.org/element/0DBD8B" width="24"> | Element X | Matrix-2.0-Pfad mit Rust SDK, Sliding Sync, OIDC, MatrixRTC | mobile Zukunft, aber Accounts vorsichtig planen |
 | <img src="https://www.google.com/s2/favicons?domain=cinny.in&sz=64" width="24"> | Cinny | ruhige, schnelle Agent-Raum-UX | bevorzugte Alltags-Web-UX |
 | <img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" width="24"> | Sable / Commet | alternative Discord-artige oder Multi-Account-UX | beobachten/testen |
+| <img src="https://github.com/fathah.png?size=32" width="24"> | Hermes Desktop | native Desktop-Companion fuer Hermes Agent: Install, Provider, Chat, Sessions, Skills, Gateways, Schedules | sehr interessant als lokale Control-Surface |
 
 **Hinweis:** Element X iOS ist fuer mehrere Accounts heikel. Logout kann lokale Kryptodaten loeschen; Secure Key Backup muss vor ernsthafter Nutzung sauber stehen.
 
@@ -74,6 +75,7 @@ Jeder Agentenlauf soll als kleiner Vertrag modelliert werden. Das macht spaeter 
 | Logo | Komponente | Zweck | Empfehlung |
 |---|---|---|---|
 | <img src="https://www.google.com/s2/favicons?domain=nousresearch.com&sz=64" width="24"> | Hermes Agent | Orchestrierung, Sessions, Memory, Automationen | Core |
+| <img src="https://github.com/fathah.png?size=32" width="24"> | Hermes Desktop | GUI fuer lokale oder remote Hermes-API auf `127.0.0.1:8642`, Profile, Memory, Skills, Tools, Messaging Gateways | optionaler Desktop-Companion, nicht Matrix-Ersatz |
 | <img src="https://www.google.com/s2/favicons?domain=openclawdoc.com&sz=64" width="24"> | OpenClaw | lokale Skills, Tooling, Automationen | Core |
 | <img src="https://www.google.com/s2/favicons?domain=openai.com&sz=64" width="24"> | Codex | coding agent, Computer Use, Validierung | Core fuer lokale Arbeit |
 | <img src="https://cdn.simpleicons.org/github/181717" width="24"> | GitHub Skills | Issues, PRs, Repos, Reviews, Releases | installiert |

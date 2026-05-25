@@ -2,7 +2,7 @@
 
 Diese Matrix erweitert die lokale Repo-Inventur um Live-Metadaten von GitHub: Owner/Macher, Stars, Sprache, Sichtbarkeit, Kategorie und Credo-Wichtigkeit. Quelle sind alle GitHub-Links, die aktuell in README und `docs/` vorkommen.
 
-Stand: 2026-05-26. Geprueft: **121** GitHub-Repositories, davon **120** per API erreichbar. Stars sind Momentaufnahmen aus der GitHub API.
+Stand: 2026-05-26. Geprueft: **122** GitHub-Repositories, davon **121** per API erreichbar. Stars sind Momentaufnahmen aus der GitHub API.
 
 ## Legende
 
@@ -45,13 +45,14 @@ Stand: 2026-05-26. Geprueft: **121** GitHub-Repositories, davon **120** per API 
 | <img src="https://github.com/blacksmithgu.png?size=32" width="24"> | [blacksmithgu/obsidian-dataview](https://github.com/blacksmithgu/obsidian-dataview) | [blacksmithgu](https://github.com/blacksmithgu) | 8,990 | TypeScript | 🔥 Core | Knowledge Vault, Markdown-Abfragen und Git-Audit. |
 | <img src="https://github.com/openclaw.png?size=32" width="24"> | [openclaw/clawhub](https://github.com/openclaw/clawhub) | [openclaw](https://github.com/openclaw) | 8,764 | TypeScript | 🔥 Core | Lokaler Skill-, Tool- und Agentenlayer. |
 | <img src="https://github.com/remotely-save.png?size=32" width="24"> | [remotely-save/remotely-save](https://github.com/remotely-save/remotely-save) | [remotely-save](https://github.com/remotely-save) | 7,531 | TypeScript | 🔎 Referenz | Upstream-, Tooling- oder Vergleichsreferenz fuer den Credo-Stack. |
+| <img src="https://github.com/fathah.png?size=32" width="24"> | [fathah/hermes-desktop](https://github.com/fathah/hermes-desktop) | [fathah](https://github.com/fathah) | 7,118 | TypeScript | ⭐ Wichtig | Desktop-Companion fuer Hermes Agent: Chat, Sessions, Provider, Skills, Memory, Schedules und Gateways. |
 
 ## Kategorien
 
 | Kategorie | Repos | Core/Wichtig |
 |---|---:|---:|
 | 🟢 Matrix / Messaging | 40 | 28 |
-| 🤖 Agents / Skills | 18 | 9 |
+| 🤖 Agents / Skills | 19 | 10 |
 | 🧑‍💻 Coding Agents | 1 | 1 |
 | 📈 ActivityWatch / Health / Context | 9 | 7 |
 | 🧠 Knowledge / Obsidian | 7 | 3 |
@@ -117,6 +118,7 @@ Stand: 2026-05-26. Geprueft: **121** GitHub-Repositories, davon **120** per API 
 | <img src="https://github.com/NousResearch.png?size=32" width="24"> | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | [NousResearch](https://github.com/NousResearch) | 167,171 | Python | public | 🔥 Core | Agent-Orchestrator fuer Sessions, Skills, Memory und Automationen. | Service-Katalog, Vergleich |
 | <img src="https://github.com/openclaw.png?size=32" width="24"> | [openclaw/clawhub](https://github.com/openclaw/clawhub) | [openclaw](https://github.com/openclaw) | 8,764 | TypeScript | public | 🔥 Core | Lokaler Skill-, Tool- und Agentenlayer. | Vergleich |
 | <img src="https://github.com/livekit.png?size=32" width="24"> | [livekit/agents](https://github.com/livekit/agents) | [livekit](https://github.com/livekit) | 10,681 | Python | public | ⭐ Wichtig | Voice/RTC/Streaming-Strang fuer spaetere MatrixRTC-Phase. | Matrix Map, Vergleich |
+| <img src="https://github.com/fathah.png?size=32" width="24"> | [fathah/hermes-desktop](https://github.com/fathah/hermes-desktop) | [fathah](https://github.com/fathah) | 7,118 | TypeScript | public | ⭐ Wichtig | Desktop-Companion fuer Hermes Agent: Chat, Sessions, Provider, Skills, Memory, Schedules und Gateways. | Service-Katalog, Vergleich |
 | <img src="https://github.com/Martin-Hausleitner.png?size=32" width="24"> | [Martin-Hausleitner/discord-voice-obsidian-agent](https://github.com/Martin-Hausleitner/discord-voice-obsidian-agent) | [Martin-Hausleitner](https://github.com/Martin-Hausleitner) | 0 | TypeScript | private | ⭐ Wichtig | Knowledge Vault, Markdown-Abfragen und Git-Audit. | lokal, Matrix Map, Repo-Map, Service-Katalog |
 | <img src="https://github.com/Martin-Hausleitner.png?size=32" width="24"> | [Martin-Hausleitner/martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills) | [Martin-Hausleitner](https://github.com/Martin-Hausleitner) | 0 | Python | public | ⭐ Wichtig | Eigene public-safe Hermes/OpenClaw Skill-Sammlung. | lokal, Matrix Map, Repo-Map, Service-Katalog |
 | <img src="https://github.com/Martin-Hausleitner.png?size=32" width="24"> | [Martin-Hausleitner/openclaw-apple-findmy-skill](https://github.com/Martin-Hausleitner/openclaw-apple-findmy-skill) | [Martin-Hausleitner](https://github.com/Martin-Hausleitner) | 0 | Python | public | ⭐ Wichtig | Lokaler Skill-, Tool- und Agentenlayer. | lokal, Repo-Map |

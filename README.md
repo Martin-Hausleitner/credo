@@ -37,6 +37,7 @@ flowchart TB
   subgraph UX["💬 01 Zugänge und UX"]
     Element["Element Web<br/>Admin + Debug"]
     ElementX["Element X<br/>Matrix 2.0 Pfad"]
+    HermesDesktop["Hermes Desktop<br/>Agent Companion"]
     Cinny["Cinny / Sable / Commet<br/>Agent-Räume"]
     Chatwoot["Chatwoot<br/>Operator Inbox"]
     Cognitor["Cognitor<br/>Tray / Web / Mobile"]
@@ -158,6 +159,7 @@ Matrix ist **nicht** das Agent-Framework und auch **nicht** die interne Queue.
 | 🟢 Kommunikationskern | Synapse oder Tuwunel | Rooms, State, Federation, Audit | MVP-Entscheidung |
 | 🚀 Deployment | matrix-docker-ansible-deploy | Homeserver, TLS, TURN, Clients, Bridges | empfohlen |
 | 💬 UX | Element Web + Cinny/Sable + Element X | Admin, Alltag, Matrix-2.0, Agent-Räume | empfohlen |
+| 🖥️ Agent Desktop | Hermes Desktop | lokale/remote Hermes-Konfiguration, Chat, Sessions, Skills, Gateways | sehr interessant |
 | 📬 Inbox | Chatwoot + Himalaya + Maildir/notmuch | E-Mail, Beeper, Agent-Ops | aktiv/lokal |
 | 🤖 Runtime | Hermes + OpenClaw + Codex | Skills, Subagents, Tools, Computer Use | Core |
 | 🚦 Jobs | Redis Queue + Worker | Job-ID, Backpressure, Retry | Core |
