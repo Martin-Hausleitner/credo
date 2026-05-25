@@ -40,20 +40,20 @@ LiveKit = optionaler Voice/Call/Streaming-Strang
 
 ## Package- und Tool-Inventar
 
-Diese Tabelle ist die zentrale Liste fuer die Packages, Frameworks und Services, die im Stack genutzt werden oder als Zielkomponente vorgesehen sind.
+Diese Tabelle ist die zentrale Liste fuer die Packages, Frameworks und Services, die im Stack genutzt werden oder als Zielkomponente vorgesehen sind. Das Repo selbst ist ein Architekturdeck; deshalb ist die Tabelle bewusst ein gepflegtes Inventar und keine automatisch generierte Lockfile-Liste.
 
 | Paket / Tool | Kategorie | Wird genutzt in | Zweck | Status |
 |---|---|---|---|---|
-| `react` / `react-dom` | Frontend | Cognitor Web/Tray, Dashboard UI | Cognitor UI und Dashboard-Komponenten | aktiv |
-| `vite` / `@vitejs/plugin-react` | Frontend Build | Cognitor Web/Tray | Lokale Web-/Tauri-UI bauen und previewen | aktiv |
+| `react` / `react-dom` | Frontend | Cognitor, Cloakwright, Dashboards | Lokale Web-UIs und Dashboard-Komponenten | aktiv |
+| `vite` / `@vitejs/plugin-react` | Frontend Build | Cognitor, Cloakwright, Dashboard-Prototypen | Lokale Web-/Tauri-UI bauen und previewen | aktiv |
 | `typescript` | Sprache/Typing | Cognitor, Voice Agent, lokale Tools | Typisierte UI- und Tool-Entwicklung | aktiv |
-| `lucide-react` | UI Icons | Cognitor Web/Tray, Dashboard UI | Einheitliche Icons fuer Tools, Status und Navigation | aktiv |
-| `@tauri-apps/api` / `@tauri-apps/cli` | Desktop App | Cognitor Tray | Native macOS Tray-/Desktop-App | aktiv |
-| `expo` / `react-native` / `@expo/vector-icons` | Mobile | Cognitor Mobile | Mobile Companion / LAN-Prototyp | aktiv |
+| `lucide-react` | UI Icons | Cognitor, Obsidian-UI-Demos, Dashboards | Einheitliche Icons fuer Tools, Status und Navigation | aktiv |
+| `@tauri-apps/api` / `@tauri-apps/cli` | Desktop App | Cognitor Tray / Launcher | Native macOS Tray-/Desktop-App | aktiv |
+| `expo` / `react-native` / `@expo/vector-icons` | Mobile | mobile Companion-Prototypen | Mobile Companion / LAN-Prototyp | aktiv |
 | `playwright` | E2E/Browser | Root Workspace | Browser-Validierung und Screenshots | aktiv |
-| `@cognitor/activitywatch` | internes Package | Cognitor Packages | ActivityWatch-Daten normalisieren | aktiv |
-| `@cognitor/dashboard-ui` | internes Package | Cognitor Packages | Wiederverwendbare Dashboard-UI | aktiv |
-| `@cognitor/icons` | internes Package | Cognitor Packages | Icon- und Asset-Zwischenschicht | aktiv |
+| `@cognitor/activitywatch` | internes Package | Cognitor Launcher | ActivityWatch-Daten normalisieren | aktiv |
+| `@cognitor/dashboard-ui` | internes Package | Cognitor Launcher | Wiederverwendbare Dashboard-UI | aktiv |
+| `@cognitor/icons` | internes Package | Cognitor Launcher | Icon- und Asset-Zwischenschicht | aktiv |
 | `node:test` | Test Runner | aw-importer-youtube | importer-nahe Unit Tests ohne zusaetzlichen Runner | aktiv |
 | `sqlite3` CLI | lokales Tool | aw-importer-youtube | Chromium-History sicher aus SQLite-Kopien lesen | aktiv |
 | `yt-dlp` | Metadaten | aw-importer-youtube | YouTube Titel, Kanal, Beschreibung, Dauer und Stats anreichern | aktiv |
