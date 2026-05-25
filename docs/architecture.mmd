@@ -1,43 +1,33 @@
 flowchart TB
-  User["Human / Team"] --> Client["Element Web / Cinny / Sable / Element X"]
-  Client --> Matrix["Matrix Homeserver: Tuwunel or Synapse"]
-  Matrix --> Rooms["Rooms as Channels"]
-  Matrix --> Bot["Matrix Bot Gateway"]
-  Bot --> Authz["Backend Role Checks"]
-  Authz --> Queue["Redis Queue"]
-  Queue --> Hermes["Hermes / OpenClaw Runtime"]
-  Bot --> BeeperProxy["beeper-matrix-proxy"]
-  Hermes --> Skills["Skills + MCP Tools"]
-  Skills --> SkillsRepo["martins-awesome-skills<br/>openclaw-apple-findmy-skill<br/>codex-computer-use-eu-activate"]
-  Hermes --> Workers["Codex / Claude / Gemini Workers"]
-  Hermes --> Memory["Postgres + pgvector"]
-  Hermes --> Vault["Obsidian Markdown Vault"]
-  Vault --> ObsidianRepo["obsidian-notion-ui-customization"]
-  Hermes --> S3["S3 / R2 Artifacts"]
-  Memory --> ActivityWatch["ActivityWatch / personal telemetry"]
-  ActivityWatch --> Importers["aw-activitywatch-stack<br/>aw-importer-apple-screentime<br/>aw-importer-whoop<br/>aw-importer-youtube"]
-  Matrix --> Bridges["mautrix Bridges"]
-  Matrix --> RTC["MatrixRTC"]
-  RTC --> LiveKit["LiveKit SFU"]
-  Hermes --> Obs["OTel / Prometheus / Loki / Grafana"]
-  Obs --> Menubar["activitywatch-xbar-plugin"]
-  Obs --> Tail["Tailscale-only Admin"]
+  User["Human / Team"] --> Clients["Element Web<br/>Cinny / Sable<br/>Element X"]
+  Clients --> Matrix["Matrix Homeserver<br/>Synapse or Tuwunel"]
 
-  subgraph Workspace["Martin Workspace Repos"]
-    Cognitor["cognitor-launcher"]
-    Hoerbert["discord-voice-obsidian-agent"]
-    SkillsRepo["martins-awesome-skills"]
-    BeeperProxy["beeper-matrix-proxy"]
-    AWWhoop["aw-importer-whoop"]
-    AWScreen["aw-importer-apple-screentime"]
-    AWYouTube["aw-importer-youtube"]
-  end
+  Matrix --> Rooms["Rooms<br/>intake / ops / research / memory / alerts"]
+  Matrix --> Gateway["Matrix Bot Gateway<br/>mautrix/python first"]
+  Matrix --> Bridges["Messenger Bridges<br/>Telegram / WhatsApp / Signal / Slack"]
+  Matrix --> BeeperProxy["beeper-matrix-proxy<br/>Beeper/BIPA portals in Cinny"]
+  Matrix --> RTC["MatrixRTC<br/>Element Call"]
 
-  Cognitor --> Hermes
-  Hoerbert --> Matrix
-  Hoerbert --> Vault
-  SkillsRepo --> Skills
-  BeeperProxy --> Bridges
-  AWWhoop --> Memory
-  AWScreen --> Memory
-  AWYouTube --> Memory
+  Gateway --> Authz["Backend Role Checks<br/>LLM never decides permissions"]
+  Authz --> Queue["Redis Job Queue"]
+  Queue --> Runtime["Hermes + OpenClaw + Codex Runtime"]
+
+  Runtime --> Skills["Skills + MCP Tools"]
+  Skills --> SkillRepos["martins-awesome-skills<br/>openclaw-apple-findmy-skill<br/>codex-computer-use-eu-activate"]
+  Runtime --> Workers["Codex / Claude / Gemini<br/>Research Workers"]
+  Runtime --> LocalRepos["Local Agent Repos<br/>mail / voice / bridge / presence"]
+  Runtime --> Memory["Postgres + pgvector"]
+  Runtime --> Vault["Obsidian Markdown Vault<br/>Dataview / Smart Connections / Git"]
+  Runtime --> Artifacts["S3 / R2 Artifacts"]
+
+  LocalRepos --> AW["ActivityWatch<br/>Presence / Screen Time / WHOOP / Apple Health / YouTube"]
+  AW --> Door["Nuki + Ring Context"]
+  AW --> Health["WHOOP + Apple Health<br/>Sleep / Training / Vitals"]
+
+  Bridges --> BridgeOps["Bridge Ops<br/>bridge-manager / appservice DBs"]
+  BeeperProxy --> BeeperAPI["Local Beeper Desktop API<br/>desktop-api-go + WebSocket trigger"]
+  BeeperAPI --> BeeperCloud["Existing Beeper Bridges<br/>WhatsApp / Signal / Telegram / iMessage / more"]
+  RTC --> LiveKit["LiveKit SFU<br/>lk-jwt-service / Egress / Agents"]
+
+  Runtime --> Observability["OpenTelemetry<br/>Prometheus / Loki / Grafana"]
+  Observability --> Tailscale["Tailscale-only Admin"]
