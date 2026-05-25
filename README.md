@@ -15,6 +15,8 @@
 
 ![Credo logo board](assets/logo-board.svg)
 
+![Credo stack planes](assets/credo-planes.svg)
+
 ## 🎛️ Operating Model
 
 Credo ist kein einzelnes Tool, sondern ein **Betriebsmodell fuer Agentenarbeit**:
@@ -178,6 +180,7 @@ Matrix ist **nicht** das Agent-Framework und auch **nicht** die interne Queue.
 | Wenn du wissen willst... | Lies | Status |
 |---|---|---|
 | Was der Zielstack ist | [docs/target-stack.md](docs/target-stack.md) | Entscheidungsdoc |
+| Welche Bilder und Diagramme es gibt | [docs/visual-gallery.md](docs/visual-gallery.md) | Visual Guide |
 | Wie die Flows laufen | [docs/architecture-flows.md](docs/architecture-flows.md) und [docs/architecture.mmd](docs/architecture.mmd) | Architektur |
 | Wie Matrix betrieben wird | [docs/matrix-ops-runbook.md](docs/matrix-ops-runbook.md) | Runbook |
 | Was zuerst gebaut wird | [docs/implementation-roadmap.md](docs/implementation-roadmap.md) | Roadmap |

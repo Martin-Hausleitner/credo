@@ -8,6 +8,8 @@ Die komplette lokale Git-Inventur liegt in [local-repositories.md](local-reposit
 
 Die GitHub-Matrix liegt in [github-repositories.md](github-repositories.md). Sie umfasst aktuell **122 beteiligte GitHub-Repositories** aus README und `docs/`, inklusive Owner-Logo, Macher, Stars, Sprache, Sichtbarkeit und Credo-Wichtigkeit.
 
+Die visuelle Schnellspur liegt in [visual-gallery.md](visual-gallery.md): Stack-Planes, Screenshot-Galerien, Mermaid-Diagramme und Library-Landkarten.
+
 | Kategorie | Anzahl | Warum relevant |
 |---|---:|---|
 | 💬 Matrix / Messaging | 3 | Credo, Beeper/Matrix Proxy und Bridge-Manager bilden den Messaging-Kern. |

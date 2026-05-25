@@ -2,6 +2,8 @@
 
 Das README enthaelt die grosse Gesamtkarte. Hier liegen die Detailfluesse fuer Betrieb, Daten und Repos.
 
+Weitere visuelle Karten und Screenshot-Galerien liegen in [visual-gallery.md](visual-gallery.md).
+
 ## 🧭 Runtime Flow
 
 ```mermaid
@@ -17,6 +19,23 @@ flowchart LR
   Worker --> Vault["Obsidian + Git"]
   Worker --> Artifacts["S3 / R2"]
   Worker --> Matrix
+```
+
+## 🖥️ Control Surface Flow
+
+```mermaid
+flowchart LR
+  Human["Human"] --> MatrixClient["Element / Cinny"]
+  Human --> Desktop["Hermes Desktop"]
+  Human --> ObsidianUI["Obsidian"]
+  MatrixClient --> Room["Matrix Room"]
+  Desktop --> HermesAPI["Hermes API<br/>local 127.0.0.1:8642 or remote"]
+  Room --> Bot["Hermes Matrix Bot"]
+  Bot --> Queue["Redis Job"]
+  HermesAPI --> Queue
+  Queue --> Worker["Hermes / OpenClaw / Codex"]
+  Worker --> Result["Matrix Result + Artifacts"]
+  Worker --> ObsidianUI
 ```
 
 ## 🚦 Policy + Run Contract Flow

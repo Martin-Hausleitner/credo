@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Credo Planes</title>
+  <desc id="desc">Abstrakte Schichtung des Credo Stacks von UX ueber Matrix, Policy, Agent Runtime, Memory und Ops.</desc>
+  <style>
+    .bg{fill:#0b1020}
+    .title{font:700 34px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
+    .sub{font:500 16px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#cbd5e1}
+    .label{font:700 20px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
+    .small{font:500 14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#dbeafe}
+    .card{rx:18;stroke-width:2}
+    .arrow{stroke:#94a3b8;stroke-width:4;fill:none;marker-end:url(#arrow)}
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="520"/>
+  <text class="title" x="48" y="58">Credo Stack Planes</text>
+  <text class="sub" x="48" y="88">Room first, policy gated, job based, artifact backed, observable by default.</text>
+
+  <rect class="card" x="52" y="132" width="188" height="104" fill="#12333a" stroke="#22d3ee"/>
+  <text class="label" x="76" y="170">UX Plane</text>
+  <text class="small" x="76" y="198">Element, Cinny,</text>
+  <text class="small" x="76" y="218">Hermes Desktop</text>
+
+  <rect class="card" x="282" y="132" width="188" height="104" fill="#12351f" stroke="#4ade80"/>
+  <text class="label" x="306" y="170">Matrix Plane</text>
+  <text class="small" x="306" y="198">Rooms, State,</text>
+  <text class="small" x="306" y="218">Identity, Timeline</text>
+
+  <rect class="card" x="512" y="132" width="188" height="104" fill="#3b2b12" stroke="#f59e0b"/>
+  <text class="label" x="536" y="170">Policy Plane</text>
+  <text class="small" x="536" y="198">Approvals, Risk,</text>
+  <text class="small" x="536" y="218">Tool Scope</text>
+
+  <rect class="card" x="742" y="132" width="188" height="104" fill="#2e1d45" stroke="#a78bfa"/>
+  <text class="label" x="766" y="170">Runtime Plane</text>
+  <text class="small" x="766" y="198">Hermes, OpenClaw,</text>
+  <text class="small" x="766" y="218">Codex, Skills</text>
+
+  <rect class="card" x="972" y="132" width="188" height="104" fill="#421c2b" stroke="#fb7185"/>
+  <text class="label" x="996" y="170">Memory Plane</text>
+  <text class="small" x="996" y="198">Postgres, R2,</text>
+  <text class="small" x="996" y="218">Obsidian, AW</text>
+
+  <path class="arrow" d="M242 184 H276"/>
+  <path class="arrow" d="M472 184 H506"/>
+  <path class="arrow" d="M702 184 H736"/>
+  <path class="arrow" d="M932 184 H966"/>
+
+  <rect class="card" x="180" y="312" width="260" height="112" fill="#172554" stroke="#60a5fa"/>
+  <text class="label" x="208" y="350">Ops Plane</text>
+  <text class="small" x="208" y="378">OpenTelemetry, Grafana, Loki,</text>
+  <text class="small" x="208" y="398">Prometheus, Tailscale</text>
+
+  <rect class="card" x="470" y="312" width="260" height="112" fill="#312e19" stroke="#facc15"/>
+  <text class="label" x="498" y="350">Artifact Ledger</text>
+  <text class="small" x="498" y="378">run_id, trace_id, checksum,</text>
+  <text class="small" x="498" y="398">retention, visibility</text>
+
+  <rect class="card" x="760" y="312" width="260" height="112" fill="#1f2937" stroke="#cbd5e1"/>
+  <text class="label" x="788" y="350">Security Boundary</text>
+  <text class="small" x="788" y="378">Public plane separated from</text>
+  <text class="small" x="788" y="398">Tailscale admin plane</text>
+
+  <path class="arrow" d="M600 240 V304"/>
+  <path class="arrow" d="M600 424 V470 H310 V430"/>
+  <path class="arrow" d="M600 424 V470 H890 V430"/>
+</svg>

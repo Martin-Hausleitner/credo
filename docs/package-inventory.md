@@ -2,6 +2,17 @@
 
 Diese Datei buendelt die technischen Pakete aus README, lokalen Manifesten und Stack-Entscheidungen. Das README verweist nur noch auf diese Kategorien.
 
+## 🗺️ Library-Landkarte
+
+| Ebene | Icons | Libraries / Tools | Zweck |
+|---|---|---|---|
+| 🖥️ Desktop Shell | <img src="https://cdn.simpleicons.org/electron/47848F" width="22"> <img src="https://cdn.simpleicons.org/vite/646CFF" width="22"> | `electron`, `electron-vite`, `electron-builder` | Hermes Desktop, Packaging, Auto-Updater, lokale App-Shell |
+| 🎨 UI | <img src="https://cdn.simpleicons.org/react/61DAFB" width="22"> <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" width="22"> | `react`, `react-dom`, `tailwindcss`, `lucide-react`, `react-markdown` | Desktop/Web-UI, Markdown, Icons, Syntax-Rendering |
+| 🧾 Local State | <img src="https://www.google.com/s2/favicons?domain=sqlite.org&sz=64" width="22"> | `better-sqlite3`, SQLite FTS5 | Session-History, Suche, Desktop-State |
+| 🚦 API Contracts | <img src="https://cdn.simpleicons.org/zod/3E67B1" width="22"> <img src="https://www.google.com/s2/favicons?domain=fastify.dev&sz=64" width="22"> | `zod`, `@trpc/*`, `fastify`, `fastapi`, `uvicorn` | Typisierte APIs, Worker und Gateway-Services |
+| 🧠 Memory/RAG | <img src="https://cdn.simpleicons.org/postgresql/4169E1" width="22"> <img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" width="22"> | Postgres, `pgvector`, Obsidian Dataview, Git | Agent-State, Embeddings, Knowledge Review |
+| 📊 Ops | <img src="https://www.google.com/s2/favicons?domain=opentelemetry.io&sz=64" width="22"> <img src="https://cdn.simpleicons.org/grafana/F46800" width="22"> | OpenTelemetry, Prometheus, Loki, Grafana, Sentry | Traces, Logs, Alerts, Fehlerberichte |
+
 ## 🖥️ Frontend, Desktop und Mobile
 
 | Logo | Paket / Tool | Wird genutzt in | Zweck |
@@ -13,6 +24,9 @@ Diese Datei buendelt die technischen Pakete aus README, lokalen Manifesten und S
 | <img src="https://cdn.simpleicons.org/tauri/24C8DB" width="22"> | `@tauri-apps/*` | Cognitor Tray | native macOS App |
 | <img src="https://cdn.simpleicons.org/expo/000020" width="22"> | `expo` / `react-native` | Mobile Companion | mobile Agent-UX |
 | <img src="https://cdn.simpleicons.org/electron/47848F" width="22"> | `electron` / `electron-vite` / `electron-builder` | Hermes Desktop | native Desktop-Companion, Packaging, Auto-Updater |
+| <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" width="22"> | `tailwindcss` | Hermes Desktop, UI-Prototypen | Utility-CSS fuer schnelle konsistente Oberflaechen |
+| <img src="https://www.google.com/s2/favicons?domain=react.dev&sz=64" width="22"> | `react-markdown` / `remark-gfm` / `react-syntax-highlighter` | Hermes Desktop | Chat-Markdown, Tabellen, Codebloecke |
+| <img src="https://www.google.com/s2/favicons?domain=i18next.com&sz=64" width="22"> | `i18next` / `react-i18next` | Hermes Desktop | Internationalisierung |
 | <img src="https://www.google.com/s2/favicons?domain=sqlite.org&sz=64" width="22"> | `better-sqlite3` / SQLite FTS5 | Hermes Desktop | lokale Sessionsuche und Desktop-State |
 | <img src="https://www.google.com/s2/favicons?domain=playwright.dev&sz=64" width="22"> | `playwright` | Workspace | Browser-Validierung und Screenshots |
 

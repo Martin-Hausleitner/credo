@@ -4,6 +4,15 @@ Dieser Katalog ist die schnelle visuelle Karte: welches Programm ist was, wo ist
 
 > Hinweis: GitHub OpenGraph-Previews koennen bei vielen gleichzeitigen Checks kurzzeitig `429` rate-limiten. Das README nutzt deshalb ein lokales `assets/logo-board.svg`; die Preview-Galerie bleibt hier im Detailkatalog.
 
+## 🖼️ Preview-Galerie nach Schicht
+
+| Schicht | Preview | Services |
+|---|---|---|
+| UX und Agent Desktop | <img src="https://raw.githubusercontent.com/fathah/hermes-desktop/main/previews/chat.png" width="260"> | Hermes Desktop, Element, Cinny, Sable |
+| Skill-Management | <img src="https://raw.githubusercontent.com/fathah/hermes-desktop/main/previews/skills.png" width="260"> | Hermes Skills, OpenClaw, ClawHub |
+| Gateway und Inbox | <img src="https://raw.githubusercontent.com/fathah/hermes-desktop/main/previews/gateway.png" width="260"> | Matrix, Telegram, Discord, Slack, E-Mail, Chatwoot |
+| Automationen | <img src="https://raw.githubusercontent.com/fathah/hermes-desktop/main/previews/schedules.png" width="260"> | Cron, Heartbeats, delivery targets, Matrix Ops |
+
 ## 🟢 Kernservices
 
 | Icon | Screenshot / Preview | Service | Website | GitHub | Was es bei uns macht |
