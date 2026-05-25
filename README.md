@@ -186,6 +186,30 @@ Diese Sicht beantwortet die praktische Frage: _welches Repo traegt welche Packag
 | [mac-ai-dev-setup](https://github.com/Martin-Hausleitner/mac-ai-dev-setup) | Setup-Skripte, Toolchain, lokale Runtime-Vorbereitung | Host-Grundlage fuer Agent-Betrieb |
 | [mac-ram-rescue](https://github.com/Martin-Hausleitner/mac-ram-rescue) | Memory-/Ops-Helfer | Stabilitaet und Ressourcenpflege auf dem Host |
 
+## Manifest-Abgleich
+
+Diese Tabelle kommt aus den lokal gefundenen Manifesten (`package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, `requirements.txt`) und ist der praktische Package-Index zum Deck. Transitive `node_modules`-Pakete sind absichtlich nicht einzeln gelistet.
+
+| Workspace / Manifest | Laufzeit | Gefundene Kernpakete | Stack-Bezug |
+|---|---|---|---|
+| `Playground/package.json` | Node | `playwright`, `@tauri-apps/cli` | Root-Validierung, Browser-Screenshots, Tauri-Builds |
+| `apps/web`, `apps/tray`, `packages/dashboard-ui` | React/Vite | `react`, `react-dom`, `lucide-react`, `vite`, `typescript`, `@vitejs/plugin-react` | Cognitor Web-/Tray-UIs und wiederverwendbare Dashboard-Bausteine |
+| `apps/mobile` | Expo/React Native | `expo`, `react-native`, `@expo/vector-icons`, `expo-constants`, `react` | Mobile Companion und lokaler Agent-Zugriff |
+| `apps/tray/src-tauri` | Rust/Tauri | `tauri`, `tauri-build`, `reqwest`, `serde`, `serde_json`, `chrono`, `window-vibrancy` | Native macOS Tray-App und Desktop-Integration |
+| `activitywatch-youtube-sync` | Node/CLI | `node:test`, `sqlite3` CLI, `yt-dlp` | YouTube-Verlauf nach ActivityWatch |
+| `aw-importer-whoop`, `aw-importer-apple-screentime`, `aw-importer-apple-health` | Python CLI | `click`, `python-dateutil`, `pytest`, ActivityWatch-Client-Code | WHOOP, Apple Screen Time und Apple Health in den Lifelog |
+| `discord-voice-obsidian-agent` | Node/Python | `@clack/prompts`, `prisma`, `tsx`, `@discordjs/opus`, `eris`, `fastapi`, `faster-whisper`, `sherpa-onnx`, `discord.py` | Voice-Agent, ASR-Worker, Dashboard und Obsidian-Anbindung |
+| `sh-vcvm-matrix-bridgev2-src` | Go/Rust/Node | `mautrix`, `desktop-api-go/v5`, `go-sqlite3`, `zerolog`, `sharp`, `tokio`, `rusqlite`, `zstd` | Beeper/BIPA -> Matrix Proxy, Archive Sync und Medienhandling |
+| `bridge-manager` | Go | `mautrix`, `survey`, `zerolog`, `gjson`, `urfave/cli`, `go-sqlite3` | Referenz fuer Bridge-Administration |
+| `iphone-mirroring-eu-activate` | Python CLI | `pymobiledevice3`, `bpylist2`, `rich`, `requests`, `click` | iPhone Mirroring / lokale iOS-Steuerung als Referenzpfad |
+| `sense` | Python Web | `fastapi`, `uvicorn`, `pydantic`, `playwright`, `pytest`, `ruff`, `mypy` | Lokaler Kontext-/Sense-Prototyp |
+| `cronus` | Node/Next/Electron | `next`, `react`, `radix-ui`, `lucide-react`, `mongoose`, `openai`, `stripe`, `googleapis`, `@trpc/*`, `framer-motion` | AI-/Subscription-/Scraping-Dashboards im erweiterten Workspace |
+| `scraping-lab` | Node | `@browserbasehq/stagehand`, `crawlee`, `playwright`, `zod`, `tsx`, `typescript` | Browser-/Scraping-Automation fuer Agent-Recherche |
+| `g2g-ai-subscriptions-dashboard` | Next/React | `next`, `react`, `@heroui/react`, `@radix-ui/*`, `framer-motion`, `recharts`, `lucide-react` | AI-Subscription- und Kosten-Dashboard |
+| `email-compose-hero-demo` | Next/React | `next`, `react`, `@heroui/react`, `framer-motion`, `typescript` | UI-Prototyp fuer E-Mail-/Support-Flows |
+| `clicky/worker` | Cloudflare Worker | `wrangler` | Kleiner Edge-/Worker-Baustein im OpenClaw-Workspace |
+| `apple-find-my` Vendor | Python | `cryptography`, `pycryptodome` | Find-My Cache-/Key-Extraktion fuer lokale Skills |
+
 ## Eigene Repos und Arbeitsbereiche
 
 Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Alias-Faelle sind bewusst ausgeschrieben: Links steht der lokale Ordner, rechts das tatsaechliche GitHub-Repo.
