@@ -147,8 +147,12 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Lok
 | sh-vcvm-matrix-bridgev2-src | Beeper/Matrix Bridge v2 Proxy Referenz | `/Users/mh/Documents/Playground/sh-vcvm-matrix-bridgev2-src` | [Repo](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) |
 | bridge-manager | Beeper Bridge-Manager Referenz und `bbctl`-Arbeitskopie | `/Users/mh/Documents/Playground/bridge-manager` | [Upstream](https://github.com/beeper/bridge-manager) |
 | obsidian-notion-ui-customization | Obsidian/Notion UI und Knowledge-Experimente | `/Users/mh/Documents/Playground/obsidian-notion-ui-customization` | [Repo](https://github.com/Martin-Hausleitner/obsidian-notion-ui-customization) |
+| cognitor-launcher | Private Cognitor Launcher-, Tray- und Policy-Tests | n/a | [Repo](https://github.com/Martin-Hausleitner/cognitor-launcher) |
+| cloakwright | Cognitor Browser-/Proxy-/Extension-Monitoring-Stack | n/a | [Repo](https://github.com/Martin-Hausleitner/cloakwright) |
 | mac-ai-dev-setup | Mac AI Dev Setup und lokale Agent Toolchain | `/Users/mh/Documents/Playground/mac-ai-dev-setup` | [Repo](https://github.com/Martin-Hausleitner/mac-ai-dev-setup) |
 | mac-ram-rescue | Mac Memory-/Performance-Rescue Tooling | `/Users/mh/Documents/Playground/mac-ram-rescue` | [Repo](https://github.com/Martin-Hausleitner/mac-ram-rescue) |
+| Sonar | Public Audio-/Agent-Experiment im erweiterten Tooling-Kontext | `/Users/mh/Documents/GitHub/Sonar` | [Repo](https://github.com/Martin-Hausleitner/Sonar) |
+| sonar-skills | Sonar-bezogene Agent-/Claude-Code-Skills | `/Users/mh/Documents/GitHub/sonar-skills` | [Repo](https://github.com/Martin-Hausleitner/sonar-skills) |
 | hermes-agent | Hermes-Fork mit Workspace-Customizations | n/a | [Repo](https://github.com/Martin-Hausleitner/hermes-agent) |
 | openclaw-workspace | Skills, AGENTS, Prompts und Studio-Konfigurationen | n/a | [Repo](https://github.com/Martin-Hausleitner/openclaw-workspace) |
 | browser-use-mcp-plus | Browser-/MCP-Erweiterungen fuer lokale Agentenvalidierung | n/a | [Repo](https://github.com/Martin-Hausleitner/browser-use-mcp-plus) |
