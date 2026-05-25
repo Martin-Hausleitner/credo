@@ -41,7 +41,7 @@ LiveKit = optionaler Voice/Call/Streaming-Strang
 
 ## Package- und Tool-Inventar
 
-Diese Tabelle ist die zentrale Liste fuer die Packages, Frameworks und Services, die im Stack genutzt werden oder als Zielkomponente vorgesehen sind. Das Repo selbst ist ein Architekturdeck; deshalb ist die Tabelle bewusst ein gepflegtes Inventar und keine automatisch generierte Lockfile-Liste.
+Diese Tabelle ist die zentrale Liste fuer die Packages, Frameworks und Services, die im Stack genutzt werden oder als Zielkomponente vorgesehen sind. Sie ist aus den lokalen Manifests (`package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`) und den Zielstack-Entscheidungen verdichtet. Das Repo selbst ist ein Architekturdeck; deshalb ist die Tabelle bewusst ein gepflegtes Inventar und keine automatisch generierte Lockfile-Liste.
 
 | Paket / Tool | Kategorie | Wird genutzt in | Zweck | Status |
 |---|---|---|---|---|
@@ -51,6 +51,7 @@ Diese Tabelle ist die zentrale Liste fuer die Packages, Frameworks und Services,
 | `lucide-react` | UI Icons | Cognitor, Obsidian-UI-Demos, Dashboards | Einheitliche Icons fuer Tools, Status und Navigation | aktiv |
 | `@tauri-apps/api` / `@tauri-apps/cli` | Desktop App | Cognitor Tray / Launcher | Native macOS Tray-/Desktop-App | aktiv |
 | `expo` / `react-native` / `@expo/vector-icons` | Mobile | mobile Companion-Prototypen | Mobile Companion / LAN-Prototyp | aktiv |
+| `expo-constants` | Mobile Runtime | Cognitor Mobile | Runtime- und Build-Metadaten im Companion | aktiv |
 | `playwright` | E2E/Browser | Root Workspace | Browser-Validierung und Screenshots | aktiv |
 | `@cognitor/activitywatch` | internes Package | Cognitor Launcher | ActivityWatch-Daten normalisieren | aktiv |
 | `@cognitor/dashboard-ui` | internes Package | Cognitor Launcher | Wiederverwendbare Dashboard-UI | aktiv |
@@ -65,17 +66,23 @@ Diese Tabelle ist die zentrale Liste fuer die Packages, Frameworks und Services,
 | `yt-dlp` | Metadaten | aw-importer-youtube | YouTube Titel, Kanal, Beschreibung, Dauer und Stats anreichern | aktiv |
 | `python` / `click` / `python-dateutil` / `platformdirs` | CLI Importer | ActivityWatch Importer | robuste lokale Importer-CLIs, lokale Config und Zeitnormalisierung | aktiv |
 | `httpx` | HTTP Client | WHOOP, Apple Health, Screen Time und Voice Worker | API-Zugriffe und lokale Service-Checks | aktiv |
-| `pytest` / `ruff` | Python Qualitaet | ActivityWatch Importer, Voice Worker, Sonar | Regressionstests, Linting und Format-Qualitaet | aktiv |
+| `pytest` / `pytest-asyncio` / `ruff` / `mypy` | Python Qualitaet | ActivityWatch Importer, Voice Worker, Sense, Sonar | synchrone/asynchrone Regressionstests, Linting, Formatierung und Typpruefung | aktiv |
 | `@clack/prompts` | CLI UX | discord-voice-obsidian-agent | interaktive lokale Worker-/Setup-Prompts | aktiv |
 | `tsx` | TypeScript Runtime | discord-voice-obsidian-agent | TS-Skripte ohne separaten Build ausfuehren | aktiv |
 | `prisma` | Datenzugriff | discord-voice-obsidian-agent | strukturierter DB-Zugriff fuer Voice-/Transcript-Flows | aktiv |
 | `sharp` | Medienverarbeitung | beeper-matrix-proxy | Avatare/Medien fuer Bridge-Proofs verarbeiten | aktiv |
-| `next` / `preact` / `tailwindcss` | Web UI | discord-voice-obsidian-agent Dashboard | Voice-/Recording-Dashboard und schnelle Web-Oberflaechen | aktiv |
+| `next` / `preact` / `tailwindcss` / `sass` | Web UI | discord-voice-obsidian-agent Dashboard | Voice-/Recording-Dashboard und schnelle Web-Oberflaechen | aktiv |
 | `fastify` / `@fastify/*` | Node API | discord-voice-obsidian-agent Download/API | Download-, WebSocket-, Static- und Rate-Limit-API | aktiv |
-| `eris` / `slash-create` / `@discordjs/opus` | Discord Runtime | discord-voice-obsidian-agent Bot | Discord Voice/Text, Slash Commands und Opus Audio | aktiv |
-| `ioredis` / `prom-client` / `winston` / `sentry` | Node Ops | Voice Agent und Tasks | Queue/Cache, Metriken, Logs und Fehlerberichte | aktiv |
-| `fastapi` / `uvicorn` / `pydantic` | Python Services | Voice Transcriber Worker, lokale API-Prototypen | typed HTTP Worker, Settings und Service-Endpunkte | aktiv |
+| `eris` / `slash-create` / `@discordjs/opus` / `sodium-native` | Discord Runtime | discord-voice-obsidian-agent Bot | Discord Voice/Text, Slash Commands, Opus Audio und Voice-Crypto | aktiv |
+| `discord.py[voice]` / `discord-ext-voice-recv` / `py-cord[voice]` | Discord Voice | Transcriber Worker / Voice Agent | Voice Receive, Audio Capture und alternative Bot-Prototypen | optional |
+| `ioredis` / `fastq` / `cron` | Queue/Scheduler | Voice Agent und Tasks | Jobs, Backpressure, Cache und geplante Worker-Laeufe | aktiv |
+| `prom-client` / `winston` / `@sentry/node` | Node Observability | Voice Agent und Tasks | Metriken, strukturierte Logs und Fehlerberichte | aktiv |
+| `googleapis` / `dropbox` | Cloud Export | Voice/Craig-Komponenten | optionale Exportpfade fuer Aufnahmen und Transkripte | optional |
+| `zod` / `@trpc/client` / `@trpc/server` | Typed APIs | lokale Dashboards / Voice Agent | typisierte Client-/Server-Vertraege | aktiv |
+| `fastapi` / `uvicorn` / `pydantic` / `pydantic-settings` | Python Services | Voice Transcriber Worker, Sense, lokale API-Prototypen | typed HTTP Worker, Settings und Service-Endpunkte | aktiv |
+| `python-multipart` / `psutil` | Python Worker | Transcriber Worker, Sense | Datei-Uploads, Audio-Payloads und lokale Prozess-/Systemdaten | aktiv |
 | `faster-whisper` / `sherpa-onnx` | ASR | Voice Transcriber Worker | lokale Speech-to-Text-Optionen fuer Voice Agents | optional/aktiv |
+| `jinja2` | Python Templates | Sense | leichte serverseitige Views fuer lokales Web-UI | aktiv |
 | `axum` / `tokio` / `tower` / `tower-http` | Rust API | onlyapi / Money-Maker-Services | robuste Rust-Gateways und SDK-Routen | aktiv |
 | `tracing` / `tracing-subscriber` / `dotenvy` | Rust Ops | onlyapi / Rust Services | strukturierte Logs und lokale Konfiguration | aktiv |
 | Synapse | Matrix Homeserver | Matrix Core | Konservativer Produktivstart mit bester Kompatibilitaet | MVP-Option |
@@ -199,14 +206,24 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Ali
 | obsidian-notion-ui-customization | Obsidian/Notion UI und Knowledge-Experimente | `/Users/mh/Documents/Playground/obsidian-notion-ui-customization` | [Repo](https://github.com/Martin-Hausleitner/obsidian-notion-ui-customization) |
 | cognitor-launcher | Private Cognitor Launcher-, Tray- und Policy-Tests | n/a | [Repo](https://github.com/Martin-Hausleitner/cognitor-launcher) |
 | cloakwright | Cognitor Browser-/Proxy-/Extension-Monitoring-Stack | n/a | [Repo](https://github.com/Martin-Hausleitner/cloakwright) |
+| clogwork | Zeit-, Fokus- oder Cognitor-nahe Arbeitszeitexperimente | n/a | [Repo](https://github.com/Martin-Hausleitner/clogwork) |
 | mac-ai-dev-setup | Mac AI Dev Setup und lokale Agent Toolchain | `/Users/mh/Documents/Playground/mac-ai-dev-setup` | [Repo](https://github.com/Martin-Hausleitner/mac-ai-dev-setup) |
 | mac-ram-rescue | Mac Memory-/Performance-Rescue Tooling | `/Users/mh/Documents/Playground/mac-ram-rescue` | [Repo](https://github.com/Martin-Hausleitner/mac-ram-rescue) |
+| google-deep-researcher | Deep-Research-Automation und Provider-/Browser-Research-Pfad | n/a | [Repo](https://github.com/Martin-Hausleitner/google-deep-researcher) |
 | Sonar | Public Audio-/Agent-Experiment im erweiterten Tooling-Kontext | `/Users/mh/Documents/GitHub/Sonar` | [Repo](https://github.com/Martin-Hausleitner/Sonar) |
 | sonar-skills | Sonar-bezogene Agent-/Claude-Code-Skills | `/Users/mh/Documents/GitHub/sonar-skills` | [Repo](https://github.com/Martin-Hausleitner/sonar-skills) |
 | hermes-agent | Hermes-Fork mit Workspace-Customizations | n/a | [Repo](https://github.com/Martin-Hausleitner/hermes-agent) |
 | openclaw-workspace | Skills, AGENTS, Prompts und Studio-Konfigurationen | n/a | [Repo](https://github.com/Martin-Hausleitner/openclaw-workspace) |
 | browser-use-mcp-plus | Browser-/MCP-Erweiterungen fuer lokale Agentenvalidierung | n/a | [Repo](https://github.com/Martin-Hausleitner/browser-use-mcp-plus) |
 | company-network-viz | Netzwerk-/Beziehungsvisualisierung fuer Firmen- und Kontaktkontext | n/a | [Repo](https://github.com/Martin-Hausleitner/company-network-viz) |
+| Web-Timeline / Web-Timeline-v2 | Replit-/Timeline-Visualisierung und Company-Network-nahe UI-Linie | n/a | [v1](https://github.com/Martin-Hausleitner/Web-Timeline), [v2](https://github.com/Martin-Hausleitner/Web-Timeline-v2) |
+| onlyapi / onlyapi1 | Rust Money-Maker SDK/Gateway fuer OnlyAPI, CreatorHero, Fansly und Jobs | `/Users/mh/Documents/GitHub/onlyapi`, `/Users/mh/Documents/GitHub/onlyapi1` | [onlyapi](https://github.com/Martin-Hausleitner/onlyapi), [onlyapi1](https://github.com/Martin-Hausleitner/onlyapi1) |
+| G0DM0D3 | AI-Chat-/Liberation-UI-Experiment im erweiterten Agentenportfolio | `/Users/mh/Documents/GitHub/G0DM0D3` | [Repo](https://github.com/Martin-Hausleitner/G0DM0D3) |
+| excalidraw-mcp-app | Excalidraw MCP App Server fuer handgezeichnete Diagramme | `/Users/mh/Documents/GitHub/excalidraw-mcp-app` | [Repo](https://github.com/Martin-Hausleitner/excalidraw-mcp-app) |
+| MermaidAI / med-matrix | Diagramm-, Matrix- und Medical/Knowledge-Experimente | n/a | [MermaidAI](https://github.com/Martin-Hausleitner/MermaidAI), [med-matrix](https://github.com/Martin-Hausleitner/med-matrix) |
+| VoiceInk / Voiceink-Realtime | Voice-to-text und Realtime-Dictation-Experimente | n/a | [VoiceInk](https://github.com/Martin-Hausleitner/VoiceInk), [Voiceink-Realtime](https://github.com/Martin-Hausleitner/Voiceink-Realtime) |
+| LibreChat | Self-hosted ChatGPT-/Agent-UI-Referenz | n/a | [Repo](https://github.com/Martin-Hausleitner/LibreChat) |
+| medusa-server / medusajs-2.0-for-railway-boilerplate | Commerce-/Medusa-Backend-Referenzen | n/a | [medusa-server](https://github.com/Martin-Hausleitner/medusa-server), [boilerplate](https://github.com/Martin-Hausleitner/medusajs-2.0-for-railway-boilerplate) |
 | eins | Health Vault / persoenliche Knowledge-Struktur | `/Users/mh/.openclaw/workspace/eins` | [Repo](https://github.com/Martin-Hausleitner/eins) |
 
 ### Lokale Arbeitsbereiche ohne eigenes Remote
@@ -215,6 +232,10 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Ali
 |---|---|---|---|
 | openclaw-hermes-email-control | Chatwoot-, E-Mail-, Beeper- und Hermes-Control-Prototyp | `/Users/mh/Documents/Playground/openclaw-hermes-email-control` | lokal, kein Origin |
 | whoop-menubar | Lokale WHOOP-/Health-Menubar Experimente | `/Users/mh/Documents/Playground/whoop-menubar` | lokal, kein Origin |
+| tokenrouter-workspace | Tokenrouter Desktop-, Quota- und Schema-Experimente | `/Users/mh/Documents/GitHub/tokenrouter-workspace` | lokaler Workspace |
+| apple-health-live-sync | Apple Health Live-Sync-Experiment fuer persoenliche Health-Daten | `/Users/mh/Documents/GitHub/apple-health-live-sync` | lokaler Workspace |
+| Fintaro-Agent / Fintaro-Agent1 | Finance-/Agenten-Prototypen | `/Users/mh/Documents/GitHub/Fintaro-Agent`, `/Users/mh/Documents/GitHub/Fintaro-Agent1` | lokaler Workspace |
+| CLIProxyAPIPlus / proxychecker | Proxy-, API- und Checker-Experimente | `/Users/mh/Documents/GitHub/CLIProxyAPIPlus`, `/Users/mh/Documents/GitHub/proxychecker` | lokale Workspaces |
 
 ### Externe Referenzen
 
@@ -253,6 +274,7 @@ flowchart LR
     Workers["Codex / Claude / Gemini"]
     Skills["Skills + MCP Tools + ClawHub"]
     EmailCtrl["openclaw-hermes-email-control"]
+    WidgetShare["Cognitor Widget Sharing"]
   end
 
   subgraph KnowledgeLayer["Memory + Knowledge"]
@@ -270,6 +292,7 @@ flowchart LR
     Health["Apple Health Importer"]
     YouTube["YouTube Importer"]
     Door["Nuki + Ring Context"]
+    Cognitor["Cognitor Tray / Web / Mobile"]
   end
 
   subgraph VoiceLayer["Voice / RTC"]
@@ -310,12 +333,15 @@ flowchart LR
   Runtime --> Workers
   Runtime --> Skills
   Runtime --> EmailCtrl
+  Runtime --> WidgetShare
   EmailCtrl --> ChatwootUI
   EmailCtrl --> Maildir
+  WidgetShare --> Cognitor
   Runtime --> Postgres
   Runtime --> Vault --> Git
   Runtime --> Artifacts
   Runtime --> AW
+  Cognitor --> AW
   Whoop --> AW
   ScreenTime --> AW
   Health --> AW
