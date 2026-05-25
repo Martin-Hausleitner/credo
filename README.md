@@ -188,7 +188,7 @@ flowchart TB
   InboxControl --> MailTools["Himalaya + mbsync/notmuch<br/>local Maildir"]
   Chatwoot --> Mailpit["Mailpit SMTP/UI<br/>localhost:8025"]
 
-  LocalRepos --> AW["ActivityWatch<br/>Presence / Screen Time / WHOOP / YouTube / Icons"]
+  LocalRepos --> AW["ActivityWatch<br/>Presence / Screen Time / WHOOP / Apple Health / YouTube / Icons"]
   AW --> Door["Nuki + Ring Context"]
   AW --> Health["WHOOP + Apple Health<br/>Sleep / Training / Vitals"]
 
