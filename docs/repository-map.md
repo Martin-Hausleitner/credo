@@ -6,6 +6,8 @@ Diese Datei gruppiert die eigenen und externen Repos nach Rolle im Credo-Stack. 
 
 Die komplette lokale Git-Inventur liegt in [local-repositories.md](local-repositories.md). Sie umfasst aktuell **76 lokale Repositories** aus `~/Documents/Playground`, `~/Documents/GitHub` und `~/.openclaw/workspace`, inklusive Worktrees, lokalen Repos ohne Remote und installierten Skill-/Vendor-Checkouts.
 
+Die GitHub-Matrix liegt in [github-repositories.md](github-repositories.md). Sie umfasst aktuell **121 beteiligte GitHub-Repositories** aus README und `docs/`, inklusive Owner-Logo, Macher, Stars, Sprache, Sichtbarkeit und Credo-Wichtigkeit.
+
 | Kategorie | Anzahl | Warum relevant |
 |---|---:|---|
 | 💬 Matrix / Messaging | 3 | Credo, Beeper/Matrix Proxy und Bridge-Manager bilden den Messaging-Kern. |

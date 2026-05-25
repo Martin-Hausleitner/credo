@@ -4,6 +4,8 @@ Diese Inventur wurde lokal aus Git-Repositories unter `~/Documents/Playground`, 
 
 Stand: 2026-05-26. Gefunden: **76** lokale Git-Repositories.
 
+GitHub-Metadaten wie Owner/Macher, Stars, Sprache und Credo-Wichtigkeit stehen in [github-repositories.md](github-repositories.md).
+
 ## Kategorien
 
 | Kategorie | Anzahl | Gedanke |
