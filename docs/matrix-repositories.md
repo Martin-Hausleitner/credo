@@ -1,8 +1,8 @@
-# Matrix-Repository-Map fuer Credo
+# 🟢 Matrix-Repository-Map fuer Credo
 
 Diese Map fuehrt die Matrix-bezogenen Entscheidungen in Credo auf die konkreten Upstream-Repositories zurueck. Sie trennt Core-Server, Clients, SDKs, Bridges, RTC und Ops, damit spaetere Implementierungsschritte nicht im Architekturtext verschwimmen.
 
-## Core und Server
+## 🧱 Core und Server
 
 | Repo | Rolle in Credo | Bewertung | GitHub |
 |---|---|---|---|
@@ -15,7 +15,7 @@ Diese Map fuehrt die Matrix-bezogenen Entscheidungen in Credo auf die konkreten 
 | Matrix Spec | Protokollreferenz | normative Basis fuer Federation, Rooms, Events, Widgets und RTC | [matrix-org/matrix-spec](https://github.com/matrix-org/matrix-spec) |
 | Matrix Spec Proposals | MSCs fuer neue Features | wichtig fuer MatrixRTC, Sliding Sync, Auth und Widgets | [matrix-org/matrix-spec-proposals](https://github.com/matrix-org/matrix-spec-proposals) |
 
-## Clients
+## 💬 Clients
 
 | Repo | Rolle in Credo | Bewertung | GitHub |
 |---|---|---|---|
@@ -30,7 +30,11 @@ Diese Map fuehrt die Matrix-bezogenen Entscheidungen in Credo auf die konkreten 
 | FluffyChat | Casual-/Mobile-Alternative | freundlich fuer Gaeste/Familie | [krille-chan/fluffychat](https://github.com/krille-chan/fluffychat) |
 | Nheko | nativer Power-Client | Debug/Power-User | [Nheko-Reborn/nheko](https://github.com/Nheko-Reborn/nheko) |
 
-## SDKs, Bots und Appservices
+**Client-Entscheidung:** Element Web bleibt Pflicht, weil es als Referenzclient fuer Admin, Debugging und Kompatibilitaet funktioniert. Element X ist der Zukunftspfad fuer Matrix 2.0, Rust SDK, Sliding Sync, OIDC und MatrixRTC. Cinny/Sable/Commet sind die bessere Alltags-UX fuer Agentenraeume, Channel-Scanning und Discord-artige Arbeitsweisen.
+
+**Element X Warnung:** iOS sollte fuer mehrere Identitaeten vorsichtig behandelt werden. Logout kann lokale Kryptodaten entfernen; Secure Key Backup muss vor produktiver Nutzung sauber funktionieren.
+
+## 🤖 SDKs, Bots und Appservices
 
 | Repo | Rolle in Credo | Bewertung | GitHub |
 |---|---|---|---|
@@ -40,7 +44,7 @@ Diese Map fuehrt die Matrix-bezogenen Entscheidungen in Credo auf die konkreten 
 | maubot | Bot-Framework | optional fuer Matrix-native Bot-Plugins | [maubot/maubot](https://github.com/maubot/maubot) |
 | baibot | AI Bot Referenz | Referenz fuer Matrix-AI-Bot-Patterns | [etkecc/baibot](https://github.com/etkecc/baibot) |
 
-## Bridges
+## 📬 Bridges
 
 | Repo | Zielnetz | Rolle in Credo | Risiko | GitHub |
 |---|---|---|---|---|
@@ -54,7 +58,9 @@ Diese Map fuehrt die Matrix-bezogenen Entscheidungen in Credo auf die konkreten 
 | mautrix/manager | Bridge Login/Management | reduziert Bridge-Login-Reibung | Admin-Tool, kein Zielnetz | [mautrix/manager](https://github.com/mautrix/manager) |
 | beeper/platform-imessage | iMessage Relay | Spezialfall mit Apple-Hardware | macOS/Apple-Hardware noetig | [beeper/platform-imessage](https://github.com/beeper/platform-imessage) |
 
-## MatrixRTC, Voice und Widgets
+**Bridge-Ops:** Meta/Instagram bleibt eine spaetere Spezialphase. Fuer `mautrix/meta` braucht es Provisioning API, Session-Watchdog, `.well-known/matrix/mautrix`, saubere VM-Isolation, Proxy-Konzept und Kill-Switch.
+
+## 🎙️ MatrixRTC, Voice und Widgets
 
 | Repo | Rolle in Credo | Bewertung | GitHub |
 |---|---|---|---|
@@ -65,7 +71,9 @@ Diese Map fuehrt die Matrix-bezogenen Entscheidungen in Credo auf die konkreten 
 | LiveKit Agents | Voice Agents | spaeter fuer Matrix Voice/Provider-Mix | [livekit/agents](https://github.com/livekit/agents) |
 | Matrix Widget API | Cognitor-/Dashboard-Widgets in Matrix | spaeter nach PNG/Screenshot-MVP | [matrix-org/matrix-widget-api](https://github.com/matrix-org/matrix-widget-api) |
 
-## Ops, Storage und Admin
+**RTC-Notiz:** MatrixRTC braucht mehr als nur Element Call. Relevant sind `org.matrix.msc4143.rtc_foci`, `lk-jwt-service`, `LIVEKIT_FULL_ACCESS_HOMESERVERS`, TURN/TLS 443, UDP-Portbereiche und MSC3266/MSC4222. Recording bleibt ausserhalb des Text-MVP.
+
+## 📊 Ops, Storage und Admin
 
 | Repo | Rolle in Credo | Bewertung | GitHub |
 |---|---|---|---|
