@@ -1,6 +1,6 @@
-# Matrix + Hermes Agent Communication Stack
+# Credo
 
-Ein pflegbares Architekturdeck fuer Martins selbst gehosteten Agent-Kommunikationsstack: Matrix als Raum-, Identity- und Audit-Bus; Hermes/OpenClaw/Codex als Agent-Runtime; ActivityWatch, WHOOP, Obsidian und lokale Skills als persoenlicher Daten- und Tool-Layer.
+**Credo** ist das Architekturdeck fuer Martins selbst gehosteten Agent-Kommunikationsstack: Matrix als Raum-, Identity- und Audit-Bus; Hermes/OpenClaw/Codex als Agent-Runtime; ActivityWatch, WHOOP, Obsidian und lokale Skills als persoenlicher Daten- und Tool-Layer.
 
 ## Sofortueberblick: Service Map
 
@@ -633,9 +633,10 @@ Der MVP soll **Text- und Job-Orchestrierung** stabil machen:
 - [Ausfuehrliche Vergleichstabelle](docs/stack-comparison.md)
 - [Service-Katalog mit Icons, Screenshots, Webseiten und GitHub-Links](docs/service-catalog.md)
 - [Hermes-Skills-Inventar](docs/hermes-skills.md)
+- [Matrix-Repository-Map](docs/matrix-repositories.md)
 - [Roadmap und Build-Plan](docs/implementation-roadmap.md)
 - [Mermaid-Quellgraph](docs/architecture.mmd)
 
 ## Repo-Hinweis
 
-Dieses Repo fasst die ausgewerteten Notion-Unterlagen, lokalen Repo-Infos und Stack-Reviews als oeffentlichkeitsarme Architektur-Spezifikation zusammen. Es enthaelt keine Notion-Tokens, keine Roh-Exports und keine privaten Credentials.
+**Credo** fasst die ausgewerteten Notion-Unterlagen, lokalen Repo-Infos und Stack-Reviews als oeffentlichkeitsarme Architektur-Spezifikation zusammen. Es enthaelt keine Notion-Tokens, keine Roh-Exports und keine privaten Credentials.
