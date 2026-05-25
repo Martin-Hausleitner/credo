@@ -104,6 +104,11 @@ Diese Tabelle ist die zentrale Liste fuer die Packages, Frameworks und Services,
 | beeper-matrix-proxy | Eigene Bridge | Beeper/BIPA -> Matrix | Beeper-Chats als Matrix-Portale in Cinny/Element nutzbar machen | aktiv |
 | desktop-api-go | Beeper SDK | Beeper Desktop API | Lokale Beeper REST-API fuer Chat-, Media- und Account-Export | geplant/aktiv |
 | mautrix/go bridgev2 | Bridge Framework | Matrix Appservices | Capabilities, Media, Backfill und Portal-/Puppet-Modelle | aktiv |
+| `mautrix-go` / `go.mau.fi/util` | Go Matrix SDK | beeper-matrix-proxy, bridge-manager | Matrix-Appservice-, Bridge- und Utility-Funktionen | aktiv |
+| `zerolog` / `lumberjack` | Go Logging | beeper-matrix-proxy, bridge-manager | strukturierte Logs und Rotation | aktiv |
+| `go-sqlite3` / `lib/pq` | Go Datenbanken | beeper-matrix-proxy, bridge-manager | lokale Appservice-, Bridge- und Admin-Datenbanken | aktiv |
+| `coder/websocket` / `gjson` / `sjson` | Go API Tools | bridge-manager / Beeper Tools | WebSocket- und JSON-Operationen fuer Bridge-Management | aktiv |
+| `survey` / `urfave/cli` / `progressbar` | Go CLI UX | bridge-manager | interaktive CLIs, Subcommands und Fortschritt | aktiv |
 | Beeper Desktop API | lokaler Dienst | `127.0.0.1:23373` | Lokale Beeper-Raumlisten und Sync-Aktionen als kontrollierte Quelle | lokal aktiv |
 | Chatwoot | Inbox/Ops | `openclaw-hermes-email-control` / lokaler Docker Stack | Gemeinsame Operator-Inbox fuer Chat, Matrix/Beeper und E-Mail | lokal aktiv |
 | Mailpit | Mail Dev/Ops | `infra/chatwoot-local` | Sicherer lokaler SMTP-/Mail-Testlauf ohne externen Versand | lokal aktiv |
@@ -154,7 +159,7 @@ Diese Tabelle spiegelt die konkret gefundenen Workspace-Pakete im lokalen Playgr
 | `cognitor-personal-platform` | Root Workspace | `playwright`, `@tauri-apps/cli` | Monorepo fuer Web-, Tray- und Mobile-Agent-UIs sowie Browser-Validierung | aktiv |
 | `@cognitor/web` | App | `react`, `react-dom`, `lucide-react`, `vite`, `typescript` | Browser-/Dashboard-Oberflaeche fuer persoenliche Agent-Views | aktiv |
 | `@cognitor/tray` | App | `@tauri-apps/api`, `react`, `react-dom`, `lucide-react`, `vite`, `typescript` | Native macOS Tray-/Desktop-Einstieg fuer Cognitor | aktiv |
-| `@cognitor/mobile` | App | `expo`, `react-native`, `@expo/vector-icons`, `react` | Mobile Companion und lokaler Netzwerk-/Presence-Zugriff | aktiv |
+| `@cognitor/mobile` | App | `expo`, `expo-constants`, `react-native`, `@expo/vector-icons`, `react` | Mobile Companion und lokaler Netzwerk-/Presence-Zugriff | aktiv |
 | `@cognitor/dashboard-ui` | internes Package | `react`, `lucide-react` | Wiederverwendbare UI-Bausteine fuer Dashboard- und Operator-Oberflaechen | aktiv |
 | `@cognitor/activitywatch` | internes Package | lokale ActivityWatch-Adapter | ActivityWatch-Datenmodell und Normalisierung fuer UIs/Exports | aktiv |
 | `@cognitor/icons` | internes Package | lokaler Asset-/Icon-Layer | Konsistente App-/Dienst-Assets fuer Timeline, Dashboard und Agent-Clients | aktiv |
@@ -166,6 +171,7 @@ Diese Sicht beantwortet die praktische Frage: _welches Repo traegt welche Packag
 | Repo | Eigene Packages / Laufzeitbausteine | Stack-Funktion |
 |---|---|---|
 | [matrix-hermes-agent-stack](https://github.com/Martin-Hausleitner/matrix-hermes-agent-stack) | Architekturdeck, Tabellen, Mermaid-Diagramme | Zentrale Systemkarte und Planungsdoku |
+| [cognitor-launcher](https://github.com/Martin-Hausleitner/cognitor-launcher) | `cognitor-personal-platform`, `@cognitor/web`, `@cognitor/tray`, `@cognitor/mobile`, `@cognitor/dashboard-ui`, `@cognitor/activitywatch`, `@cognitor/icons` | lokaler Personal-Agent-Launcher mit Web-, Tray-, Mobile- und ActivityWatch-Oberflaechen |
 | [beeper-matrix-proxy](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) | `beeper-source`, `mautrix-go bridgev2`, Avatar-/Portal-Sync, Cinny Room-List Enhancer | Beeper/BIPA -> Matrix Portale, Client-spezifische Avatar-UX |
 | [martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills) | Hermes/OpenClaw Skills, Prompts, Automations, Research-Tools | Wiederverwendbarer Skill-Layer fuer Agenten |
 | `openclaw-hermes-email-control` | `emailctl`, Chatwoot Local Bridge, Maildir-/Inbox-Checks | E-Mail-, Chatwoot- und Operator-Inbox-Kontrolle |
@@ -189,7 +195,7 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Ali
 | Repo / Workspace | Rolle im Stack | Lokaler Pfad | Remote / Status |
 |---|---|---|---|
 | matrix-hermes-agent-stack | Dieses Architekturdeck und Build-Plan | `/Users/mh/Documents/Playground/matrix-hermes-agent-stack` | [Repo](https://github.com/Martin-Hausleitner/matrix-hermes-agent-stack) |
-| cognitor-personal-platform | Monorepo fuer `@cognitor/web`, `@cognitor/tray`, `@cognitor/mobile` und interne UI-Packages | `/Users/mh/Documents/Playground` | lokal, Root-Workspace |
+| cognitor-personal-platform | Monorepo fuer `@cognitor/web`, `@cognitor/tray`, `@cognitor/mobile` und interne UI-Packages | `/Users/mh/Documents/Playground` | Root-Workspace von [cognitor-launcher](https://github.com/Martin-Hausleitner/cognitor-launcher) |
 | openclaw-hermes-public-skills | Public-safe Hermes/OpenClaw Skill-Sammlung | `/Users/mh/Documents/Playground/openclaw-hermes-public-skills` | [martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills) |
 | openclaw-apple-findmy-skill | OpenClaw Skill fuer Apple Find My / Standort-Kontext | `/Users/mh/Documents/Playground/openclaw-apple-findmy-skill` | [Repo](https://github.com/Martin-Hausleitner/openclaw-apple-findmy-skill) |
 | codex-computer-use-eu-activate | Codex Computer Use EU Activation Skill | `/Users/mh/Documents/Playground/codex-computer-use-eu-activate` | [Repo](https://github.com/Martin-Hausleitner/codex-computer-use-eu-activate) |
@@ -204,7 +210,7 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Ali
 | discord-voice-obsidian-agent | Discord Voice Agent, ASR-Worker und Obsidian-Anbindung | `/Users/mh/Documents/Playground/discord-voice-obsidian-agent` | [Repo](https://github.com/Martin-Hausleitner/discord-voice-obsidian-agent) |
 | sh-vcvm-matrix-bridgev2-src | Beeper/Matrix Bridge v2 Proxy Referenz | `/Users/mh/Documents/Playground/sh-vcvm-matrix-bridgev2-src` | [beeper-matrix-proxy](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) |
 | obsidian-notion-ui-customization | Obsidian/Notion UI und Knowledge-Experimente | `/Users/mh/Documents/Playground/obsidian-notion-ui-customization` | [Repo](https://github.com/Martin-Hausleitner/obsidian-notion-ui-customization) |
-| cognitor-launcher | Private Cognitor Launcher-, Tray- und Policy-Tests | n/a | [Repo](https://github.com/Martin-Hausleitner/cognitor-launcher) |
+| cognitor-launcher | GitHub-Repo fuer Cognitor Launcher-, Tray- und Policy-Tests | `/Users/mh/Documents/Playground` | [Repo](https://github.com/Martin-Hausleitner/cognitor-launcher) |
 | cloakwright | Cognitor Browser-/Proxy-/Extension-Monitoring-Stack | n/a | [Repo](https://github.com/Martin-Hausleitner/cloakwright) |
 | clogwork | Zeit-, Fokus- oder Cognitor-nahe Arbeitszeitexperimente | n/a | [Repo](https://github.com/Martin-Hausleitner/clogwork) |
 | mac-ai-dev-setup | Mac AI Dev Setup und lokale Agent Toolchain | `/Users/mh/Documents/Playground/mac-ai-dev-setup` | [Repo](https://github.com/Martin-Hausleitner/mac-ai-dev-setup) |
@@ -242,6 +248,8 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Ali
 | Repo / Workspace | Rolle im Stack | Lokaler Pfad | Remote / Status |
 |---|---|---|---|
 | bridge-manager | Beeper Bridge-Manager Referenz und `bbctl`-Arbeitskopie | `/Users/mh/Documents/Playground/bridge-manager` | [Upstream](https://github.com/beeper/bridge-manager) |
+| sense | Lokales Browser-/Agent-UI als Referenz fuer FastAPI, Playwright und Web-Steuerung | `/Users/mh/Documents/Playground/sense` | [Upstream](https://github.com/rustem/sense) |
+| craig-discord-recorder-reference | Discord Recording Referenz fuer Voice-Agent-/Transcriber-Komponenten | `/Users/mh/Documents/Playground/craig-discord-recorder-reference` | [Upstream](https://github.com/CraigChat/craig) |
 | iphone-mirroring-eu-activate | iPhone Mirroring EU Upstream-Referenz | `/Users/mh/Documents/Playground/iphone-mirroring-eu-activate` | [Repo](https://github.com/timi2506/iphone-mirroring-eu-activate) |
 | iphone-mirroring-eu-enabler | iPhone Mirroring EU Enabler Referenz | `/Users/mh/Documents/Playground/iphone-mirroring-eu-enabler` | [Repo](https://github.com/Pauli1Go/iphone-mirroring-eu-enabler) |
 | APOLLO | iOS/macOS Forensics Referenz fuer lokale Datenquellen | `/Users/mh/Documents/Playground/APOLLO` | [Repo](https://github.com/mac4n6/APOLLO) |
