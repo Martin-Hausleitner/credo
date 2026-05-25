@@ -34,7 +34,7 @@ LiveKit = optionaler Voice/Call/Streaming-Strang
 | Memory/RAG | Postgres + pgvector | Robust, simpel, gut fuer Agent-Memory und semantische Suche | [postgres](https://github.com/postgres/postgres), [pgvector](https://github.com/pgvector/pgvector) | Zielkomponente im MVP |
 | Storage | S3/R2 | Artefakte, Medien, Exporte und grosse Dateien ohne FUSE-Mounts | [synapse-s3-storage-provider](https://github.com/matrix-org/synapse-s3-storage-provider), [rclone](https://github.com/rclone/rclone) | Zielkomponente im MVP |
 | Knowledge | Obsidian Markdown + Git | Local-first, versionierbar, agentenfreundlich | [obsidian-dataview](https://github.com/blacksmithgu/obsidian-dataview), [smart-connections](https://github.com/brianpetro/obsidian-smart-connections), [obsidian-git](https://github.com/Vinzent03/obsidian-git) | [obsidian-notion-ui-customization](https://github.com/Martin-Hausleitner/obsidian-notion-ui-customization) |
-| Presence/Lifelog | ActivityWatch + WHOOP + lokale Importer | Tagesstatus, Fokus, Schlaf, Training, Screen Time und Mediennutzung | [ActivityWatch](https://github.com/ActivityWatch/activitywatch) | [aw-john-harris-wifi](https://github.com/Martin-Hausleitner/aw-john-harris-wifi), [aw-importer-whoop](https://github.com/Martin-Hausleitner/aw-importer-whoop), [aw-importer-apple-screentime](https://github.com/Martin-Hausleitner/aw-importer-apple-screentime), [aw-importer-youtube](https://github.com/Martin-Hausleitner/aw-importer-youtube) |
+| Presence/Lifelog | ActivityWatch + WHOOP + lokale Importer | Tagesstatus, Fokus, Schlaf, Training, Screen Time, Mediennutzung und Icons/Favicons | [ActivityWatch](https://github.com/ActivityWatch/activitywatch) | [aw-john-harris-wifi](https://github.com/Martin-Hausleitner/aw-john-harris-wifi), [aw-importer-whoop](https://github.com/Martin-Hausleitner/aw-importer-whoop), [aw-importer-apple-screentime](https://github.com/Martin-Hausleitner/aw-importer-apple-screentime), [aw-importer-youtube](https://github.com/Martin-Hausleitner/aw-importer-youtube), `activitywatch-icon-cache` |
 | Voice/RTC | Element Call + LiveKit | Solider separater Call-Strang, nicht Teil des Text-MVP | [element-call](https://github.com/element-hq/element-call), [livekit](https://github.com/livekit/livekit), [lk-jwt-service](https://github.com/element-hq/lk-jwt-service) | [discord-voice-obsidian-agent](https://github.com/Martin-Hausleitner/discord-voice-obsidian-agent) als schneller Voice-Prototyp |
 | Observability | OTel + Prometheus + Loki + Grafana | Interne Metriken, Logs, Traces und Alerts | [opentelemetry-collector](https://github.com/open-telemetry/opentelemetry-collector), [prometheus](https://github.com/prometheus/prometheus), [loki](https://github.com/grafana/loki), [grafana](https://github.com/grafana/grafana) | Tailscale-only Admin |
 
@@ -131,7 +131,7 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Lok
 |---|---|---|---|
 | matrix-hermes-agent-stack | Dieses Architekturdeck und Build-Plan | `/Users/mh/Documents/Playground/matrix-hermes-agent-stack` | [Repo](https://github.com/Martin-Hausleitner/matrix-hermes-agent-stack) |
 | openclaw-hermes-public-skills | Public-safe Hermes/OpenClaw Skill-Sammlung | `/Users/mh/Documents/Playground/openclaw-hermes-public-skills` | [Repo](https://github.com/Martin-Hausleitner/martins-awesome-skills) |
-| openclaw-hermes-email-control | E-Mail-/Hermes-Control-Prototyp | `/Users/mh/Documents/Playground/openclaw-hermes-email-control` | lokal, kein Origin |
+| openclaw-hermes-email-control | Chatwoot-, E-Mail-, Beeper- und Hermes-Control-Prototyp | `/Users/mh/Documents/Playground/openclaw-hermes-email-control` | lokal, kein Origin |
 | openclaw-apple-findmy-skill | OpenClaw Skill fuer Apple Find My / Standort-Kontext | `/Users/mh/Documents/Playground/openclaw-apple-findmy-skill` | [Repo](https://github.com/Martin-Hausleitner/openclaw-apple-findmy-skill) |
 | codex-computer-use-eu-activate | Codex Computer Use EU Activation Skill | `/Users/mh/Documents/Playground/codex-computer-use-eu-activate` | [Repo](https://github.com/Martin-Hausleitner/codex-computer-use-eu-activate) |
 | aw-john-harris-wifi | ActivityWatch Presence, Wi-Fi, Nuki/Ring und Fokus-Status | `/Users/mh/Documents/GitHub/aw-john-harris-wifi` | [Repo](https://github.com/Martin-Hausleitner/aw-john-harris-wifi) |
@@ -140,15 +140,19 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Lok
 | aw-importer-apple-health | Apple Health Export nach ActivityWatch | `/Users/mh/.openclaw/workspace/aw-importer-apple-health` | [Repo](https://github.com/Martin-Hausleitner/aw-importer-apple-health) |
 | activitywatch-youtube-sync | YouTube Watch Sessions nach ActivityWatch | `/Users/mh/Documents/Playground/activitywatch-youtube-sync` | [Repo](https://github.com/Martin-Hausleitner/aw-importer-youtube) |
 | aw-activitywatch-stack | ActivityWatch Gesamt-Doku, LaunchAgent- und Export-Workflows | `/Users/mh/.openclaw/workspace/aw-activitywatch-stack` | [Repo](https://github.com/Martin-Hausleitner/aw-activitywatch-stack) |
+| activitywatch-icon-cache | Icon-/Favicon-Cache fuer ActivityWatch Timelines | `/Users/mh/Documents/Playground/activitywatch-icon-cache` | lokal, kein Origin |
 | activitywatch-xbar-plugin | Menubar-/Status-Sicht auf ActivityWatch-Daten | n/a | [Repo](https://github.com/Martin-Hausleitner/activitywatch-xbar-plugin) |
 | whoop-menubar | Lokale WHOOP-/Health-Menubar Experimente | `/Users/mh/Documents/Playground/whoop-menubar` | lokal, kein Origin |
 | discord-voice-obsidian-agent | Discord Voice Agent, ASR-Worker und Obsidian-Anbindung | `/Users/mh/Documents/Playground/discord-voice-obsidian-agent` | [Repo](https://github.com/Martin-Hausleitner/discord-voice-obsidian-agent) |
 | sh-vcvm-matrix-bridgev2-src | Beeper/Matrix Bridge v2 Proxy Referenz | `/Users/mh/Documents/Playground/sh-vcvm-matrix-bridgev2-src` | [Repo](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) |
+| bridge-manager | Beeper Bridge-Manager Referenz und `bbctl`-Arbeitskopie | `/Users/mh/Documents/Playground/bridge-manager` | [Upstream](https://github.com/beeper/bridge-manager) |
 | obsidian-notion-ui-customization | Obsidian/Notion UI und Knowledge-Experimente | `/Users/mh/Documents/Playground/obsidian-notion-ui-customization` | [Repo](https://github.com/Martin-Hausleitner/obsidian-notion-ui-customization) |
 | mac-ai-dev-setup | Mac AI Dev Setup und lokale Agent Toolchain | `/Users/mh/Documents/Playground/mac-ai-dev-setup` | [Repo](https://github.com/Martin-Hausleitner/mac-ai-dev-setup) |
 | mac-ram-rescue | Mac Memory-/Performance-Rescue Tooling | `/Users/mh/Documents/Playground/mac-ram-rescue` | [Repo](https://github.com/Martin-Hausleitner/mac-ram-rescue) |
 | hermes-agent | Hermes-Fork mit Workspace-Customizations | n/a | [Repo](https://github.com/Martin-Hausleitner/hermes-agent) |
 | openclaw-workspace | Skills, AGENTS, Prompts und Studio-Konfigurationen | n/a | [Repo](https://github.com/Martin-Hausleitner/openclaw-workspace) |
+| browser-use-mcp-plus | Browser-/MCP-Erweiterungen fuer lokale Agentenvalidierung | n/a | [Repo](https://github.com/Martin-Hausleitner/browser-use-mcp-plus) |
+| company-network-viz | Netzwerk-/Beziehungsvisualisierung fuer Firmen- und Kontaktkontext | n/a | [Repo](https://github.com/Martin-Hausleitner/company-network-viz) |
 | eins | Health Vault / persoenliche Knowledge-Struktur | `/Users/mh/.openclaw/workspace/eins` | [Repo](https://github.com/Martin-Hausleitner/eins) |
 | iphone-mirroring-eu-activate | iPhone Mirroring EU Upstream-Referenz | `/Users/mh/Documents/Playground/iphone-mirroring-eu-activate` | [Repo](https://github.com/timi2506/iphone-mirroring-eu-activate) |
 | iphone-mirroring-eu-enabler | iPhone Mirroring EU Enabler Referenz | `/Users/mh/Documents/Playground/iphone-mirroring-eu-enabler` | [Repo](https://github.com/Pauli1Go/iphone-mirroring-eu-enabler) |
@@ -179,7 +183,7 @@ flowchart TB
   Runtime --> Vault["Obsidian Markdown Vault<br/>Dataview / Smart Connections / Git"]
   Runtime --> Artifacts["S3 / R2 Artifacts"]
 
-  LocalRepos --> AW["ActivityWatch<br/>Presence / Screen Time / WHOOP / YouTube"]
+  LocalRepos --> AW["ActivityWatch<br/>Presence / Screen Time / WHOOP / YouTube / Icons"]
   AW --> Door["Nuki + Ring Context"]
   AW --> Health["WHOOP + Apple Health<br/>Sleep / Training / Vitals"]
 
@@ -227,6 +231,7 @@ flowchart LR
     ScreenTime["aw-importer-apple-screentime"]
     AppleHealth["aw-importer-apple-health"]
     YouTube["aw-importer-youtube"]
+    IconCache["activitywatch-icon-cache"]
     Voice["discord-voice-obsidian-agent"]
     Pg["Postgres + pgvector"]
     S3["S3/R2 Artifacts"]
@@ -250,6 +255,7 @@ flowchart LR
   ScreenTime --> ActivityWatch
   AppleHealth --> ActivityWatch
   YouTube --> ActivityWatch
+  IconCache --> ActivityWatch
   Voice --> Obsidian
   Voice --> Matrix
   MatrixRepo -.documents.-> Matrix
