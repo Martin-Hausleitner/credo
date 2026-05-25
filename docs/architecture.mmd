@@ -24,10 +24,13 @@ flowchart LR
     Skills["Skills + MCP Tools + ClawHub"]
     EmailCtrl["openclaw-hermes-email-control"]
     WidgetShare["Cognitor Widget Sharing"]
+    ComputerUseControl["codex-computer-use-control"]
+    SkyClient["SkyComputerUseClient MCP"]
   end
 
   subgraph KnowledgeLayer["Memory + Knowledge"]
     Postgres["Postgres + pgvector"]
+    Supabase["Supabase optional: dashboards / auth / realtime"]
     Vault["Obsidian Markdown Vault"]
     Git["Git Audit Trail"]
     Artifacts["S3 / R2 Artifacts"]
@@ -42,6 +45,7 @@ flowchart LR
     YouTube["YouTube Importer"]
     Door["Nuki + Ring Context"]
     Cognitor["Cognitor Tray / Web / Mobile"]
+    NativeUI["Native macOS Apps"]
   end
 
   subgraph VoiceLayer["Voice / RTC"]
@@ -84,10 +88,12 @@ flowchart LR
   Runtime --> Skills
   Runtime --> EmailCtrl
   Runtime --> WidgetShare
+  Runtime --> ComputerUseControl --> SkyClient --> NativeUI
   EmailCtrl --> ChatwootUI
   EmailCtrl --> Maildir
   WidgetShare --> Cognitor
   Runtime --> Postgres
+  Postgres -. optional app layer .-> Supabase
   Runtime --> Vault --> Git
   Runtime --> Artifacts
   Runtime --> AW

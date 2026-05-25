@@ -2,7 +2,54 @@
 
 Ein pflegbares Architekturdeck fuer Martins selbst gehosteten Agent-Kommunikationsstack: Matrix als Raum-, Identity- und Audit-Bus; Hermes/OpenClaw/Codex als Agent-Runtime; ActivityWatch, WHOOP, Obsidian und lokale Skills als persoenlicher Daten- und Tool-Layer.
 
+## Sofortueberblick: Service Map
+
+```mermaid
+flowchart LR
+  Human["Human / Team"] --> Clients["Clients<br/>Element Web, Cinny, Sable, Element X"]
+  Clients --> Matrix["Matrix Bus<br/>Synapse or Tuwunel"]
+
+  Matrix --> Rooms["Room Topology<br/>intake, ops, research, memory, alerts"]
+  Matrix --> Bridges["Bridges<br/>mautrix WhatsApp, Telegram, Signal, Slack"]
+  Matrix --> Gateway["Hermes Matrix Bot<br/>mautrix/python or matrix-rust-sdk"]
+
+  Gateway --> Guard["Policy Gate<br/>role checks, approvals, audit"]
+  Guard --> Queue["Redis Queue"]
+  Queue --> Agents["Hermes / OpenClaw / Codex Workers"]
+
+  Agents --> Skills["Hermes Skills<br/>email, Apple, GitHub, Notion, research, browser, MCP"]
+  Agents --> Memory["Memory + RAG<br/>Postgres + pgvector<br/>Supabase optional for dashboards"]
+  Agents --> Vault["Knowledge Vault<br/>Obsidian + Git + Dataview"]
+  Agents --> Objects["Artifacts<br/>S3 / Cloudflare R2"]
+
+  Matrix --> RTC["Optional Voice<br/>Element Call + LiveKit"]
+  RTC --> VoiceAgents["Voice Agents<br/>OpenAI Realtime or LiveKit Agents"]
+
+  Agents --> Obs["Observability<br/>OTel, Prometheus, Loki, Grafana"]
+  Obs --> Tailnet["Tailscale-only Admin"]
+```
+
 ![Hero architecture](assets/hero.svg)
+
+![Service wall](assets/service-wall.svg)
+
+## Visueller Service-Katalog
+
+| Icon | Preview | Service | Website | GitHub | Rolle bei uns |
+|---|---|---|---|---|---|
+| <img src="https://cdn.simpleicons.org/matrix/000000" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/element-hq/synapse" width="180"> | Matrix / Synapse | [matrix.org](https://matrix.org) | [synapse](https://github.com/element-hq/synapse) | Stabiler Homeserver, Admin-API, Bridges, Audit. |
+| <img src="https://www.google.com/s2/favicons?domain=matrix.org&sz=64" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/matrix-construct/tuwunel" width="180"> | Tuwunel | [Matrix ecosystem](https://matrix.org/ecosystem/servers/) | [tuwunel](https://github.com/matrix-construct/tuwunel) | Leichter Greenfield-Homeserver fuer knappe Ressourcen. |
+| <img src="https://cdn.simpleicons.org/element/0DBD8B" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/element-hq/element-web" width="180"> | Element Web | [element.io](https://element.io) | [element-web](https://github.com/element-hq/element-web) | Referenzclient fuer Admin, Debugging und Kompatibilitaet. |
+| <img src="https://www.google.com/s2/favicons?domain=cinny.in&sz=64" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/cinnyapp/cinny" width="180"> | Cinny / Sable | [cinny.in](https://cinny.in) | [cinny](https://github.com/cinnyapp/cinny), [Sable](https://github.com/SableClient/Sable) | Schnelle, Discord-artige Web-UX fuer Agent-Raeume. |
+| <img src="https://www.google.com/s2/favicons?domain=nousresearch.com&sz=64" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/NousResearch/hermes-agent" width="180"> | Hermes Agent | [Nous Research](https://nousresearch.com) | [hermes-agent](https://github.com/NousResearch/hermes-agent) | Agent-Orchestrator, Skills, Subagents, Memory, Gateways. |
+| <img src="https://www.google.com/s2/favicons?domain=openclawdoc.com&sz=64" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/openclaw/openclaw" width="180"> | OpenClaw / ClawHub | [OpenClaw docs](https://openclawdoc.com/) | [openclaw](https://github.com/openclaw/openclaw), [clawhub](https://github.com/openclaw/clawhub) | Lokale Skills, Tooling und Skill-Registry-Pfad. |
+| <img src="https://cdn.simpleicons.org/supabase/3FCF8E" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/supabase/supabase" width="180"> | Supabase | [supabase.com](https://supabase.com) | [supabase](https://github.com/supabase/supabase) | Optional fuer schnelle Dashboards/Auth/Realtime, nicht Core-DB-Ersatz. |
+| <img src="https://cdn.simpleicons.org/postgresql/4169E1" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/pgvector/pgvector" width="180"> | Postgres + pgvector | [postgresql.org](https://www.postgresql.org) | [postgres](https://github.com/postgres/postgres), [pgvector](https://github.com/pgvector/pgvector) | Core Memory, Audit, Agent-State und RAG. |
+| <img src="https://www.google.com/s2/favicons?domain=chatwoot.com&sz=64" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/chatwoot/chatwoot" width="180"> | Chatwoot + Himalaya | [chatwoot.com](https://www.chatwoot.com) | [chatwoot](https://github.com/chatwoot/chatwoot), [himalaya](https://github.com/pimalaya/himalaya) | Operator-Inbox fuer E-Mail, Beeper/Matrix und Agent-Ops. |
+| <img src="https://cdn.simpleicons.org/obsidian/7C3AED" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/blacksmithgu/obsidian-dataview" width="180"> | Obsidian | [obsidian.md](https://obsidian.md) | [dataview](https://github.com/blacksmithgu/obsidian-dataview), [obsidian-git](https://github.com/Vinzent03/obsidian-git) | Local-first Knowledge, Memory, Docs und Audit-Trail. |
+| <img src="https://www.google.com/s2/favicons?domain=activitywatch.net&sz=64" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/ActivityWatch/activitywatch" width="180"> | ActivityWatch | [activitywatch.net](https://activitywatch.net) | [activitywatch](https://github.com/ActivityWatch/activitywatch) | Fokus-, App-, Web-, Health- und Lifelog-Kontext. |
+| <img src="https://www.google.com/s2/favicons?domain=livekit.io&sz=64" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/livekit/livekit" width="180"> | LiveKit | [livekit.io](https://livekit.io) | [livekit](https://github.com/livekit/livekit), [livekit/agents](https://github.com/livekit/agents) | Spaeterer Voice/RTC/Streaming-Strang. |
+| <img src="https://cdn.simpleicons.org/grafana/F46800" width="32"> | <img src="https://opengraph.githubassets.com/matrix-hermes-agent-stack/grafana/grafana" width="180"> | Grafana + Tailscale | [grafana.com](https://grafana.com) | [grafana](https://github.com/grafana/grafana), [tailscale](https://github.com/tailscale/tailscale) | Private Ops-Dashboards, Metriken, Logs und Tailnet-Admin. |
 
 ## Kurzurteil
 
@@ -29,9 +76,10 @@ LiveKit = optionaler Voice/Call/Streaming-Strang
 | Clients | Element Web + Cinny/Sable | Element als Referenz/Fallback, Cinny/Sable fuer schnelle Discord-artige UX | [element-web](https://github.com/element-hq/element-web), [cinny](https://github.com/cinnyapp/cinny), [Sable](https://github.com/SableClient/Sable) | Raum- und UX-Konzept in diesem Repo |
 | Gateway | Matrix Bot Account | Einfacher, sicherer und schneller als sofortiger Appservice oder Custom Client | [mautrix/python](https://github.com/mautrix/python), [matrix-rust-sdk](https://github.com/matrix-org/matrix-rust-sdk) | [beeper-matrix-proxy](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) als Bridge-Referenz |
 | Inbox Bridge | Chatwoot + Himalaya + mbsync/notmuch + Mailpit | E-Mail, Matrix/Beeper und Agent-Ops laufen in einer lokalen Operator-Inbox zusammen | [chatwoot](https://github.com/chatwoot/chatwoot), [himalaya](https://github.com/pimalaya/himalaya), [notmuch](https://github.com/notmuch/notmuch), [mailpit](https://github.com/axllent/mailpit) | `/Users/mh/Documents/Playground/openclaw-hermes-email-control` |
-| Runtime | Hermes + OpenClaw + Codex | Skills, Tools, Subagents, Memory, lokale Automationen | [hermes-agent](https://github.com/NousResearch/hermes-agent), [openclaw](https://github.com/openclaw/openclaw), [clawhub](https://github.com/openclaw/clawhub) | [martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills), [codex-computer-use-eu-activate](https://github.com/Martin-Hausleitner/codex-computer-use-eu-activate) |
+| Runtime | Hermes + OpenClaw + Codex | Skills, Tools, Subagents, Memory, lokale Automationen | [hermes-agent](https://github.com/NousResearch/hermes-agent), [openclaw](https://github.com/openclaw/openclaw), [clawhub](https://github.com/openclaw/clawhub) | [martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills), [codex-computer-use-eu-activate](https://github.com/Martin-Hausleitner/codex-computer-use-eu-activate), `codex-computer-use-control` |
 | Jobs | Redis Queue | Matrix Message rein, Job-ID zurueck, Worker fuehrt aus | [redis](https://github.com/redis/redis) | Zielkomponente im MVP |
 | Memory/RAG | Postgres + pgvector | Robust, simpel, gut fuer Agent-Memory und semantische Suche | [postgres](https://github.com/postgres/postgres), [pgvector](https://github.com/pgvector/pgvector) | Zielkomponente im MVP |
+| Backend Acceleration | Supabase | Optional fuer schnelle Dashboards, Auth, Realtime und Storage; nicht als Ersatz fuer die Core-Postgres-Schicht | [supabase](https://github.com/supabase/supabase), [supabase.com](https://supabase.com) | Spielwiese fuer Hermes-Agent-Dashboard und schnelle interne Apps |
 | Storage | S3/R2 | Artefakte, Medien, Exporte und grosse Dateien ohne FUSE-Mounts | [synapse-s3-storage-provider](https://github.com/matrix-org/synapse-s3-storage-provider), [rclone](https://github.com/rclone/rclone) | Zielkomponente im MVP |
 | Knowledge | Obsidian Markdown + Git | Local-first, versionierbar, agentenfreundlich | [obsidian-dataview](https://github.com/blacksmithgu/obsidian-dataview), [smart-connections](https://github.com/brianpetro/obsidian-smart-connections), [obsidian-git](https://github.com/Vinzent03/obsidian-git) | [obsidian-notion-ui-customization](https://github.com/Martin-Hausleitner/obsidian-notion-ui-customization) |
 | Presence/Lifelog | ActivityWatch + WHOOP + lokale Importer | Tagesstatus, Fokus, Schlaf, Training, Screen Time, Mediennutzung und Icons/Favicons | [ActivityWatch](https://github.com/ActivityWatch/activitywatch) | [aw-john-harris-wifi](https://github.com/Martin-Hausleitner/aw-john-harris-wifi), [aw-importer-whoop](https://github.com/Martin-Hausleitner/aw-importer-whoop), [aw-importer-apple-screentime](https://github.com/Martin-Hausleitner/aw-importer-apple-screentime), [aw-importer-youtube](https://github.com/Martin-Hausleitner/aw-importer-youtube), `activitywatch-icon-cache` |
@@ -119,6 +167,7 @@ Diese Tabelle ist die zentrale Liste fuer die Packages, Frameworks und Services,
 | OpenClaw | Agent Runtime | Lokaler Tool Layer | Skills, Tools und lokale Agent-Ausfuehrung | kern |
 | ClawHub | Skill Registry | Skill Distribution | Katalog, Trust und Install-Layer fuer Skills | spaeter |
 | Codex Computer Use | Native UI Automation | macOS/iPhone Mirroring | Native App-Steuerung und E2E-Validierung | aktiv |
+| `codex-computer-use-control` | Hermes Skill / MCP Bridge | Hermes -> SkyComputerUseClient | Hermes konfiguriert und prueft Codex Computer Use als MCP-Server | lokal aktiv |
 | Redis | Queue | Gateway -> Worker | Matrix-Events entkoppeln und Jobs verteilen | kern |
 | Postgres | Datenbank | Memory/Audit | Persistente Agent-, Audit- und App-Daten | kern |
 | pgvector | Vector Search | Memory/RAG | Semantische Suche und Embedding-Storage | kern |
@@ -183,6 +232,7 @@ Diese Sicht beantwortet die praktische Frage: _welches Repo traegt welche Packag
 | [obsidian-notion-ui-customization](https://github.com/Martin-Hausleitner/obsidian-notion-ui-customization) | UI-/Vault-Experimente | Knowledge- und Personal-OS-Layer |
 | [openclaw-apple-findmy-skill](https://github.com/Martin-Hausleitner/openclaw-apple-findmy-skill) | Find My Skill + lokale Integrationen | Personen-, Geraete- und Standortkontext |
 | [codex-computer-use-eu-activate](https://github.com/Martin-Hausleitner/codex-computer-use-eu-activate) | Codex/Computer-Use Aktivierungs-Skill | Native UI-Automation und visuelle E2E-Validierung |
+| `codex-computer-use-control` | Hermes Skill + `SkyComputerUseClient mcp` Check-Script | Hermes-seitige Computer-Use-MCP-Konfiguration, Discovery und Blocker-Dokumentation |
 | [mac-ai-dev-setup](https://github.com/Martin-Hausleitner/mac-ai-dev-setup) | Setup-Skripte, Toolchain, lokale Runtime-Vorbereitung | Host-Grundlage fuer Agent-Betrieb |
 | [mac-ram-rescue](https://github.com/Martin-Hausleitner/mac-ram-rescue) | Memory-/Ops-Helfer | Stabilitaet und Ressourcenpflege auf dem Host |
 
@@ -261,6 +311,7 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Ali
 | Workspace | Rolle im Stack | Lokaler Pfad | Status |
 |---|---|---|---|
 | openclaw-hermes-email-control | Chatwoot-, E-Mail-, Beeper- und Hermes-Control-Prototyp | `/Users/mh/Documents/Playground/openclaw-hermes-email-control` | lokal, kein Origin |
+| codex-computer-use-control | Hermes Skill fuer Codex Computer Use als MCP-Server | `/Users/mh/.hermes/skills/software-development/codex-computer-use-control` | lokaler Skill, in `~/.agents/skills` verlinkt |
 | whoop-menubar | Lokale WHOOP-/Health-Menubar Experimente | `/Users/mh/Documents/Playground/whoop-menubar` | lokal, kein Origin |
 | tokenrouter-workspace | Tokenrouter Desktop-, Quota- und Schema-Experimente | `/Users/mh/Documents/GitHub/tokenrouter-workspace` | lokaler Workspace |
 | apple-health-live-sync | Apple Health Live-Sync-Experiment fuer persoenliche Health-Daten | `/Users/mh/Documents/GitHub/apple-health-live-sync` | lokaler Workspace |
@@ -277,6 +328,22 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Ali
 | iphone-mirroring-eu-activate | iPhone Mirroring EU Upstream-Referenz | `/Users/mh/Documents/Playground/iphone-mirroring-eu-activate` | [Repo](https://github.com/timi2506/iphone-mirroring-eu-activate) |
 | iphone-mirroring-eu-enabler | iPhone Mirroring EU Enabler Referenz | `/Users/mh/Documents/Playground/iphone-mirroring-eu-enabler` | [Repo](https://github.com/Pauli1Go/iphone-mirroring-eu-enabler) |
 | APOLLO | iOS/macOS Forensics Referenz fuer lokale Datenquellen | `/Users/mh/Documents/Playground/APOLLO` | [Repo](https://github.com/mac4n6/APOLLO) |
+
+### Weitere Account-Repos
+
+Diese Gruppen halten die restlichen GitHub-Repos sichtbar, ohne die stacknahe Haupttabelle zu ueberfrachten.
+
+| Gruppe | Repos |
+|---|---|
+| Voice, Audio, Video | [VoiceInk](https://github.com/Martin-Hausleitner/VoiceInk), [Voiceink-Realtime](https://github.com/Martin-Hausleitner/Voiceink-Realtime), [SpeakPaste](https://github.com/Martin-Hausleitner/SpeakPaste), [video-project](https://github.com/Martin-Hausleitner/video-project), [videoai](https://github.com/Martin-Hausleitner/videoai), [captionai](https://github.com/Martin-Hausleitner/captionai), [whisper-video-transcriber](https://github.com/Martin-Hausleitner/whisper-video-transcriber), [audio-magiq-converter](https://github.com/Martin-Hausleitner/audio-magiq-converter) |
+| Agenten, Chat, Prompts | [LibreChat](https://github.com/Martin-Hausleitner/LibreChat), [AlphaAgent](https://github.com/Martin-Hausleitner/AlphaAgent), [AgentEditor](https://github.com/Martin-Hausleitner/AgentEditor), [AgentEditorv2](https://github.com/Martin-Hausleitner/AgentEditorv2), [PromptEditor](https://github.com/Martin-Hausleitner/PromptEditor), [G0DM0D3](https://github.com/Martin-Hausleitner/G0DM0D3), [L1B3RT4S](https://github.com/Martin-Hausleitner/L1B3RT4S), [ai.bot](https://github.com/Martin-Hausleitner/ai.bot), [ofbot](https://github.com/Martin-Hausleitner/ofbot) |
+| Medical, Diagnosis, Health | [DiagnoseGPT](https://github.com/Martin-Hausleitner/DiagnoseGPT), [DiagnoseGPT-v2](https://github.com/Martin-Hausleitner/DiagnoseGPT-v2), [DiagnoseGPT-Frontend](https://github.com/Martin-Hausleitner/DiagnoseGPT-Frontend), [med-matrix](https://github.com/Martin-Hausleitner/med-matrix), [eins](https://github.com/Martin-Hausleitner/eins) |
+| Web, Dashboard, SaaS | [Web-Timeline](https://github.com/Martin-Hausleitner/Web-Timeline), [Web-Timeline-v2](https://github.com/Martin-Hausleitner/Web-Timeline-v2), [Dashboard-Sidebar](https://github.com/Martin-Hausleitner/Dashboard-Sidebar), [next-saas-stripe-starter](https://github.com/Martin-Hausleitner/next-saas-stripe-starter), [onlyapi](https://github.com/Martin-Hausleitner/onlyapi), [automaker](https://github.com/Martin-Hausleitner/automaker), [bolt](https://github.com/Martin-Hausleitner/bolt), [bolt.new](https://github.com/Martin-Hausleitner/bolt.new) |
+| Commerce, Business, Ops | [medusa-server](https://github.com/Martin-Hausleitner/medusa-server), [medusajs-2.0-for-railway-boilerplate](https://github.com/Martin-Hausleitner/medusajs-2.0-for-railway-boilerplate), [WAWI-ai](https://github.com/Martin-Hausleitner/WAWI-ai), [AustrianInvoiceGen](https://github.com/Martin-Hausleitner/AustrianInvoiceGen), [email-contact-form](https://github.com/Martin-Hausleitner/email-contact-form), [facebook-post-to-wordpress-post](https://github.com/Martin-Hausleitner/facebook-post-to-wordpress-post) |
+| Mobile, Flutter, Extensions | [receive_sharing_intent](https://github.com/Martin-Hausleitner/receive_sharing_intent), [powersync.dart](https://github.com/Martin-Hausleitner/powersync.dart), [flutter-firebase-test-01](https://github.com/Martin-Hausleitner/flutter-firebase-test-01), [willhaben-chrome-extension](https://github.com/Martin-Hausleitner/willhaben-chrome-extension), [vscode-tokenizer-gpt3-codex](https://github.com/Martin-Hausleitner/vscode-tokenizer-gpt3-codex), [vscode-copyminify](https://github.com/Martin-Hausleitner/vscode-copyminify), [Modify-JS-script-GreaseMonkey](https://github.com/Martin-Hausleitner/Modify-JS-script-GreaseMonkey) |
+| Media, Story, Websites | [StorylineStudio](https://github.com/Martin-Hausleitner/StorylineStudio), [StorylineStudio2](https://github.com/Martin-Hausleitner/StorylineStudio2), [hase-website](https://github.com/Martin-Hausleitner/hase-website), [hase-media-sync](https://github.com/Martin-Hausleitner/hase-media-sync), [hase-spammer-v4](https://github.com/Martin-Hausleitner/hase-spammer-v4), [suno-api](https://github.com/Martin-Hausleitner/suno-api), [elevenlabs-conversational-ai-twilio-cloudflare](https://github.com/Martin-Hausleitner/elevenlabs-conversational-ai-twilio-cloudflare) |
+| Legacy, Tests, Classroom | [test](https://github.com/Martin-Hausleitner/test), [test1](https://github.com/Martin-Hausleitner/test1), [test01](https://github.com/Martin-Hausleitner/test01), [oftest-2](https://github.com/Martin-Hausleitner/oftest-2), [example](https://github.com/Martin-Hausleitner/example), [desktop-tutorial](https://github.com/Martin-Hausleitner/desktop-tutorial), [if.05.01_04a-threads](https://github.com/Martin-Hausleitner/if.05.01_04a-threads), [ProgrammingCamp-QTTaxiDriver](https://github.com/Martin-Hausleitner/ProgrammingCamp-QTTaxiDriver), [information-website-to-do-list-comparison](https://github.com/Martin-Hausleitner/information-website-to-do-list-comparison) |
+| Nochba, Social, Research | [Nochba](https://github.com/Martin-Hausleitner/Nochba), [nochba-website](https://github.com/Martin-Hausleitner/nochba-website), [nochba-thesis](https://github.com/Martin-Hausleitner/nochba-thesis), [Freizeitspa-](https://github.com/Martin-Hausleitner/Freizeitspa-), [instagram_network_analysis](https://github.com/Martin-Hausleitner/instagram_network_analysis), [instagram_network_analysis-1](https://github.com/Martin-Hausleitner/instagram_network_analysis-1), [webapp-votelist](https://github.com/Martin-Hausleitner/webapp-votelist), [plantuml-markdown](https://github.com/Martin-Hausleitner/plantuml-markdown), [etiketo](https://github.com/Martin-Hausleitner/etiketo), [MyQuery](https://github.com/Martin-Hausleitner/MyQuery) |
 
 ## Architektur
 
@@ -307,6 +374,8 @@ flowchart LR
     Skills["Skills + MCP Tools + ClawHub"]
     EmailCtrl["openclaw-hermes-email-control"]
     WidgetShare["Cognitor Widget Sharing"]
+    ComputerUseControl["codex-computer-use-control"]
+    SkyClient["SkyComputerUseClient MCP"]
   end
 
   subgraph KnowledgeLayer["Memory + Knowledge"]
@@ -325,6 +394,7 @@ flowchart LR
     YouTube["YouTube Importer"]
     Door["Nuki + Ring Context"]
     Cognitor["Cognitor Tray / Web / Mobile"]
+    NativeUI["Native macOS Apps"]
   end
 
   subgraph VoiceLayer["Voice / RTC"]
@@ -367,6 +437,7 @@ flowchart LR
   Runtime --> Skills
   Runtime --> EmailCtrl
   Runtime --> WidgetShare
+  Runtime --> ComputerUseControl --> SkyClient --> NativeUI
   EmailCtrl --> ChatwootUI
   EmailCtrl --> Maildir
   WidgetShare --> Cognitor
@@ -418,6 +489,7 @@ flowchart LR
     Skills["martins-awesome-skills"]
     FindMySkill["openclaw-apple-findmy-skill"]
     CUA["codex-computer-use-eu-activate"]
+    CUC["codex-computer-use-control"]
   end
 
   subgraph OpsLayer["Inbox + Data + Sensors"]
@@ -441,6 +513,7 @@ flowchart LR
   Hermes --> Skills
   Hermes --> FindMySkill
   Hermes --> CUA
+  Hermes --> CUC
   Hermes --> EmailCtrl
   Hermes --> Activity
   Hermes --> Voice
@@ -474,6 +547,7 @@ flowchart LR
     Skills["martins-awesome-skills"]
     FindMy["openclaw-apple-findmy-skill"]
     EmailCtrl["openclaw-hermes-email-control"]
+    ComputerUseControl["codex-computer-use-control"]
     ComputerUse["Codex Computer Use"]
   end
 
@@ -507,7 +581,7 @@ flowchart LR
   EmailCtrl --> Maildir
   EmailCtrl --> Mailpit
   BeeperAPI --> EmailCtrl
-  Hermes --> ComputerUse
+  Hermes --> ComputerUseControl --> ComputerUse
   Hermes --> Obsidian
   Hermes --> Pg
   Hermes --> S3
@@ -557,6 +631,8 @@ Der MVP soll **Text- und Job-Orchestrierung** stabil machen:
 ## Dokumente
 
 - [Ausfuehrliche Vergleichstabelle](docs/stack-comparison.md)
+- [Service-Katalog mit Icons, Screenshots, Webseiten und GitHub-Links](docs/service-catalog.md)
+- [Hermes-Skills-Inventar](docs/hermes-skills.md)
 - [Roadmap und Build-Plan](docs/implementation-roadmap.md)
 - [Mermaid-Quellgraph](docs/architecture.mmd)
 

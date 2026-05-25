@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="920" viewBox="0 0 1400 920" role="img" aria-labelledby="title desc">
+  <title id="title">Matrix Hermes service wall</title>
+  <desc id="desc">Visual card wall of the most important services in the Matrix Hermes agent stack.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#0f172a" flood-opacity=".12"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="920" fill="url(#bg)"/>
+  <text x="70" y="76" font-family="Inter, system-ui, sans-serif" font-size="40" font-weight="800" fill="#0f172a">Service Wall</text>
+  <text x="72" y="116" font-family="Inter, system-ui, sans-serif" font-size="21" fill="#475569">The stack at a glance: communication, agents, memory, storage, voice, inbox and operations.</text>
+
+  <g font-family="Inter, system-ui, sans-serif" filter="url(#shadow)">
+    <g transform="translate(70,160)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#bfdbfe"/>
+      <circle cx="46" cy="48" r="24" fill="#111827"/><text x="38" y="56" fill="#fff" font-size="24" font-weight="800">M</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">Matrix</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Rooms, identity, audit</text>
+      <text x="24" y="120" font-size="15" fill="#2563eb">Synapse or Tuwunel</text>
+    </g>
+    <g transform="translate(390,160)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#a7f3d0"/>
+      <circle cx="46" cy="48" r="24" fill="#0dbd8b"/><text x="39" y="57" fill="#fff" font-size="24" font-weight="800">E</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">Clients</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Element, Cinny, Sable</text>
+      <text x="24" y="120" font-size="15" fill="#047857">Human-facing UX</text>
+    </g>
+    <g transform="translate(710,160)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#ddd6fe"/>
+      <circle cx="46" cy="48" r="24" fill="#7c3aed"/><text x="39" y="57" fill="#fff" font-size="24" font-weight="800">H</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">Hermes</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Agent runtime</text>
+      <text x="24" y="120" font-size="15" fill="#6d28d9">Skills, subagents, memory</text>
+    </g>
+    <g transform="translate(1030,160)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#fecaca"/>
+      <circle cx="46" cy="48" r="24" fill="#dc2626"/><text x="38" y="57" fill="#fff" font-size="24" font-weight="800">Q</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">Redis</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Job queue</text>
+      <text x="24" y="120" font-size="15" fill="#b91c1c">Gateway to workers</text>
+    </g>
+
+    <g transform="translate(70,350)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#bfdbfe"/>
+      <circle cx="46" cy="48" r="24" fill="#4169e1"/><text x="38" y="57" fill="#fff" font-size="24" font-weight="800">P</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">Postgres</text>
+      <text x="84" y="72" font-size="16" fill="#475569">pgvector memory</text>
+      <text x="24" y="120" font-size="15" fill="#1d4ed8">Core DB + RAG</text>
+    </g>
+    <g transform="translate(390,350)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#a7f3d0"/>
+      <circle cx="46" cy="48" r="24" fill="#3fcf8e"/><text x="39" y="57" fill="#fff" font-size="24" font-weight="800">S</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">Supabase</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Optional BaaS</text>
+      <text x="24" y="120" font-size="15" fill="#047857">Dashboards, auth, realtime</text>
+    </g>
+    <g transform="translate(710,350)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#fed7aa"/>
+      <circle cx="46" cy="48" r="24" fill="#f38020"/><text x="37" y="57" fill="#fff" font-size="24" font-weight="800">R</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">R2 / S3</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Object storage</text>
+      <text x="24" y="120" font-size="15" fill="#c2410c">Artifacts and media</text>
+    </g>
+    <g transform="translate(1030,350)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#ddd6fe"/>
+      <circle cx="46" cy="48" r="24" fill="#7c3aed"/><text x="38" y="57" fill="#fff" font-size="24" font-weight="800">O</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">Obsidian</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Markdown vault</text>
+      <text x="24" y="120" font-size="15" fill="#6d28d9">Docs, memory, audit</text>
+    </g>
+
+    <g transform="translate(70,540)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#bae6fd"/>
+      <circle cx="46" cy="48" r="24" fill="#0ea5e9"/><text x="37" y="57" fill="#fff" font-size="24" font-weight="800">A</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">ActivityWatch</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Local lifelog</text>
+      <text x="24" y="120" font-size="15" fill="#0369a1">Focus and context</text>
+    </g>
+    <g transform="translate(390,540)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#fecdd3"/>
+      <circle cx="46" cy="48" r="24" fill="#e11d48"/><text x="38" y="57" fill="#fff" font-size="24" font-weight="800">I</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">Inbox</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Chatwoot + Himalaya</text>
+      <text x="24" y="120" font-size="15" fill="#be123c">Operator workflows</text>
+    </g>
+    <g transform="translate(710,540)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#bbf7d0"/>
+      <circle cx="46" cy="48" r="24" fill="#22c55e"/><text x="38" y="57" fill="#fff" font-size="24" font-weight="800">L</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">LiveKit</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Voice and RTC</text>
+      <text x="24" y="120" font-size="15" fill="#15803d">Optional after MVP</text>
+    </g>
+    <g transform="translate(1030,540)">
+      <rect width="280" height="150" rx="16" fill="#ffffff" stroke="#fed7aa"/>
+      <circle cx="46" cy="48" r="24" fill="#f46800"/><text x="37" y="57" fill="#fff" font-size="24" font-weight="800">G</text>
+      <text x="84" y="43" font-size="22" font-weight="800" fill="#0f172a">Grafana</text>
+      <text x="84" y="72" font-size="16" fill="#475569">Ops dashboards</text>
+      <text x="24" y="120" font-size="15" fill="#c2410c">Tailscale-only</text>
+    </g>
+  </g>
+
+  <text x="72" y="780" font-family="Inter, system-ui, sans-serif" font-size="20" fill="#334155">Core path: Matrix -> Bot Gateway -> Redis -> Hermes/OpenClaw -> Postgres/pgvector -> S3/R2 -> Matrix result.</text>
+  <text x="72" y="816" font-family="Inter, system-ui, sans-serif" font-size="20" fill="#334155">Optional path: Supabase for dashboards, LiveKit for voice, Chatwoot/Himalaya for operator inbox, ActivityWatch for personal context.</text>
+</svg>
