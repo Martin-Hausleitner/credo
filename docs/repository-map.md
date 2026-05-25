@@ -2,6 +2,25 @@
 
 Diese Datei gruppiert die eigenen und externen Repos nach Rolle im Credo-Stack. Die grosse Roh-Liste aus dem README ist hier abstrahiert.
 
+## 📚 Vollstaendige lokale Inventur
+
+Die komplette lokale Git-Inventur liegt in [local-repositories.md](local-repositories.md). Sie umfasst aktuell **76 lokale Repositories** aus `~/Documents/Playground`, `~/Documents/GitHub` und `~/.openclaw/workspace`, inklusive Worktrees, lokalen Repos ohne Remote und installierten Skill-/Vendor-Checkouts.
+
+| Kategorie | Anzahl | Warum relevant |
+|---|---:|---|
+| 💬 Matrix / Messaging | 3 | Credo, Beeper/Matrix Proxy und Bridge-Manager bilden den Messaging-Kern. |
+| 🤖 Agents / Skills | 20 | OpenClaw, Hermes-nahe Skills, Fintaro-Agenten, Sonar-Worktrees und lokale Agent-Workspaces. |
+| 🧑‍💻 Coding Agents | 1 | Codex Computer Use Aktivierung fuer native UI-Automation. |
+| 📈 ActivityWatch / Lifelog | 9 | ActivityWatch-Stack, WHOOP, Apple Health, Screen Time, YouTube und Presence-Importer. |
+| 💓 Health / Presence | 3 | Lokale WHOOP- und Apple-Health-Menubar-/Live-Sync-Prototypen. |
+| 🍎 Apple / Device | 3 | iPhone Mirroring EU Guides und Aktivierungsreferenzen. |
+| 🎙️ Voice / Audio | 4 | Sonar, Discord Voice und Craig-Recording-Referenzen. |
+| 💼 Business / Finance | 5 | OnlyAPI, CreatorHero, Fintaro und Finance-/Gateway-Arbeit. |
+| 🧪 Web / Product Experiments | 8 | Angebotsgeneratoren, Roadmap Builder, Timeline und Website-Experimente. |
+| 🌐 Proxy / Browser / Network | 3 | Proxy-, Browser- und Netzwerktooling. |
+| 🔬 Other / Research | 10 | Cognitor, Obsidian, Mac-Setup, APOLLO, Sense und Forschungsrepos. |
+| 📦 Vendor / Installed Checkouts | 7 | Installierte Skill-Repos und abgeleitete Swift-Package-Checkouts. |
+
 ## 🧭 Zentrale Steuerung
 
 | Logo | Repo / Workspace | Rolle |

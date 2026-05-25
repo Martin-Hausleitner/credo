@@ -151,6 +151,7 @@ Matrix ist **nicht** das Agent-Framework und auch **nicht** die interne Queue.
 | [docs/resource-planning.md](docs/resource-planning.md) | CPU/RAM/Storage/Bandbreiten-Platzhalter |
 | [docs/package-inventory.md](docs/package-inventory.md) | Package- und Tool-Inventar nach Kategorien |
 | [docs/repository-map.md](docs/repository-map.md) | Eigene und externe Repos nach Rolle im Stack |
+| [docs/local-repositories.md](docs/local-repositories.md) | Vollstaendige lokale Git-Repo-Inventur mit Branch, Zustand, Remote und Rolle |
 | [docs/architecture-flows.md](docs/architecture-flows.md) | Runtime-, Knowledge-, Inbox- und Voice-Flows |
 | [docs/hermes-skills.md](docs/hermes-skills.md) | Installierte Hermes-Skills nach Kategorien |
 | [docs/matrix-repositories.md](docs/matrix-repositories.md) | Matrix-Repositories, Clients, Bridges, SDKs, RTC |
