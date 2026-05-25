@@ -182,9 +182,9 @@ sequenceDiagram
 
 ## Quellen
 
-- Matrix Widget API: https://github.com/matrix-org/matrix-widget-api
-- Matrix Specification: https://spec.matrix.org
-- Element Web: https://github.com/element-hq/element-web
-- Matrix Rust SDK: https://github.com/matrix-org/matrix-rust-sdk
-- Tailscale Serve/Funnel: https://tailscale.com/kb/1242/tailscale-serve
-- OpenUI: https://github.com/wandb/openui
+- [Matrix Widget API](https://github.com/matrix-org/matrix-widget-api)
+- [Matrix Specification](https://spec.matrix.org)
+- [Element Web](https://github.com/element-hq/element-web)
+- [Matrix Rust SDK](https://github.com/matrix-org/matrix-rust-sdk)
+- [Tailscale Serve/Funnel](https://tailscale.com/kb/1242/tailscale-serve)
+- [OpenUI](https://github.com/wandb/openui)

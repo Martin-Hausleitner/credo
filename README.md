@@ -331,6 +331,7 @@ flowchart LR
   Human --> Discord
   Human --> ObsidianUI
   Human --> ChatwootUI
+  Human --> Cognitor
   Element --> Homeserver
   Cinny --> Homeserver
   Homeserver --> Rooms
@@ -350,6 +351,7 @@ flowchart LR
   Runtime --> Artifacts
   Runtime --> AW
   Cognitor --> AW
+  Cognitor --> Vault
   Whoop --> AW
   ScreenTime --> AW
   Health --> AW
