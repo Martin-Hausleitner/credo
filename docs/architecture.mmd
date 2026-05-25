@@ -1,39 +1,103 @@
-flowchart TB
-  User["Human / Team"] --> Clients["Element Web<br/>Cinny / Sable<br/>Element X"]
-  Clients --> Matrix["Matrix Homeserver<br/>Synapse or Tuwunel"]
+flowchart LR
+  subgraph Clients["Client Layer"]
+    Human["Human / Team"]
+    Element["Element Web / Element X"]
+    Cinny["Cinny / Sable"]
+    Discord["Discord Voice MVP"]
+    ObsidianUI["Obsidian Notion UI"]
+    ChatwootUI["Chatwoot Operator Inbox"]
+  end
 
-  Matrix --> Rooms["Rooms<br/>intake / ops / research / memory / alerts"]
-  Matrix --> Gateway["Matrix Bot Gateway<br/>mautrix/python first"]
-  Matrix --> Bridges["Messenger Bridges<br/>Telegram / WhatsApp / Signal / Slack"]
-  Matrix --> BeeperProxy["beeper-matrix-proxy<br/>Beeper/BIPA portals in Cinny"]
-  Matrix --> RTC["MatrixRTC<br/>Element Call"]
+  subgraph MatrixLayer["Matrix Communication Layer"]
+    Homeserver["Synapse or Tuwunel"]
+    Rooms["Rooms: intake / ops / research / memory / alerts"]
+    Bridges["mautrix Bridges"]
+    Beeper["beeper-matrix-proxy"]
+  end
 
-  Gateway --> Authz["Backend Role Checks<br/>LLM never decides permissions"]
-  Authz --> Queue["Redis Job Queue"]
-  Queue --> Runtime["Hermes + OpenClaw + Codex Runtime"]
+  subgraph AgentLayer["Hermes Agent Layer"]
+    Bot["Matrix Bot Gateway"]
+    Authz["Backend Role Checks"]
+    Queue["Redis Job Queue"]
+    Runtime["Hermes + OpenClaw + Codex"]
+    Workers["Codex / Claude / Gemini"]
+    Skills["Skills + MCP Tools + ClawHub"]
+    EmailCtrl["openclaw-hermes-email-control"]
+  end
 
-  Runtime --> Skills["Skills + MCP Tools"]
-  Skills --> SkillRepos["martins-awesome-skills<br/>openclaw-apple-findmy-skill<br/>codex-computer-use-eu-activate"]
-  Runtime --> Workers["Codex / Claude / Gemini<br/>Research Workers"]
-  Runtime --> LocalRepos["Local Agent Repos<br/>mail / voice / bridge / presence"]
-  Runtime --> InboxControl["openclaw-hermes-email-control<br/>emailctl + local bridge checks"]
-  Runtime --> Memory["Postgres + pgvector"]
-  Runtime --> Vault["Obsidian Markdown Vault<br/>Dataview / Smart Connections / Git"]
-  Runtime --> Artifacts["S3 / R2 Artifacts"]
+  subgraph KnowledgeLayer["Memory + Knowledge"]
+    Postgres["Postgres + pgvector"]
+    Vault["Obsidian Markdown Vault"]
+    Git["Git Audit Trail"]
+    Artifacts["S3 / R2 Artifacts"]
+    Maildir["Maildir + notmuch"]
+  end
 
-  InboxControl --> Chatwoot["Chatwoot Operator Inbox<br/>localhost:3080"]
-  InboxControl --> MailTools["Himalaya + mbsync/notmuch<br/>local Maildir"]
-  Chatwoot --> Mailpit["Mailpit SMTP/UI<br/>localhost:8025"]
+  subgraph ContextLayer["Presence + Personal Context"]
+    AW["ActivityWatch"]
+    Whoop["WHOOP Importer"]
+    ScreenTime["Apple Screen Time Importer"]
+    Health["Apple Health Importer"]
+    YouTube["YouTube Importer"]
+    Door["Nuki + Ring Context"]
+  end
 
-  LocalRepos --> AW["ActivityWatch<br/>Presence / Screen Time / WHOOP / Apple Health / YouTube / Icons"]
-  AW --> Door["Nuki + Ring Context"]
-  AW --> Health["WHOOP + Apple Health<br/>Sleep / Training / Vitals"]
+  subgraph VoiceLayer["Voice / RTC"]
+    ElementCall["Element Call"]
+    LiveKit["LiveKit SFU"]
+    JWT["lk-jwt-service"]
+    VoiceAgents["LiveKit Agents / discord.py"]
+  end
 
-  Bridges --> BridgeOps["Bridge Ops<br/>bridge-manager / appservice DBs"]
-  BeeperProxy --> BeeperAPI["Local Beeper Desktop API<br/>desktop-api-go + WebSocket trigger"]
-  BeeperAPI --> Chatwoot
-  BeeperAPI --> BeeperCloud["Existing Beeper Bridges<br/>WhatsApp / Signal / Telegram / iMessage / more"]
-  RTC --> LiveKit["LiveKit SFU<br/>lk-jwt-service / Egress / Agents"]
+  subgraph OpsLayer["Ops + Admin"]
+    OTel["OpenTelemetry"]
+    Metrics["Prometheus + Loki + Grafana"]
+    Tail["Tailscale-only Admin"]
+  end
 
-  Runtime --> Observability["OpenTelemetry<br/>Prometheus / Loki / Grafana"]
-  Observability --> Tailscale["Tailscale-only Admin"]
+  subgraph OwnRepos["Maintained Repos"]
+    StackRepo["matrix-hermes-agent-stack"]
+    HermesRepo["hermes-agent fork"]
+    SkillsRepo["martins-awesome-skills"]
+    ObsidianRepo["obsidian-notion-ui-customization"]
+    VoiceRepo["discord-voice-obsidian-agent"]
+    AWRepos["aw-* importers"]
+    CognitorRepos["cognitor-launcher / cloakwright"]
+  end
+
+  Human --> Element
+  Human --> Cinny
+  Human --> Discord
+  Human --> ObsidianUI
+  Human --> ChatwootUI
+  Element --> Homeserver
+  Cinny --> Homeserver
+  Homeserver --> Rooms
+  Homeserver --> Bot
+  Homeserver --> Bridges
+  Homeserver --> Beeper
+  Bot --> Authz --> Queue --> Runtime
+  Runtime --> Workers
+  Runtime --> Skills
+  Runtime --> EmailCtrl
+  EmailCtrl --> ChatwootUI
+  EmailCtrl --> Maildir
+  Runtime --> Postgres
+  Runtime --> Vault --> Git
+  Runtime --> Artifacts
+  Runtime --> AW
+  Whoop --> AW
+  ScreenTime --> AW
+  Health --> AW
+  YouTube --> AW
+  Door --> AW
+  Homeserver --> ElementCall --> JWT --> LiveKit --> VoiceAgents
+  Discord --> VoiceAgents
+  Runtime --> OTel --> Metrics --> Tail
+  StackRepo -. documents .-> MatrixLayer
+  HermesRepo -. customizes .-> Runtime
+  SkillsRepo -. extends .-> Skills
+  ObsidianRepo -. configures .-> Vault
+  VoiceRepo -. prototypes .-> VoiceLayer
+  AWRepos -. feed .-> ContextLayer
+  CognitorRepos -. package .-> Clients

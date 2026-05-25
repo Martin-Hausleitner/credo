@@ -11,7 +11,7 @@ Der beste Stack ist nicht "Matrix als Agent-Framework", sondern:
 ```text
 Matrix = Kommunikations-, Raum-, Identity- und Audit-Schicht
 Hermes/OpenClaw = Agent Runtime, Skills, Tools, Memory, Automationen
-ActivityWatch/WHOOP/Obsidian = persoenlicher Kontext, Wissen und Lifelog
+ActivityWatch/WHOOP/Obsidian/Cognitor = persoenlicher Kontext, Wissen, Lifelog und Widget-Dashboards
 LiveKit = optionaler Voice/Call/Streaming-Strang
 ```
 
@@ -35,6 +35,7 @@ LiveKit = optionaler Voice/Call/Streaming-Strang
 | Storage | S3/R2 | Artefakte, Medien, Exporte und grosse Dateien ohne FUSE-Mounts | [synapse-s3-storage-provider](https://github.com/matrix-org/synapse-s3-storage-provider), [rclone](https://github.com/rclone/rclone) | Zielkomponente im MVP |
 | Knowledge | Obsidian Markdown + Git | Local-first, versionierbar, agentenfreundlich | [obsidian-dataview](https://github.com/blacksmithgu/obsidian-dataview), [smart-connections](https://github.com/brianpetro/obsidian-smart-connections), [obsidian-git](https://github.com/Vinzent03/obsidian-git) | [obsidian-notion-ui-customization](https://github.com/Martin-Hausleitner/obsidian-notion-ui-customization) |
 | Presence/Lifelog | ActivityWatch + WHOOP + lokale Importer | Tagesstatus, Fokus, Schlaf, Training, Screen Time, Mediennutzung und Icons/Favicons | [ActivityWatch](https://github.com/ActivityWatch/activitywatch) | [aw-john-harris-wifi](https://github.com/Martin-Hausleitner/aw-john-harris-wifi), [aw-importer-whoop](https://github.com/Martin-Hausleitner/aw-importer-whoop), [aw-importer-apple-screentime](https://github.com/Martin-Hausleitner/aw-importer-apple-screentime), [aw-importer-youtube](https://github.com/Martin-Hausleitner/aw-importer-youtube), `activitywatch-icon-cache` |
+| Dashboard + Widget Sharing | Cognitor Tray/Web/Mobile + Matrix Widgets | Persoenliche Statistiken lokal anzeigen und kontrolliert als Bild, Widget oder Tailnet-Link teilen | [matrix-widget-api](https://github.com/matrix-org/matrix-widget-api), [OpenUI](https://github.com/wandb/openui), [Playwright](https://github.com/microsoft/playwright) | [cognitor-launcher](https://github.com/Martin-Hausleitner/cognitor-launcher), [Cognitor Widget Sharing](docs/cognitor-widget-sharing.md) |
 | Voice/RTC | Element Call + LiveKit | Solider separater Call-Strang, nicht Teil des Text-MVP | [element-call](https://github.com/element-hq/element-call), [livekit](https://github.com/livekit/livekit), [lk-jwt-service](https://github.com/element-hq/lk-jwt-service) | [discord-voice-obsidian-agent](https://github.com/Martin-Hausleitner/discord-voice-obsidian-agent) als schneller Voice-Prototyp |
 | Observability | OTel + Prometheus + Loki + Grafana | Interne Metriken, Logs, Traces und Alerts | [opentelemetry-collector](https://github.com/open-telemetry/opentelemetry-collector), [prometheus](https://github.com/prometheus/prometheus), [loki](https://github.com/grafana/loki), [grafana](https://github.com/grafana/grafana) | Tailscale-only Admin |
 
@@ -54,15 +55,29 @@ Diese Tabelle ist die zentrale Liste fuer die Packages, Frameworks und Services,
 | `@cognitor/activitywatch` | internes Package | Cognitor Launcher | ActivityWatch-Daten normalisieren | aktiv |
 | `@cognitor/dashboard-ui` | internes Package | Cognitor Launcher | Wiederverwendbare Dashboard-UI | aktiv |
 | `@cognitor/icons` | internes Package | Cognitor Launcher | Icon- und Asset-Zwischenschicht | aktiv |
+| `@cognitor/tray` | interne App | Cognitor Launcher | macOS Tray, Popover, lokale API und Service-Status | aktiv |
+| `@cognitor/web` | interne App | Cognitor Launcher | Lokales read-only Dashboard auf `127.0.0.1`/Tailnet | aktiv |
+| `@cognitor/mobile` | interne App | Cognitor Launcher | Expo Companion mit LAN-/Tailnet-Zugriff | aktiv |
+| `chrono` / `reqwest` / `serde` / `serde_json` | Rust Backend | Cognitor Tauri Backend | Zeitfenster, HTTP zu ActivityWatch/WHOOP/Wetter, Snapshot-Serialisierung | aktiv |
+| `tauri` / `tauri-build` / `window-vibrancy` | Rust Desktop | Cognitor Tray | Native macOS-Menueleiste, Fenster, Tray-Icon und Apple-artige Transparenz | aktiv |
 | `node:test` | Test Runner | aw-importer-youtube | importer-nahe Unit Tests ohne zusaetzlichen Runner | aktiv |
 | `sqlite3` CLI | lokales Tool | aw-importer-youtube | Chromium-History sicher aus SQLite-Kopien lesen | aktiv |
 | `yt-dlp` | Metadaten | aw-importer-youtube | YouTube Titel, Kanal, Beschreibung, Dauer und Stats anreichern | aktiv |
-| `python` / `click` / `python-dateutil` | CLI Importer | ActivityWatch Importer | robuste lokale Importer-CLIs | aktiv |
-| `pytest` | Python Tests | ActivityWatch Importer | Regressionstests fuer Importer | aktiv |
+| `python` / `click` / `python-dateutil` / `platformdirs` | CLI Importer | ActivityWatch Importer | robuste lokale Importer-CLIs, lokale Config und Zeitnormalisierung | aktiv |
+| `httpx` | HTTP Client | WHOOP, Apple Health, Screen Time und Voice Worker | API-Zugriffe und lokale Service-Checks | aktiv |
+| `pytest` / `ruff` | Python Qualitaet | ActivityWatch Importer, Voice Worker, Sonar | Regressionstests, Linting und Format-Qualitaet | aktiv |
 | `@clack/prompts` | CLI UX | discord-voice-obsidian-agent | interaktive lokale Worker-/Setup-Prompts | aktiv |
 | `tsx` | TypeScript Runtime | discord-voice-obsidian-agent | TS-Skripte ohne separaten Build ausfuehren | aktiv |
 | `prisma` | Datenzugriff | discord-voice-obsidian-agent | strukturierter DB-Zugriff fuer Voice-/Transcript-Flows | aktiv |
 | `sharp` | Medienverarbeitung | beeper-matrix-proxy | Avatare/Medien fuer Bridge-Proofs verarbeiten | aktiv |
+| `next` / `preact` / `tailwindcss` | Web UI | discord-voice-obsidian-agent Dashboard | Voice-/Recording-Dashboard und schnelle Web-Oberflaechen | aktiv |
+| `fastify` / `@fastify/*` | Node API | discord-voice-obsidian-agent Download/API | Download-, WebSocket-, Static- und Rate-Limit-API | aktiv |
+| `eris` / `slash-create` / `@discordjs/opus` | Discord Runtime | discord-voice-obsidian-agent Bot | Discord Voice/Text, Slash Commands und Opus Audio | aktiv |
+| `ioredis` / `prom-client` / `winston` / `sentry` | Node Ops | Voice Agent und Tasks | Queue/Cache, Metriken, Logs und Fehlerberichte | aktiv |
+| `fastapi` / `uvicorn` / `pydantic` | Python Services | Voice Transcriber Worker, lokale API-Prototypen | typed HTTP Worker, Settings und Service-Endpunkte | aktiv |
+| `faster-whisper` / `sherpa-onnx` | ASR | Voice Transcriber Worker | lokale Speech-to-Text-Optionen fuer Voice Agents | optional/aktiv |
+| `axum` / `tokio` / `tower` / `tower-http` | Rust API | onlyapi / Money-Maker-Services | robuste Rust-Gateways und SDK-Routen | aktiv |
+| `tracing` / `tracing-subscriber` / `dotenvy` | Rust Ops | onlyapi / Rust Services | strukturierte Logs und lokale Konfiguration | aktiv |
 | Synapse | Matrix Homeserver | Matrix Core | Konservativer Produktivstart mit bester Kompatibilitaet | MVP-Option |
 | Tuwunel | Matrix Homeserver | Matrix Core | Ressourcenschonender Greenfield-Homeserver | MVP-Option |
 | matrix-docker-ansible-deploy | Deployment | Matrix Ops | Homeserver, TLS, TURN, Bridges und Clients automatisiert deployen | empfohlen |
@@ -123,29 +138,64 @@ Diese Tabelle ist die zentrale Liste fuer die Packages, Frameworks und Services,
 | agent-scan | Security | Skill Review | Agent-/Skill-Risiken pruefen | optional |
 | Atropos | Evals | Agent Quality | Agent-/Skill-Evals und Regressionstests | optional |
 
+## Aktive Workspace-Packages
+
+Diese Tabelle spiegelt die konkret gefundenen Workspace-Pakete im lokalen Playground wider. Sie sitzt bewusst zwischen Architektur und Inventar: nah genug an der echten Nutzung, aber noch lesbar als Deck.
+
+| Package | Typ | Wichtige Dependencies | Rolle im Stack | Status |
+|---|---|---|---|---|
+| `cognitor-personal-platform` | Root Workspace | `playwright`, `@tauri-apps/cli` | Monorepo fuer Web-, Tray- und Mobile-Agent-UIs sowie Browser-Validierung | aktiv |
+| `@cognitor/web` | App | `react`, `react-dom`, `lucide-react`, `vite`, `typescript` | Browser-/Dashboard-Oberflaeche fuer persoenliche Agent-Views | aktiv |
+| `@cognitor/tray` | App | `@tauri-apps/api`, `react`, `react-dom`, `lucide-react`, `vite`, `typescript` | Native macOS Tray-/Desktop-Einstieg fuer Cognitor | aktiv |
+| `@cognitor/mobile` | App | `expo`, `react-native`, `@expo/vector-icons`, `react` | Mobile Companion und lokaler Netzwerk-/Presence-Zugriff | aktiv |
+| `@cognitor/dashboard-ui` | internes Package | `react`, `lucide-react` | Wiederverwendbare UI-Bausteine fuer Dashboard- und Operator-Oberflaechen | aktiv |
+| `@cognitor/activitywatch` | internes Package | lokale ActivityWatch-Adapter | ActivityWatch-Datenmodell und Normalisierung fuer UIs/Exports | aktiv |
+| `@cognitor/icons` | internes Package | lokaler Asset-/Icon-Layer | Konsistente App-/Dienst-Assets fuer Timeline, Dashboard und Agent-Clients | aktiv |
+
+## Package-Familien nach Repo
+
+Diese Sicht beantwortet die praktische Frage: _welches Repo traegt welche Packages oder Laufzeitbausteine wirklich?_ So bleibt das Deck pflegbar, auch wenn einzelne Komponenten spaeter verschoben werden.
+
+| Repo | Eigene Packages / Laufzeitbausteine | Stack-Funktion |
+|---|---|---|
+| [matrix-hermes-agent-stack](https://github.com/Martin-Hausleitner/matrix-hermes-agent-stack) | Architekturdeck, Tabellen, Mermaid-Diagramme | Zentrale Systemkarte und Planungsdoku |
+| [beeper-matrix-proxy](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) | `beeper-source`, `mautrix-go bridgev2`, Avatar-/Portal-Sync, Cinny Room-List Enhancer | Beeper/BIPA -> Matrix Portale, Client-spezifische Avatar-UX |
+| [martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills) | Hermes/OpenClaw Skills, Prompts, Automations, Research-Tools | Wiederverwendbarer Skill-Layer fuer Agenten |
+| `openclaw-hermes-email-control` | `emailctl`, Chatwoot Local Bridge, Maildir-/Inbox-Checks | E-Mail-, Chatwoot- und Operator-Inbox-Kontrolle |
+| [aw-importer-whoop](https://github.com/Martin-Hausleitner/aw-importer-whoop) | Python CLI, WHOOP -> ActivityWatch Importer | Schlaf-, Training- und Recovery-Kontext |
+| [aw-importer-apple-screentime](https://github.com/Martin-Hausleitner/aw-importer-apple-screentime) | Python CLI, Screen Time -> ActivityWatch Importer | iPhone/macOS App-Nutzung und Fokuszeiten |
+| [aw-importer-youtube](https://github.com/Martin-Hausleitner/aw-importer-youtube) | Node CLI, `yt-dlp`, SQLite-Reader | Medien-/Watch-History fuer Lifelog und Tageskontext |
+| [aw-john-harris-wifi](https://github.com/Martin-Hausleitner/aw-john-harris-wifi) | Presence-/Wi-Fi-/Door-Kontext-Logik | Lokaler Status, Zuhause/Buero, Nuki/Ring-Signale |
+| [discord-voice-obsidian-agent](https://github.com/Martin-Hausleitner/discord-voice-obsidian-agent) | Voice Worker, Dashboard, Download-/Task-Apps | Voice-Agent-Prototyp, ASR, Obsidian-Anbindung |
+| [obsidian-notion-ui-customization](https://github.com/Martin-Hausleitner/obsidian-notion-ui-customization) | UI-/Vault-Experimente | Knowledge- und Personal-OS-Layer |
+| [openclaw-apple-findmy-skill](https://github.com/Martin-Hausleitner/openclaw-apple-findmy-skill) | Find My Skill + lokale Integrationen | Personen-, Geraete- und Standortkontext |
+| [codex-computer-use-eu-activate](https://github.com/Martin-Hausleitner/codex-computer-use-eu-activate) | Codex/Computer-Use Aktivierungs-Skill | Native UI-Automation und visuelle E2E-Validierung |
+| [mac-ai-dev-setup](https://github.com/Martin-Hausleitner/mac-ai-dev-setup) | Setup-Skripte, Toolchain, lokale Runtime-Vorbereitung | Host-Grundlage fuer Agent-Betrieb |
+| [mac-ram-rescue](https://github.com/Martin-Hausleitner/mac-ram-rescue) | Memory-/Ops-Helfer | Stabilitaet und Ressourcenpflege auf dem Host |
+
 ## Eigene Repos und Arbeitsbereiche
 
-Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Lokale Repos ohne Origin bleiben bewusst sichtbar, damit sie nicht aus dem Systembild fallen.
+Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Alias-Faelle sind bewusst ausgeschrieben: Links steht der lokale Ordner, rechts das tatsaechliche GitHub-Repo.
+
+### Eigene GitHub-Repos
 
 | Repo / Workspace | Rolle im Stack | Lokaler Pfad | Remote / Status |
 |---|---|---|---|
 | matrix-hermes-agent-stack | Dieses Architekturdeck und Build-Plan | `/Users/mh/Documents/Playground/matrix-hermes-agent-stack` | [Repo](https://github.com/Martin-Hausleitner/matrix-hermes-agent-stack) |
-| openclaw-hermes-public-skills | Public-safe Hermes/OpenClaw Skill-Sammlung | `/Users/mh/Documents/Playground/openclaw-hermes-public-skills` | [Repo](https://github.com/Martin-Hausleitner/martins-awesome-skills) |
-| openclaw-hermes-email-control | Chatwoot-, E-Mail-, Beeper- und Hermes-Control-Prototyp | `/Users/mh/Documents/Playground/openclaw-hermes-email-control` | lokal, kein Origin |
+| cognitor-personal-platform | Monorepo fuer `@cognitor/web`, `@cognitor/tray`, `@cognitor/mobile` und interne UI-Packages | `/Users/mh/Documents/Playground` | lokal, Root-Workspace |
+| openclaw-hermes-public-skills | Public-safe Hermes/OpenClaw Skill-Sammlung | `/Users/mh/Documents/Playground/openclaw-hermes-public-skills` | [martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills) |
 | openclaw-apple-findmy-skill | OpenClaw Skill fuer Apple Find My / Standort-Kontext | `/Users/mh/Documents/Playground/openclaw-apple-findmy-skill` | [Repo](https://github.com/Martin-Hausleitner/openclaw-apple-findmy-skill) |
 | codex-computer-use-eu-activate | Codex Computer Use EU Activation Skill | `/Users/mh/Documents/Playground/codex-computer-use-eu-activate` | [Repo](https://github.com/Martin-Hausleitner/codex-computer-use-eu-activate) |
 | aw-john-harris-wifi | ActivityWatch Presence, Wi-Fi, Nuki/Ring und Fokus-Status | `/Users/mh/Documents/GitHub/aw-john-harris-wifi` | [Repo](https://github.com/Martin-Hausleitner/aw-john-harris-wifi) |
 | aw-importer-whoop | WHOOP Schlaf und Training nach ActivityWatch | `/Users/mh/Documents/Playground/aw-importer-whoop` | [Repo](https://github.com/Martin-Hausleitner/aw-importer-whoop) |
 | aw-importer-apple-screentime | Apple Screen Time nach ActivityWatch | `/Users/mh/Documents/Playground/aw-importer-apple-screentime` | [Repo](https://github.com/Martin-Hausleitner/aw-importer-apple-screentime) |
 | aw-importer-apple-health | Apple Health Export nach ActivityWatch | `/Users/mh/.openclaw/workspace/aw-importer-apple-health` | [Repo](https://github.com/Martin-Hausleitner/aw-importer-apple-health) |
-| activitywatch-youtube-sync | YouTube Watch Sessions nach ActivityWatch | `/Users/mh/Documents/Playground/activitywatch-youtube-sync` | [Repo](https://github.com/Martin-Hausleitner/aw-importer-youtube) |
+| activitywatch-youtube-sync | YouTube Watch Sessions nach ActivityWatch | `/Users/mh/Documents/Playground/activitywatch-youtube-sync` | [aw-importer-youtube](https://github.com/Martin-Hausleitner/aw-importer-youtube) |
 | aw-activitywatch-stack | ActivityWatch Gesamt-Doku, LaunchAgent- und Export-Workflows | `/Users/mh/.openclaw/workspace/aw-activitywatch-stack` | [Repo](https://github.com/Martin-Hausleitner/aw-activitywatch-stack) |
-| activitywatch-icon-cache | Icon-/Favicon-Cache fuer ActivityWatch Timelines | `/Users/mh/Documents/Playground/activitywatch-icon-cache` | lokal, kein Origin |
+| activitywatch-icon-cache | Icon-/Favicon-Cache fuer ActivityWatch Timelines | `/Users/mh/Documents/Playground/activitywatch-icon-cache` | Teilworkspace / Origin [cognitor-launcher](https://github.com/Martin-Hausleitner/cognitor-launcher) |
 | activitywatch-xbar-plugin | Menubar-/Status-Sicht auf ActivityWatch-Daten | n/a | [Repo](https://github.com/Martin-Hausleitner/activitywatch-xbar-plugin) |
-| whoop-menubar | Lokale WHOOP-/Health-Menubar Experimente | `/Users/mh/Documents/Playground/whoop-menubar` | lokal, kein Origin |
 | discord-voice-obsidian-agent | Discord Voice Agent, ASR-Worker und Obsidian-Anbindung | `/Users/mh/Documents/Playground/discord-voice-obsidian-agent` | [Repo](https://github.com/Martin-Hausleitner/discord-voice-obsidian-agent) |
-| sh-vcvm-matrix-bridgev2-src | Beeper/Matrix Bridge v2 Proxy Referenz | `/Users/mh/Documents/Playground/sh-vcvm-matrix-bridgev2-src` | [Repo](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) |
-| bridge-manager | Beeper Bridge-Manager Referenz und `bbctl`-Arbeitskopie | `/Users/mh/Documents/Playground/bridge-manager` | [Upstream](https://github.com/beeper/bridge-manager) |
+| sh-vcvm-matrix-bridgev2-src | Beeper/Matrix Bridge v2 Proxy Referenz | `/Users/mh/Documents/Playground/sh-vcvm-matrix-bridgev2-src` | [beeper-matrix-proxy](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) |
 | obsidian-notion-ui-customization | Obsidian/Notion UI und Knowledge-Experimente | `/Users/mh/Documents/Playground/obsidian-notion-ui-customization` | [Repo](https://github.com/Martin-Hausleitner/obsidian-notion-ui-customization) |
 | cognitor-launcher | Private Cognitor Launcher-, Tray- und Policy-Tests | n/a | [Repo](https://github.com/Martin-Hausleitner/cognitor-launcher) |
 | cloakwright | Cognitor Browser-/Proxy-/Extension-Monitoring-Stack | n/a | [Repo](https://github.com/Martin-Hausleitner/cloakwright) |
@@ -158,6 +208,19 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Lok
 | browser-use-mcp-plus | Browser-/MCP-Erweiterungen fuer lokale Agentenvalidierung | n/a | [Repo](https://github.com/Martin-Hausleitner/browser-use-mcp-plus) |
 | company-network-viz | Netzwerk-/Beziehungsvisualisierung fuer Firmen- und Kontaktkontext | n/a | [Repo](https://github.com/Martin-Hausleitner/company-network-viz) |
 | eins | Health Vault / persoenliche Knowledge-Struktur | `/Users/mh/.openclaw/workspace/eins` | [Repo](https://github.com/Martin-Hausleitner/eins) |
+
+### Lokale Arbeitsbereiche ohne eigenes Remote
+
+| Workspace | Rolle im Stack | Lokaler Pfad | Status |
+|---|---|---|---|
+| openclaw-hermes-email-control | Chatwoot-, E-Mail-, Beeper- und Hermes-Control-Prototyp | `/Users/mh/Documents/Playground/openclaw-hermes-email-control` | lokal, kein Origin |
+| whoop-menubar | Lokale WHOOP-/Health-Menubar Experimente | `/Users/mh/Documents/Playground/whoop-menubar` | lokal, kein Origin |
+
+### Externe Referenzen
+
+| Repo / Workspace | Rolle im Stack | Lokaler Pfad | Remote / Status |
+|---|---|---|---|
+| bridge-manager | Beeper Bridge-Manager Referenz und `bbctl`-Arbeitskopie | `/Users/mh/Documents/Playground/bridge-manager` | [Upstream](https://github.com/beeper/bridge-manager) |
 | iphone-mirroring-eu-activate | iPhone Mirroring EU Upstream-Referenz | `/Users/mh/Documents/Playground/iphone-mirroring-eu-activate` | [Repo](https://github.com/timi2506/iphone-mirroring-eu-activate) |
 | iphone-mirroring-eu-enabler | iPhone Mirroring EU Enabler Referenz | `/Users/mh/Documents/Playground/iphone-mirroring-eu-enabler` | [Repo](https://github.com/Pauli1Go/iphone-mirroring-eu-enabler) |
 | APOLLO | iOS/macOS Forensics Referenz fuer lokale Datenquellen | `/Users/mh/Documents/Playground/APOLLO` | [Repo](https://github.com/mac4n6/APOLLO) |
@@ -165,48 +228,165 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Lok
 ## Architektur
 
 ```mermaid
-flowchart TB
-  User["Human / Team"] --> Clients["Element Web<br/>Cinny / Sable<br/>Element X"]
-  Clients --> Matrix["Matrix Homeserver<br/>Synapse or Tuwunel"]
+flowchart LR
+  subgraph Clients["Client Layer"]
+    Human["Human / Team"]
+    Element["Element Web / Element X"]
+    Cinny["Cinny / Sable"]
+    Discord["Discord Voice MVP"]
+    ObsidianUI["Obsidian Notion UI"]
+    ChatwootUI["Chatwoot Operator Inbox"]
+  end
 
-  Matrix --> Rooms["Rooms<br/>intake / ops / research / memory / alerts"]
-  Matrix --> Gateway["Matrix Bot Gateway<br/>mautrix/python first"]
-  Matrix --> Bridges["Messenger Bridges<br/>Telegram / WhatsApp / Signal / Slack"]
-  Matrix --> BeeperProxy["beeper-matrix-proxy<br/>Beeper/BIPA portals in Cinny"]
-  Matrix --> RTC["MatrixRTC<br/>Element Call"]
+  subgraph MatrixLayer["Matrix Communication Layer"]
+    Homeserver["Synapse or Tuwunel"]
+    Rooms["Rooms: intake / ops / research / memory / alerts"]
+    Bridges["mautrix Bridges"]
+    Beeper["beeper-matrix-proxy"]
+  end
 
-  Gateway --> Authz["Backend Role Checks<br/>LLM never decides permissions"]
-  Authz --> Queue["Redis Job Queue"]
-  Queue --> Runtime["Hermes + OpenClaw + Codex Runtime"]
+  subgraph AgentLayer["Hermes Agent Layer"]
+    Bot["Matrix Bot Gateway"]
+    Authz["Backend Role Checks"]
+    Queue["Redis Job Queue"]
+    Runtime["Hermes + OpenClaw + Codex"]
+    Workers["Codex / Claude / Gemini"]
+    Skills["Skills + MCP Tools + ClawHub"]
+    EmailCtrl["openclaw-hermes-email-control"]
+  end
 
-  Runtime --> Skills["Skills + MCP Tools"]
-  Skills --> SkillRepos["martins-awesome-skills<br/>openclaw-apple-findmy-skill<br/>codex-computer-use-eu-activate"]
-  Runtime --> Workers["Codex / Claude / Gemini<br/>Research Workers"]
-  Runtime --> LocalRepos["Local Agent Repos<br/>mail / voice / bridge / presence"]
-  Runtime --> InboxControl["openclaw-hermes-email-control<br/>emailctl + local bridge checks"]
-  Runtime --> Memory["Postgres + pgvector"]
-  Runtime --> Vault["Obsidian Markdown Vault<br/>Dataview / Smart Connections / Git"]
-  Runtime --> Artifacts["S3 / R2 Artifacts"]
+  subgraph KnowledgeLayer["Memory + Knowledge"]
+    Postgres["Postgres + pgvector"]
+    Vault["Obsidian Markdown Vault"]
+    Git["Git Audit Trail"]
+    Artifacts["S3 / R2 Artifacts"]
+    Maildir["Maildir + notmuch"]
+  end
 
-  InboxControl --> Chatwoot["Chatwoot Operator Inbox<br/>localhost:3080"]
-  InboxControl --> MailTools["Himalaya + mbsync/notmuch<br/>local Maildir"]
-  Chatwoot --> Mailpit["Mailpit SMTP/UI<br/>localhost:8025"]
+  subgraph ContextLayer["Presence + Personal Context"]
+    AW["ActivityWatch"]
+    Whoop["WHOOP Importer"]
+    ScreenTime["Apple Screen Time Importer"]
+    Health["Apple Health Importer"]
+    YouTube["YouTube Importer"]
+    Door["Nuki + Ring Context"]
+  end
 
-  LocalRepos --> AW["ActivityWatch<br/>Presence / Screen Time / WHOOP / Apple Health / YouTube / Icons"]
-  AW --> Door["Nuki + Ring Context"]
-  AW --> Health["WHOOP + Apple Health<br/>Sleep / Training / Vitals"]
+  subgraph VoiceLayer["Voice / RTC"]
+    ElementCall["Element Call"]
+    LiveKit["LiveKit SFU"]
+    JWT["lk-jwt-service"]
+    VoiceAgents["LiveKit Agents / discord.py"]
+  end
 
-  Bridges --> BridgeOps["Bridge Ops<br/>bridge-manager / appservice DBs"]
-  BeeperProxy --> BeeperAPI["Local Beeper Desktop API<br/>desktop-api-go + WebSocket trigger"]
-  BeeperAPI --> Chatwoot
-  BeeperAPI --> BeeperCloud["Existing Beeper Bridges<br/>WhatsApp / Signal / Telegram / iMessage / more"]
-  RTC --> LiveKit["LiveKit SFU<br/>lk-jwt-service / Egress / Agents"]
+  subgraph OpsLayer["Ops + Admin"]
+    OTel["OpenTelemetry"]
+    Metrics["Prometheus + Loki + Grafana"]
+    Tail["Tailscale-only Admin"]
+  end
 
-  Runtime --> Observability["OpenTelemetry<br/>Prometheus / Loki / Grafana"]
-  Observability --> Tailscale["Tailscale-only Admin"]
+  subgraph OwnRepos["Maintained Repos"]
+    StackRepo["matrix-hermes-agent-stack"]
+    HermesRepo["hermes-agent fork"]
+    SkillsRepo["martins-awesome-skills"]
+    ObsidianRepo["obsidian-notion-ui-customization"]
+    VoiceRepo["discord-voice-obsidian-agent"]
+    AWRepos["aw-* importers"]
+    CognitorRepos["cognitor-launcher / cloakwright"]
+  end
+
+  Human --> Element
+  Human --> Cinny
+  Human --> Discord
+  Human --> ObsidianUI
+  Human --> ChatwootUI
+  Element --> Homeserver
+  Cinny --> Homeserver
+  Homeserver --> Rooms
+  Homeserver --> Bot
+  Homeserver --> Bridges
+  Homeserver --> Beeper
+  Bot --> Authz --> Queue --> Runtime
+  Runtime --> Workers
+  Runtime --> Skills
+  Runtime --> EmailCtrl
+  EmailCtrl --> ChatwootUI
+  EmailCtrl --> Maildir
+  Runtime --> Postgres
+  Runtime --> Vault --> Git
+  Runtime --> Artifacts
+  Runtime --> AW
+  Whoop --> AW
+  ScreenTime --> AW
+  Health --> AW
+  YouTube --> AW
+  Door --> AW
+  Homeserver --> ElementCall --> JWT --> LiveKit --> VoiceAgents
+  Discord --> VoiceAgents
+  Runtime --> OTel --> Metrics --> Tail
+  StackRepo -. documents .-> MatrixLayer
+  HermesRepo -. customizes .-> Runtime
+  SkillsRepo -. extends .-> Skills
+  ObsidianRepo -. configures .-> Vault
+  VoiceRepo -. prototypes .-> VoiceLayer
+  AWRepos -. feed .-> ContextLayer
+  CognitorRepos -. package .-> Clients
 ```
 
 ![Layer map](assets/layers.svg)
+
+## Repo-zu-Package-Topologie
+
+```mermaid
+flowchart LR
+  subgraph UX["Clients + UIs"]
+    Cinny["Cinny / Element / Element X"]
+    ChatwootUI["Chatwoot"]
+    Cognitor["cognitor-personal-platform<br/>@cognitor/web / tray / mobile"]
+    ObsidianUI["Obsidian"]
+  end
+
+  subgraph MatrixLayer["Matrix + Messaging"]
+    Synapse["Synapse / Tuwunel"]
+    Proxy["beeper-matrix-proxy"]
+    Beeper["Beeper Desktop API"]
+    Bridges["WhatsApp / Signal / Telegram / more"]
+  end
+
+  subgraph AgentLayer["Agent Runtime"]
+    Hermes["Hermes / OpenClaw / Codex"]
+    Skills["martins-awesome-skills"]
+    FindMySkill["openclaw-apple-findmy-skill"]
+    CUA["codex-computer-use-eu-activate"]
+  end
+
+  subgraph OpsLayer["Inbox + Data + Sensors"]
+    EmailCtrl["openclaw-hermes-email-control"]
+    Activity["ActivityWatch + Importer"]
+    Voice["discord-voice-obsidian-agent"]
+    Vault["Obsidian Vault + Git"]
+    Data["Postgres + pgvector + S3/R2"]
+  end
+
+  Cinny --> Synapse
+  ChatwootUI --> EmailCtrl
+  Cognitor --> Hermes
+  ObsidianUI --> Vault
+
+  Synapse --> Proxy
+  Beeper --> Proxy
+  Bridges --> Beeper
+  Proxy --> Hermes
+
+  Hermes --> Skills
+  Hermes --> FindMySkill
+  Hermes --> CUA
+  Hermes --> EmailCtrl
+  Hermes --> Activity
+  Hermes --> Voice
+  Hermes --> Data
+  Hermes --> Vault
+```
 
 ## Repo- und Datenfluss
 
@@ -218,6 +398,7 @@ flowchart LR
     ChatwootInbox["Chatwoot Operator Inbox"]
     Obsidian["Obsidian Vault"]
     Menubar["macOS Menubar / ActivityWatch"]
+    CognitorUI["Cognitor Web / Tray / Mobile"]
   end
 
   subgraph Transport["Transport + Event Bus"]
@@ -252,6 +433,7 @@ flowchart LR
   end
 
   MatrixClient --> Matrix
+  CognitorUI --> Hermes
   Discord --> Voice
   Menubar --> ActivityWatch
   Matrix --> BeeperProxy
