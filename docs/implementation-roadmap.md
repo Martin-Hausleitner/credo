@@ -24,10 +24,10 @@
    - `#agent-ops`
    - `#agent-memory`
    - `#agent-alerts`
-7. Bot prueft Rollen hart im Backend.
+7. Bot prueft Rollen hart im Backend und erzeugt einen Run Contract mit Risiko, Tool Scope, Budget und Retention.
 8. Job in Redis schreiben.
-9. Worker fuehrt Hermes/OpenClaw Task aus.
-10. Ergebnis mit Job-ID und Artefaktlinks in Matrix posten.
+9. Worker fuehrt Hermes/OpenClaw Task aus und prueft vor jedem riskanten Tool Call erneut die Runtime Policy.
+10. Ergebnis mit Job-ID, Trace-ID und Artefaktlinks in Matrix posten.
 
 ## 🛠️ Phase 1b: Matrix Admin und Wartung
 
@@ -39,6 +39,15 @@
 6. URL-Previews, Guest Access, Registration, Auto-Join und Rate Limits bewusst setzen.
 
 Mehr Details: [Matrix Ops Runbook](matrix-ops-runbook.md).
+
+## 🔑 Phase 1c: Auth, MAS und Identitaeten
+
+1. Matrix Authentication Service als OIDC-Zielbild dokumentieren.
+2. Element X Login-Anforderungen und Secure Key Backup pruefen.
+3. Admin-, Bot-, Agenten- und Menschen-Accounts trennen.
+4. MAS als OAuth2/OIDC-Provider nach MSC3861 bewerten, inklusive Client-Kompatibilitaet, Account-Migration, Login-Flows und Admin-Recovery.
+5. Kompatibilitaetslayer fuer Legacy-Clients erst nach erfolgreichem Text-MVP aktivieren.
+6. Invite-, Registration-, 3PID-, Guest- und Auto-Join-Regeln pro Raumklasse festlegen.
 
 ## 🧠 Phase 2: Memory und Wissen
 
@@ -54,6 +63,15 @@ Mehr Details: [Matrix Ops Runbook](matrix-ops-runbook.md).
    - Runbook
 4. Agent darf zunaechst nur read-only suchen.
 5. Schreibzugriff nur fuer dedizierte Memory-Raeume und mit Audit.
+
+## 📊 Phase 2b: Trace Every Run
+
+1. Jede Matrix-Anfrage bekommt `room_id`, `event_id`, `job_id` und `run_id`.
+2. LLM-Aufrufe, MCP Calls, RAG-Retrieval, Tool Calls und Subagent-Handoffs als getrennte OTel-Spans erfassen.
+3. Artefakte mit `artifact_id` in Postgres und S3/R2 verknuepfen.
+4. Prompts, E-Mail-Inhalte, Tokens und private Texte vor Loki/Grafana redigieren.
+5. Raum- und User-IDs in Metriken hashen; echte IDs nur in geschuetzten Audit-Tabellen speichern.
+6. In `#agent-ops` nur Status, Kosten, Fehlerklasse und Link zum internen Trace posten.
 
 ## 📬 Phase 3: Bridges
 
@@ -78,13 +96,16 @@ Regeln:
 
 1. Element Call + LiveKit + lk-jwt-service einrichten.
 2. `.well-known/matrix/client` mit RTC Foci setzen.
-3. Erst 1080p/1440p stabilisieren.
-4. 4K/Ultrawide nur als separates Profil.
-5. Recording nur ohne E2EE oder mit eigenem Recorder-Teilnehmer.
-6. AI Voice zuerst ausserhalb MatrixRTC testen.
-7. Fuer MatrixRTC `org.matrix.msc4143.rtc_foci`, `lk-jwt-service`, TURN/TLS 443 und LiveKit UDP-Portbereich vorbereiten.
-8. `LIVEKIT_FULL_ACCESS_HOMESERVERS` hart begrenzen.
-9. Discord/OpenAI Realtime als schnellen Voice-MVP getrennt vom MatrixRTC-Produktionspfad behandeln.
+3. Reverse-Proxy-Routen `/livekit/jwt` und `/livekit/sfu` dokumentieren.
+4. LiveKit API/WebSocket `7880` hinter TLS/LB, ICE/TCP `7881`, ICE/UDP `50000-60000` oder UDP mux `7882` planen.
+5. Homeserver-Settings fuer MatrixRTC pruefen: MSC-Flags, `max_event_delay_duration`, Rate Limits und OpenID/Federation Listener.
+6. Erst 1080p/1440p stabilisieren.
+7. 4K/Ultrawide nur als separates Profil.
+8. Recording nur ohne E2EE oder mit eigenem Recorder-Teilnehmer.
+9. AI Voice zuerst ausserhalb MatrixRTC testen.
+10. Fuer MatrixRTC `org.matrix.msc4143.rtc_foci`, `lk-jwt-service`, TURN/TLS und LiveKit UDP-Portbereich vorbereiten.
+11. `LIVEKIT_FULL_ACCESS_HOMESERVERS` hart begrenzen.
+12. Discord/OpenAI Realtime als schnellen Voice-MVP getrennt vom MatrixRTC-Produktionspfad behandeln.
 
 ## 📊 Phase 5: Observability
 

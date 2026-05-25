@@ -15,6 +15,30 @@ Mensch / Team
   -> Ergebnis zurueck in Matrix
 ```
 
+## 🧾 Run Contract
+
+Jeder Agentenlauf soll als kleiner Vertrag modelliert werden. Das macht spaeter Debugging, Freigaben, Kostenkontrolle und Memory deutlich einfacher.
+
+| Feld | Bedeutung |
+|---|---|
+| `room_id` / `event_id` | Woher kam die Aufgabe, wer kann sie sehen? |
+| `actor_id` | Mensch, Bot oder Agent, der den Lauf ausgeloest hat. |
+| `policy_id` | Welche Freigabe-/Rollenregel wurde angewendet? |
+| `approval_id` | Welche menschliche Freigabe gehoert zu riskanten oder externen Aktionen? |
+| `risk_level` | `read-only`, `local-write`, `external-write`, `money/account-impacting`, `public/posting`. |
+| `job_id` / `run_id` | Queue- und Ausfuehrungsidentitaet. |
+| `tool_scope` | Welche Skills/MCP-Tools duerfen verwendet werden? |
+| `allowed_tools` / `denied_tools` | Harte Allow-/Deny-Liste fuer Runtime-Checks vor jedem Tool Call. |
+| `credential_scope` | Welche Secrets oder OAuth-Scopes sind fuer diesen Run sichtbar? |
+| `cost_budget` / `timeout` | Kosten-, Dauer- und Token-Grenzen. |
+| `artifact_id` | Wo liegen Dateien, Reports, Screenshots oder Exporte? |
+| `memory_mode` | `none`, `read-only`, `proposed-write`, `approved-write`. |
+| `retention_class` | Wie lange bleiben Logs, Artefakte und Memory-Vorschlaege erhalten? |
+| `redaction_profile` | Welche Felder werden vor Logs, Metrics und Screenshots entfernt? |
+| `model_provider` | Welcher Provider und welches Modell fuehren den Run aus? |
+| `tool_versions` | Welche Skill-/MCP-/Worker-Versionen waren beteiligt? |
+| `trace_id` | Link zu OTel/Grafana fuer Debugging und Audit. |
+
 ## 🟢 Kommunikationskern
 
 | Logo | Komponente | Zweck | Empfehlung |
@@ -56,6 +80,16 @@ Mensch / Team
 | <img src="https://cdn.simpleicons.org/notion/000000" width="24"> | Notion Skill | Notion lesen, suchen, strukturieren | installiert |
 | <img src="https://cdn.simpleicons.org/apple/000000" width="24"> | Apple Skills | Notes, Reminders, iMessage, Find My | installiert |
 
+## 🧯 Runtime Isolation
+
+| Regel | Umsetzung |
+|---|---|
+| Eigener Run-Space | Jeder Run bekommt Workspace, Artefaktordner, `run_id` und Cleanup-Regel. |
+| Runtime Policy Check | Auch nach Redis prueft ein Policy Enforcement Point jeden MCP-/Skill-/Browser-/E-Mail-/GitHub-/Apple-Call. |
+| Cancel + Resume | Runs brauchen Abbruch, Retry, Idempotency-Key und Wiederaufnahme-Status. |
+| Harte Limits | Max Duration, max Tool Calls, Kostenbudget, Output-Limit und Rate-Limits pro Raum/Actor. |
+| Artefakt-Ledger | Artefakte bekommen Pfad, Checksum, `creator_run_id`, Sichtbarkeitsraum, Retention und Redaction-Status. |
+
 ## 🧠 Daten, Memory und Artefakte
 
 | Logo | Komponente | Zweck | Empfehlung |
@@ -82,6 +116,7 @@ Mensch / Team
 |---|---|---|---|
 | <img src="https://cdn.simpleicons.org/discord/5865F2" width="24"> | Discord Voice MVP | schneller Voice-Prototyp ausserhalb MatrixRTC | zuerst testen |
 | <img src="https://cdn.simpleicons.org/element/0DBD8B" width="24"> | Element Call | MatrixRTC Frontend | spaeter |
+| <img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" width="24"> | lk-jwt-service | Matrix OpenID pruefen und LiveKit JWT ausstellen | spaeter, aber Pflicht fuer MatrixRTC |
 | <img src="https://www.google.com/s2/favicons?domain=livekit.io&sz=64" width="24"> | LiveKit | SFU, Agents, Egress, Realtime Media | spaeter |
 | <img src="https://www.google.com/s2/favicons?domain=openai.com&sz=64" width="24"> | OpenAI Realtime | niedrige Latenz, Tool Calls, Barge-in | schneller Voice-Pfad |
 
@@ -93,3 +128,5 @@ Mensch / Team
 | <img src="https://cdn.simpleicons.org/prometheus/E6522C" width="24"> | Prometheus | Metriken und Alerts | Core |
 | <img src="https://cdn.simpleicons.org/grafana/F46800" width="24"> | Loki + Grafana | Logs und Dashboards | Core |
 | <img src="https://cdn.simpleicons.org/tailscale/242424" width="24"> | Tailscale | private Admin-Schicht | Core |
+
+Trace Context muss von Matrix `event_id` ueber Redis `job_id` in Worker, LLM, MCP Tool, RAG Retrieval, Subagent und Artefakt-Write propagiert werden. Metriken nutzen gehashte/stabile IDs; echte Raum-, User- und Event-IDs bleiben in geschuetzten Audit-Tabellen und redigierten Logs.

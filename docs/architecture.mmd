@@ -17,9 +17,10 @@ flowchart LR
 
   subgraph AgentLayer["Hermes Agent Layer"]
     Bot["Matrix Bot Gateway"]
-    Authz["Backend Role Checks"]
+    Authz["Backend Policy Gate"]
     Queue["Redis Job Queue"]
     Runtime["Hermes + OpenClaw + Codex"]
+    RuntimePolicy["Runtime Policy Enforcement"]
     Workers["Codex / Claude / Gemini"]
     Skills["Skills + MCP Tools + ClawHub"]
     EmailCtrl["openclaw-hermes-email-control"]
@@ -52,7 +53,7 @@ flowchart LR
     ElementCall["Element Call"]
     LiveKit["LiveKit SFU"]
     JWT["lk-jwt-service"]
-    VoiceAgents["LiveKit Agents / discord.py"]
+    VoiceAgents["Hermes Voice Agent / discord.py"]
   end
 
   subgraph OpsLayer["Ops + Admin"]
@@ -84,8 +85,9 @@ flowchart LR
   Homeserver --> Bridges
   Homeserver --> Beeper
   Bot --> Authz --> Queue --> Runtime
+  Runtime --> RuntimePolicy
   Runtime --> Workers
-  Runtime --> Skills
+  RuntimePolicy --> Skills
   Runtime --> EmailCtrl
   Runtime --> WidgetShare
   Runtime --> ComputerUseControl --> SkyClient --> NativeUI
@@ -104,7 +106,12 @@ flowchart LR
   Health --> AW
   YouTube --> AW
   Door --> AW
-  Homeserver --> ElementCall --> JWT --> LiveKit --> VoiceAgents
+  ElementCall --> JWT
+  Homeserver --> JWT
+  JWT --> LiveKit
+  ElementCall --> LiveKit
+  VoiceAgents --> LiveKit
+  VoiceAgents --> Runtime
   Discord --> VoiceAgents
   Runtime --> OTel --> Metrics --> Tail
   StackRepo -. documents .-> MatrixLayer

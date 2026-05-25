@@ -19,6 +19,28 @@ flowchart LR
   Worker --> Matrix
 ```
 
+## 🚦 Policy + Run Contract Flow
+
+```mermaid
+flowchart TB
+  Event["Matrix Event<br/>room_id + event_id"] --> Intent["Intent Parser"]
+  Intent --> Policy["Policy Gate<br/>actor_id + room policy + tool scope"]
+  Policy -->|allowed| Job["Redis Job<br/>job_id + run_id"]
+  Policy -->|needs approval| Approval["Approval Room<br/>human confirms"]
+  Policy -->|denied| Denied["Matrix Denial<br/>reason + audit"]
+  Approval --> Job
+  Job --> Worker["Hermes / OpenClaw / Codex Worker"]
+  Worker --> RuntimePolicy["Runtime Policy<br/>per MCP / skill / browser / email / GitHub call"]
+  RuntimePolicy --> Tools["Scoped Tool Call"]
+  Worker --> Trace["OTel Trace<br/>LLM + RAG + tool + subagent spans"]
+  Worker --> Artifacts["S3/R2 Artifacts<br/>artifact_id"]
+  Worker --> Memory["Memory Mode<br/>read-only / proposed / approved"]
+  Tools --> Trace
+  Trace --> Ops["Grafana / Loki / Prometheus"]
+  Artifacts --> Result["Matrix Result<br/>summary + links"]
+  Memory --> Result
+```
+
 ## 🧠 Knowledge Flow
 
 ```mermaid
@@ -52,8 +74,12 @@ flowchart LR
 ```mermaid
 flowchart LR
   Discord["Discord Voice MVP"] --> VoiceWorker["Voice Worker / ASR"]
-  ElementCall["Element Call"] --> LiveKit["LiveKit + lk-jwt-service"]
-  LiveKit --> VoiceWorker
+  ElementCall["Element Call Client"] --> LKJWT["lk-jwt-service<br/>Matrix OpenID -> LiveKit JWT"]
+  Homeserver["Matrix Homeserver"] --> LKJWT
+  LKJWT --> LiveKit["LiveKit SFU"]
+  ElementCall --> LiveKit
+  LiveKitAgent["Hermes Voice Agent<br/>LiveKit Participant"] --> LiveKit
+  LiveKitAgent --> VoiceWorker
   VoiceWorker --> Hermes["Hermes / OpenClaw"]
   Hermes --> Tools["Tools / Skills"]
   Hermes --> Matrix["Matrix Room Summary"]

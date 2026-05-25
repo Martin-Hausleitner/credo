@@ -22,3 +22,16 @@ Diese Tabelle ist absichtlich als Platzhalter vorbereitet. Martin kann hier spae
 - Voice/RTC muss getrennt geplant werden, weil Netzwerk, TURN und Simulcast schneller limitieren als reine CPU.
 - Agent Worker duerfen horizontal wachsen, solange Redis, Rate Limits und Freigabe-Policy sauber bleiben.
 - Supabase wird nur dimensioniert, wenn es wirklich als Dashboard/Auth/Realtime-Layer betrieben wird.
+
+## Ausbauprofile
+
+| Profil | Grober Korridor | Ziel | Aktivieren | Noch nicht aktivieren |
+|---|---|---|---|---|
+| 🧪 Lab | 2-4 vCPU, 8-16 GB RAM, 100-250 GB SSD | lokales Testen und Doku validieren | README, GitHub-Matrix, lokale Inventur, einzelne Worker | Federation, Bridges, Voice |
+| 🚀 MVP | 4-8 vCPU, 16-32 GB RAM, 250-500 GB SSD + S3/R2 | Text- und Job-Orchestrierung | Matrix, Element/Cinny, Bot, Redis, Postgres/pgvector, S3/R2, Tailscale | MatrixRTC, Meta-Bridges, E2EE Recording |
+| 🏠 Personal OS | 6-12 vCPU, 32-64 GB RAM, 500 GB-1 TB SSD + S3/R2 | Alltagstauglicher persoenlicher Kontext | Obsidian, ActivityWatch, WHOOP/Apple/YouTube Importer, Cognitor | Multi-Tenant-Team-Betrieb |
+| 🎙️ Voice Lab | 4-8 vCPU, 16-32 GB RAM, gute Upstream-Bandbreite | niedrige Latenz testen | Discord/OpenAI Realtime, ASR Worker, Obsidian Summaries | produktive MatrixRTC Calls |
+| 📞 RTC | 8-16 vCPU, 32-64 GB RAM, hohe UDP-Bandbreite | Matrix-native Calls | Element Call, LiveKit, lk-jwt-service, TURN/TLS, Foci | 4K/Ultrawide als Default |
+| 🏢 Team | 12+ vCPU, 64+ GB RAM, getrennte DB/Storage-Nodes | mehrere Menschen und Rollen | MAS/OIDC, Rollenmodell, Bridge-Policies, Audit Dashboards | ungepruefte Memory Writes |
+
+Diese Werte sind Startkorridore, keine Sizing-Garantie. Matrix-Datenbank, Bridge-Last, Media Retention, OTel-Retention und parallele Agentenlaeufe koennen die reale Groesse staerker treiben als reine User-Zahl.
