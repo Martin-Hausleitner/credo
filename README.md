@@ -71,7 +71,7 @@ LiveKit = optionaler Voice/Call/Streaming-Strang
 
 | Ebene | Paket / Gewinner | Warum | Upstream GitHub | Eigene Umsetzung |
 |---|---|---|---|---|
-| Homeserver | Synapse oder Tuwunel | Synapse ist die sichere Referenz; Tuwunel ist leicht und S3-freundlich | [synapse](https://github.com/element-hq/synapse), [tuwunel](https://github.com/matrix-construct/tuwunel) | [matrix-hermes-agent-stack](https://github.com/Martin-Hausleitner/matrix-hermes-agent-stack) |
+| Homeserver | Synapse oder Tuwunel | Synapse ist die sichere Referenz; Tuwunel ist leicht und S3-freundlich | [synapse](https://github.com/element-hq/synapse), [tuwunel](https://github.com/matrix-construct/tuwunel) | [Credo](https://github.com/Martin-Hausleitner/Credo) |
 | Deployment | matrix-docker-ansible-deploy | Bewaehrte Matrix-Automation mit Docker, TLS, Bridges, TURN und Element | [spantaleev/matrix-docker-ansible-deploy](https://github.com/spantaleev/matrix-docker-ansible-deploy) | Dieses Repo als Runbook |
 | Clients | Element Web + Cinny/Sable | Element als Referenz/Fallback, Cinny/Sable fuer schnelle Discord-artige UX | [element-web](https://github.com/element-hq/element-web), [cinny](https://github.com/cinnyapp/cinny), [Sable](https://github.com/SableClient/Sable) | Raum- und UX-Konzept in diesem Repo |
 | Gateway | Matrix Bot Account | Einfacher, sicherer und schneller als sofortiger Appservice oder Custom Client | [mautrix/python](https://github.com/mautrix/python), [matrix-rust-sdk](https://github.com/matrix-org/matrix-rust-sdk) | [beeper-matrix-proxy](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) als Bridge-Referenz |
@@ -219,7 +219,7 @@ Diese Sicht beantwortet die praktische Frage: _welches Repo traegt welche Packag
 
 | Repo | Eigene Packages / Laufzeitbausteine | Stack-Funktion |
 |---|---|---|
-| [matrix-hermes-agent-stack](https://github.com/Martin-Hausleitner/matrix-hermes-agent-stack) | Architekturdeck, Tabellen, Mermaid-Diagramme | Zentrale Systemkarte und Planungsdoku |
+| [Credo](https://github.com/Martin-Hausleitner/Credo) | Architekturdeck, Tabellen, Mermaid-Diagramme | Zentrale Systemkarte und Planungsdoku |
 | [cognitor-launcher](https://github.com/Martin-Hausleitner/cognitor-launcher) | `cognitor-personal-platform`, `@cognitor/web`, `@cognitor/tray`, `@cognitor/mobile`, `@cognitor/dashboard-ui`, `@cognitor/activitywatch`, `@cognitor/icons` | lokaler Personal-Agent-Launcher mit Web-, Tray-, Mobile- und ActivityWatch-Oberflaechen |
 | [beeper-matrix-proxy](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) | `beeper-source`, `mautrix-go bridgev2`, Avatar-/Portal-Sync, Cinny Room-List Enhancer | Beeper/BIPA -> Matrix Portale, Client-spezifische Avatar-UX |
 | [martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills) | Hermes/OpenClaw Skills, Prompts, Automations, Research-Tools | Wiederverwendbarer Skill-Layer fuer Agenten |
@@ -268,7 +268,7 @@ Diese Liste fokussiert die aktuellen agentenrelevanten Repos und Workspaces. Ali
 
 | Repo / Workspace | Rolle im Stack | Lokaler Pfad | Remote / Status |
 |---|---|---|---|
-| matrix-hermes-agent-stack | Dieses Architekturdeck und Build-Plan | `/Users/mh/Documents/Playground/matrix-hermes-agent-stack` | [Repo](https://github.com/Martin-Hausleitner/matrix-hermes-agent-stack) |
+| Credo | Dieses Architekturdeck und Build-Plan | `/Users/mh/Documents/Playground/matrix-hermes-agent-stack` | [Repo](https://github.com/Martin-Hausleitner/Credo) |
 | cognitor-personal-platform | Monorepo fuer `@cognitor/web`, `@cognitor/tray`, `@cognitor/mobile` und interne UI-Packages | `/Users/mh/Documents/Playground` | Root-Workspace von [cognitor-launcher](https://github.com/Martin-Hausleitner/cognitor-launcher) |
 | openclaw-hermes-public-skills | Public-safe Hermes/OpenClaw Skill-Sammlung | `/Users/mh/Documents/Playground/openclaw-hermes-public-skills` | [martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills) |
 | openclaw-apple-findmy-skill | OpenClaw Skill fuer Apple Find My / Standort-Kontext | `/Users/mh/Documents/Playground/openclaw-apple-findmy-skill` | [Repo](https://github.com/Martin-Hausleitner/openclaw-apple-findmy-skill) |
@@ -411,7 +411,7 @@ flowchart LR
   end
 
   subgraph OwnRepos["Maintained Repos"]
-    StackRepo["matrix-hermes-agent-stack"]
+    StackRepo["Credo"]
     HermesRepo["hermes-agent fork"]
     SkillsRepo["martins-awesome-skills"]
     ObsidianRepo["obsidian-notion-ui-customization"]
@@ -535,7 +535,7 @@ flowchart LR
   end
 
   subgraph Transport["Transport + Event Bus"]
-    MatrixRepo["matrix-hermes-agent-stack<br/>Architecture"]
+    MatrixRepo["Credo<br/>Architecture"]
     Matrix["Matrix Homeserver"]
     BeeperProxy["beeper-matrix-proxy"]
     BeeperAPI["Beeper Desktop API"]

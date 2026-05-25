@@ -36,7 +36,7 @@ Dieser Katalog ist die schnelle visuelle Karte: welches Programm ist was, wo ist
 
 | Projekt | GitHub | Was es bei uns macht |
 |---|---|---|
-| Credo | [matrix-hermes-agent-stack](https://github.com/Martin-Hausleitner/matrix-hermes-agent-stack) | Dieses Architekturdeck und Runbook. |
+| Credo | [Credo](https://github.com/Martin-Hausleitner/Credo) | Dieses Architekturdeck und Runbook. |
 | Cognitor Launcher | [cognitor-launcher](https://github.com/Martin-Hausleitner/cognitor-launcher) | Persoenliche Web-/Tray-/Mobile-Agent-Oberflaechen. |
 | Beeper Matrix Proxy | [beeper-matrix-proxy](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) | Beeper/BIPA als Matrix-Portale und Bridge-Referenz. |
 | Martins Awesome Skills | [martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills) | Public-safe Skill-Sammlung fuer Hermes/OpenClaw. |

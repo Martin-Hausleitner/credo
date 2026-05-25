@@ -79,7 +79,7 @@ Diese Map fuehrt die Matrix-bezogenen Entscheidungen in Credo auf die konkreten 
 
 | Repo | Rolle |
 |---|---|
-| [Credo / matrix-hermes-agent-stack](https://github.com/Martin-Hausleitner/matrix-hermes-agent-stack) | Architekturdeck, Service-Katalog, Skill-Inventar und Matrix-Repository-Map. |
+| [Credo](https://github.com/Martin-Hausleitner/Credo) | Architekturdeck, Service-Katalog, Skill-Inventar und Matrix-Repository-Map. |
 | [beeper-matrix-proxy](https://github.com/Martin-Hausleitner/beeper-matrix-proxy) | eigene Bridge-Referenz fuer Beeper/BIPA -> Matrix. |
 | [discord-voice-obsidian-agent](https://github.com/Martin-Hausleitner/discord-voice-obsidian-agent) | schneller Voice-Agent-Prototyp ausserhalb MatrixRTC. |
 | [martins-awesome-skills](https://github.com/Martin-Hausleitner/martins-awesome-skills) | public-safe Skills fuer Hermes/OpenClaw. |
