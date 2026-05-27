@@ -9,10 +9,10 @@
 
   <meta property="og:title" content="Credo — the operating system for your agents" />
   <meta property="og:description" content="Self-hosted Matrix backbone, verifiable memory and policy-gated tool calls." />
-  <meta property="og:image" content="../assets/hero.svg" />
+  <meta property="og:image" content="assets/hero.svg" />
   <meta property="og:type" content="website" />
 
-  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -134,6 +134,111 @@
       transition: transform .4s cubic-bezier(.2,.7,.2,1);
     }
     .tilt:hover { transform: perspective(1200px) rotateX(2deg) translateY(-4px); }
+
+    /* gradient border via padding+mask trick */
+    .grad-border {
+      position: relative; isolation: isolate;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .grad-border::before {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(167,139,250,.7), rgba(34,211,238,.4) 50%, rgba(255,255,255,.06) 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+              mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      pointer-events: none; z-index: 0;
+    }
+    .grad-border > * { position: relative; z-index: 1; }
+
+    /* big-number stat */
+    .stat-num {
+      font-feature-settings: "tnum","ss01";
+      background: linear-gradient(120deg, #FFFFFF, #A5B4FC 60%, #67E8F9);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+
+    /* code block syntax */
+    .code {
+      background: #08080E; color: #CBD5E1;
+      font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+      font-size: 13px; line-height: 1.7;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px; padding: 24px 28px;
+      overflow: auto;
+    }
+    .code .k { color: #C4B5FD; } /* keyword */
+    .code .s { color: #6EE7B7; } /* string */
+    .code .n { color: #FCD34D; } /* number */
+    .code .c { color: #4B5563; font-style: italic; } /* comment */
+    .code .f { color: #67E8F9; } /* function */
+    .code .p { color: #9CA3AF; } /* punctuation */
+    .code .a { color: #FBCFE8; } /* attribute */
+    .code .o { color: #94A3B8; } /* operator */
+    .code .t { color: #F9A8D4; } /* type */
+
+    /* signature pulse along an edge */
+    @keyframes pulse-along {
+      0%   { offset-distance: 0%;   opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { offset-distance: 100%; opacity: 0; }
+    }
+    /* fade-up reveal */
+    @keyframes fade-up {
+      0%   { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { animation: fade-up .6s ease both; }
+
+    /* breathing orbital ring */
+    @keyframes breathe {
+      0%, 100% { transform: scale(1);   opacity: .55; }
+      50%      { transform: scale(1.04); opacity: .9; }
+    }
+    .breathe { transform-origin: center; animation: breathe 5s ease-in-out infinite; }
+
+    /* signature ticker on the hero hub */
+    @keyframes tick {
+      0%, 90%, 100% { opacity: 0; transform: translateY(2px); }
+      10%, 80%      { opacity: 1; transform: translateY(0); }
+    }
+
+    /* bento */
+    .bento {
+      display: grid; gap: 16px;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: minmax(180px, auto);
+    }
+    .bento > * { border-radius: 20px; }
+    .bento .b-3 { grid-column: span 3; }
+    .bento .b-2 { grid-column: span 2; }
+    .bento .b-4 { grid-column: span 4; }
+    .bento .b-6 { grid-column: span 6; }
+    @media (max-width: 900px) {
+      .bento { grid-template-columns: repeat(2, 1fr); }
+      .bento .b-2, .bento .b-3, .bento .b-4, .bento .b-6 { grid-column: span 2; }
+    }
+
+    /* checkmark pulse */
+    @keyframes sig-in {
+      0%   { transform: scale(.3); opacity: 0; }
+      60%  { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* compare table */
+    .cmp { width: 100%; border-collapse: separate; border-spacing: 0; }
+    .cmp th, .cmp td { padding: 14px 18px; text-align: left; font-size: 14px; }
+    .cmp thead th { font-weight: 600; color: #9CA3AF; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; }
+    .cmp tbody tr { border-top: 1px solid rgba(255,255,255,.06); }
+    .cmp tbody tr td { color: #CBD5E1; vertical-align: top; }
+    .cmp tbody tr td:first-child { color: #EDEDED; font-weight: 600; }
+    .cmp .col-credo { background: linear-gradient(180deg, rgba(167,139,250,.08), rgba(34,211,238,.05)); }
+    .cmp .col-credo td:first-child { color: #A5B4FC; }
+    .cmp .yes { color: #34D399; }
+    .cmp .no  { color: #6B7280; }
+    .cmp .meh { color: #FBBF24; }
   </style>
 </head>
 <body class="font-sans">
@@ -282,19 +387,63 @@
         </div>
       </div>
 
-      <!-- hero visual: orbiting agents -->
+      <!-- hero visual: orbiting agents, animated -->
       <div class="lg:col-span-5 relative">
-        <div class="relative aspect-square max-w-[520px] mx-auto">
+        <div class="relative aspect-square max-w-[540px] mx-auto">
+          <!-- live badge overlay -->
+          <div class="absolute top-4 right-4 z-10 inline-flex items-center gap-1.5 text-[10px] tracking-[.18em] font-bold uppercase px-2.5 py-1 rounded-full bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/30">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-emerald pulse-dot"></span>
+            LIVE  ·  3 of 5 signed
+          </div>
           <svg viewBox="-260 -260 520 520" class="w-full h-full">
             <defs>
               <linearGradient id="hv-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset=".5" stop-color="#6366F1"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
-              <linearGradient id="hv-edge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6366F1" stop-opacity=".05"/><stop offset=".5" stop-color="#22D3EE" stop-opacity=".55"/><stop offset="1" stop-color="#6366F1" stop-opacity=".05"/></linearGradient>
+              <linearGradient id="hv-edge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6366F1" stop-opacity=".06"/><stop offset=".5" stop-color="#22D3EE" stop-opacity=".55"/><stop offset="1" stop-color="#6366F1" stop-opacity=".06"/></linearGradient>
               <radialGradient id="hv-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#6366F1" stop-opacity=".6"/><stop offset="1" stop-color="#6366F1" stop-opacity="0"/></radialGradient>
               <filter id="hv-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
+              <!-- pulse paths (used by signature pulses) -->
+              <path id="hv-p1" d="M 0 0 L 180 -60"/>
+              <path id="hv-p2" d="M 0 0 L -148 84"/>
+              <path id="hv-p3" d="M 0 0 L 60 -200"/>
+              <style>
+                .ring-slow { animation: hv-rot-slow 60s linear infinite; transform-origin: 0 0; }
+                .ring-rev  { animation: hv-rot-rev 90s linear infinite; transform-origin: 0 0; }
+                @keyframes hv-rot-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                @keyframes hv-rot-rev  { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+                .hub-glow { animation: hv-breathe 5s ease-in-out infinite; transform-origin: 0 0; }
+                @keyframes hv-breathe { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+                .sig-1 { animation: hv-sig 3.4s linear infinite; }
+                .sig-2 { animation: hv-sig 4.2s linear infinite; animation-delay: 1.1s; }
+                .sig-3 { animation: hv-sig 5.0s linear infinite; animation-delay: 2.3s; }
+                @keyframes hv-sig {
+                  0%   { offset-distance: 0%;   opacity: 0; }
+                  10%  { opacity: 1; }
+                  85%  { opacity: 1; }
+                  100% { offset-distance: 100%; opacity: 0; }
+                }
+                .sig-pulse { offset-rotate: 0deg; }
+                .node-blink { animation: hv-blink 3s ease-in-out infinite; }
+                @keyframes hv-blink { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
+              </style>
             </defs>
-            <circle r="240" fill="none" stroke="rgba(255,255,255,.06)"/>
-            <circle r="180" fill="none" stroke="rgba(255,255,255,.06)"/>
+
+            <!-- outer ring slow rotation (dashed) -->
+            <g class="ring-slow">
+              <circle r="240" fill="none" stroke="rgba(255,255,255,.06)"/>
+              <g stroke="rgba(34,211,238,.18)" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 22">
+                <circle r="240" fill="none"/>
+              </g>
+            </g>
+            <!-- middle ring reverse rotation (dotted) -->
+            <g class="ring-rev">
+              <circle r="180" fill="none" stroke="rgba(255,255,255,.06)"/>
+              <g stroke="rgba(167,139,250,.20)" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="1 16">
+                <circle r="180" fill="none"/>
+              </g>
+            </g>
             <circle r="120" fill="none" stroke="rgba(255,255,255,.06)" stroke-dasharray="2 6"/>
+
+            <!-- static edges -->
             <g stroke="url(#hv-edge)" stroke-width="1.4" fill="none">
               <line x1="0" y1="0" x2="180" y2="-60"/>
               <line x1="0" y1="0" x2="-180" y2="80"/>
@@ -305,14 +454,24 @@
               <line x1="0" y1="0" x2="-50" y2="200"/>
               <line x1="0" y1="0" x2="60" y2="-200"/>
             </g>
-            <circle r="80" fill="url(#hv-glow)" filter="url(#hv-soft)"/>
+
+            <!-- signature pulse dots traveling along edges -->
+            <circle class="sig-pulse sig-1" r="4" fill="#22D3EE" style="offset-path: path('M 0 0 L 180 -60');"/>
+            <circle class="sig-pulse sig-2" r="4" fill="#A78BFA" style="offset-path: path('M 0 0 L -148 84');"/>
+            <circle class="sig-pulse sig-3" r="3.5" fill="#34D399" style="offset-path: path('M 0 0 L 60 -200');"/>
+
+            <!-- hub glow + center -->
+            <circle r="80" fill="url(#hv-glow)" filter="url(#hv-soft)" class="hub-glow"/>
             <g>
               <circle r="48" fill="#0F0F18" stroke="url(#hv-mark)" stroke-width="2"/>
-              <text y="-4" text-anchor="middle" font-size="10" fill="#94A3B8" letter-spacing="2.6" font-weight="600">MATRIX</text>
-              <text y="14" text-anchor="middle" font-size="11" fill="#EDEDED" font-weight="600">credo bus</text>
+              <text y="-12" text-anchor="middle" font-size="9" fill="#94A3B8" letter-spacing="2.6" font-weight="600">MATRIX</text>
+              <text y="6" text-anchor="middle" font-size="11" fill="#EDEDED" font-weight="700">credo bus</text>
+              <text y="22" text-anchor="middle" font-size="8" fill="#34D399" letter-spacing="2" font-weight="600">● ● ● ○ ○</text>
             </g>
+
+            <!-- nodes -->
             <g font-size="10" font-weight="700" letter-spacing="1.2" text-anchor="middle" fill="#EDEDED">
-              <g transform="translate(180 -60)"><circle r="26" fill="#0F0F18" stroke="#A78BFA" stroke-width="1.6"/><text y="3">HERMES</text></g>
+              <g transform="translate(180 -60)" class="node-blink"><circle r="26" fill="#0F0F18" stroke="#A78BFA" stroke-width="1.6"/><text y="3">HERMES</text><circle cx="20" cy="-18" r="4" fill="#34D399"/></g>
               <g transform="translate(-180 80)"><circle r="26" fill="#0F0F18" stroke="#22D3EE" stroke-width="1.6"/><text y="3">CODEX</text></g>
               <g transform="translate(120 160)"><circle r="26" fill="#0F0F18" stroke="#34D399" stroke-width="1.6"/><text y="3">SKILLS</text></g>
               <g transform="translate(-120 -160)"><circle r="26" fill="#0F0F18" stroke="#F472B6" stroke-width="1.6"/><text y="3">VOICE</text></g>
@@ -391,6 +550,32 @@
     </div>
   </section>
 
+  <!-- stats strip -->
+  <section class="relative border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-14 lg:py-16 grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
+      <div>
+        <div class="text-5xl sm:text-6xl font-bold tracking-tightest stat-num leading-none">100%</div>
+        <div class="mt-3 text-[11px] font-semibold tracking-[.22em] text-mute-400">AUDIT COVERAGE</div>
+        <div class="mt-1 text-sm text-mute-300">every tool call traced, every action signed</div>
+      </div>
+      <div>
+        <div class="text-5xl sm:text-6xl font-bold tracking-tightest stat-num leading-none">m&thinsp;of&thinsp;n</div>
+        <div class="mt-3 text-[11px] font-semibold tracking-[.22em] text-mute-400">QUORUM PER ROOM</div>
+        <div class="mt-1 text-sm text-mute-300">Ed25519 device keys, configurable per risk class</div>
+      </div>
+      <div>
+        <div class="text-5xl sm:text-6xl font-bold tracking-tightest stat-num leading-none">0</div>
+        <div class="mt-3 text-[11px] font-semibold tracking-[.22em] text-mute-400">TRUSTED MIDDLEWARE</div>
+        <div class="mt-1 text-sm text-mute-300">no SaaS in the critical path</div>
+      </div>
+      <div>
+        <div class="text-5xl sm:text-6xl font-bold tracking-tightest stat-num leading-none">∞</div>
+        <div class="mt-3 text-[11px] font-semibold tracking-[.22em] text-mute-400">SELF-HOSTED</div>
+        <div class="mt-1 text-sm text-mute-300">your homeserver, your keys, your data</div>
+      </div>
+    </div>
+  </section>
+
   <!-- pillars -->
   <section id="pillars" class="relative py-28 lg:py-32">
     <div class="mesh-soft absolute inset-0"></div>
@@ -451,6 +636,127 @@
             <li class="flex gap-2"><span class="text-brand-emerald">›</span> Skill bundles &amp; MCP servers</li>
             <li class="flex gap-2"><span class="text-brand-emerald">›</span> Memory access by status (canonical / reviewed / ephemeral)</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- code: configure an agent -->
+  <section class="relative py-24 lg:py-28 border-t border-white/5 overflow-hidden">
+    <div class="mesh-soft absolute inset-0 opacity-70"></div>
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 items-end">
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-[.22em] text-brand-cyan">
+            <svg class="w-3.5 h-3.5"><use href="#i-mcp"/></svg>
+            CONFIGURE  ·  DECLARE  ·  SIGN
+          </div>
+          <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Define an agent in one file.</h2>
+        </div>
+        <p class="lg:col-span-5 text-mute-300 text-[15px] leading-relaxed">
+          Declarative config, version-controlled like the rest of your repo. The same file
+          binds skills, MCP servers, policy, quorum and memory access — and ships through
+          a signed PR like any other change.
+        </p>
+      </div>
+
+      <div class="mt-14 grid lg:grid-cols-12 gap-6">
+        <!-- code block -->
+        <div class="lg:col-span-7 grad-border rounded-2xl p-0 overflow-hidden">
+          <div class="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-white/[.02]">
+            <div class="flex items-center gap-2.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#febc2e]"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#28c840]"></span>
+              <span class="ml-3 text-[12px] font-mono text-mute-400">agents/dao-treasurer.credo.ts</span>
+            </div>
+            <div class="inline-flex items-center gap-1.5 text-[10px] font-mono text-mute-500">
+              <svg class="w-3 h-3 text-brand-emerald"><use href="#i-shield-check"/></svg>
+              signed · valid
+            </div>
+          </div>
+<pre class="code !rounded-none !border-0"><span class="c">// agents/dao-treasurer.credo.ts</span>
+<span class="k">import</span> { <span class="f">defineAgent</span>, <span class="f">signers</span>, <span class="f">memory</span> } <span class="k">from</span> <span class="s">"credo"</span>;
+
+<span class="k">export default</span> <span class="f">defineAgent</span>({
+  <span class="a">id</span>:    <span class="s">"dao-treasurer"</span>,
+  <span class="a">room</span>:  <span class="s">"#dao-treasury"</span>,
+
+  <span class="a">skills</span>: [<span class="s">"github"</span>, <span class="s">"safe"</span>, <span class="s">"ipfs"</span>, <span class="s">"cal.com"</span>],
+  <span class="a">mcp</span>:    [<span class="s">"obsidian"</span>, <span class="s">"ens"</span>, <span class="s">"snapshot"</span>],
+
+  <span class="a">policy</span>: {
+    <span class="a">risk</span>:    { <span class="a">low</span>: <span class="s">"auto"</span>, <span class="a">medium</span>: <span class="s">"policy-gate"</span>, <span class="a">high</span>: <span class="s">"dao-quorum"</span> },
+    <span class="a">quorum</span>:  <span class="f">signers</span>.<span class="f">mOfN</span>({ <span class="a">m</span>: <span class="n">3</span>, <span class="a">n</span>: <span class="n">5</span>, <span class="a">algo</span>: <span class="s">"ed25519"</span> }),
+    <span class="a">anchors</span>: [<span class="s">"matrix"</span>, <span class="s">"ipfs"</span>, <span class="s">"safe@base"</span>],
+    <span class="a">timeout</span>: <span class="s">"24h"</span>,
+  },
+
+  <span class="a">memory</span>: <span class="f">memory</span>.<span class="f">scoped</span>({
+    <span class="a">canonical</span>: [<span class="s">"proposals/*"</span>, <span class="s">"audits/*"</span>],
+    <span class="a">reviewed</span>:  [<span class="s">"briefs/*"</span>, <span class="s">"playbooks/*"</span>],
+    <span class="a">ephemeral</span>: [<span class="s">"chat/*"</span>],
+  }),
+
+  <span class="a">advise</span>: { <span class="a">consultBefore</span>: <span class="s">"high"</span>, <span class="a">peers</span>: [<span class="s">"researcher"</span>, <span class="s">"auditor"</span>] },
+});</pre>
+        </div>
+
+        <!-- preview panel -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="grad-border rounded-2xl p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">GENERATED PROPOSAL</div>
+              <span class="inline-flex items-center gap-1.5 text-[10px] tracking-[.18em] font-bold uppercase px-2 py-0.5 rounded-full bg-brand-amber/15 text-brand-amber border border-brand-amber/30">PENDING SIGS</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold text-mute-100">#prop-2024-091 — deploy v2.4</h3>
+            <div class="mt-4 space-y-2 text-[12px] font-mono text-mute-300">
+              <div class="flex justify-between"><span class="text-mute-500">agent</span> dao-treasurer</div>
+              <div class="flex justify-between"><span class="text-mute-500">room</span> #dao-treasury</div>
+              <div class="flex justify-between"><span class="text-mute-500">risk</span> <span class="text-brand-pink">high</span></div>
+              <div class="flex justify-between"><span class="text-mute-500">cid</span> bafyrei…7q9w</div>
+              <div class="flex justify-between"><span class="text-mute-500">expires</span> 4h 12m</div>
+            </div>
+            <div class="mt-5">
+              <div class="grid grid-cols-5 gap-1.5">
+                <span class="h-1.5 rounded-full bg-brand-emerald"></span>
+                <span class="h-1.5 rounded-full bg-brand-emerald"></span>
+                <span class="h-1.5 rounded-full bg-brand-emerald"></span>
+                <span class="h-1.5 rounded-full bg-white/10"></span>
+                <span class="h-1.5 rounded-full bg-white/10"></span>
+              </div>
+              <div class="mt-2 flex justify-between text-[11px] font-mono">
+                <span class="text-brand-emerald">3 of 5  ·  Ed25519</span>
+                <span class="text-mute-500">+2 to quorum</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grad-border rounded-2xl p-6">
+            <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RESOLVED ANCHORS</div>
+            <ul class="mt-4 space-y-2.5 text-sm">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-emerald"><use href="#i-matrix"/></svg>
+                <span class="text-mute-100">Matrix event</span>
+                <span class="ml-auto text-[11px] font-mono text-mute-400">$evt…a1b</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-cyan"><use href="#i-ipfs"/></svg>
+                <span class="text-mute-100">IPFS blob</span>
+                <span class="ml-auto text-[11px] font-mono text-mute-400">bafyrei…7q9w</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-violet"><use href="#i-safe"/></svg>
+                <span class="text-mute-100">Safe @ base</span>
+                <span class="ml-auto text-[11px] font-mono text-brand-amber">queued</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-brand-sky"><use href="#i-otel"/></svg>
+                <span class="text-mute-100">OTel trace</span>
+                <span class="ml-auto text-[11px] font-mono text-mute-400">4f9c…1cc</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -555,7 +861,7 @@
         <p class="mt-5 text-lg text-mute-300">Access, Matrix, Bridges, Gateway, Runtime, Data, Context, Voice, Ops — each plane does one job, well.</p>
       </div>
       <div class="mt-14 rounded-2xl overflow-hidden glow-ring">
-        <img src="../assets/credo-planes.svg" alt="Credo nine planes architecture" class="w-full block"/>
+        <img src="assets/credo-planes.svg" alt="Credo nine planes architecture" class="w-full block"/>
       </div>
     </div>
   </section>
@@ -569,7 +875,7 @@
         <p class="mt-5 text-lg text-mute-300">From the human who asks, down to the disk that remembers. No magic, no surprises.</p>
       </div>
       <div class="mt-14 rounded-2xl overflow-hidden glow-ring">
-        <img src="../assets/layers.svg" alt="Credo stack layers" class="w-full block"/>
+        <img src="assets/layers.svg" alt="Credo stack layers" class="w-full block"/>
       </div>
     </div>
   </section>
@@ -608,7 +914,7 @@
         </div>
         <div class="lg:col-span-7">
           <div class="rounded-2xl overflow-hidden glow-ring">
-            <img src="../assets/agent-mesh.svg" alt="Agent mesh on Matrix" class="w-full block"/>
+            <img src="assets/agent-mesh.svg" alt="Agent mesh on Matrix" class="w-full block"/>
           </div>
         </div>
       </div>
@@ -646,7 +952,7 @@
       </div>
 
       <div class="mt-12 rounded-2xl overflow-hidden glow-ring">
-        <img src="../assets/dao-governance.svg" alt="DAO governance flow for agent actions" class="w-full block"/>
+        <img src="assets/dao-governance.svg" alt="DAO governance flow for agent actions" class="w-full block"/>
       </div>
 
       <!-- 3 feature cards -->
@@ -690,6 +996,159 @@
             <span class="inline-flex items-center gap-1 text-[11px] font-mono text-mute-400"><svg class="w-3.5 h-3.5 text-brand-emerald"><use href="#i-matrix"/></svg> Matrix</span>
             <span class="inline-flex items-center gap-1 text-[11px] font-mono text-mute-400"><svg class="w-3.5 h-3.5 text-brand-cyan"><use href="#i-ipfs"/></svg> IPFS</span>
             <span class="inline-flex items-center gap-1 text-[11px] font-mono text-mute-400"><svg class="w-3.5 h-3.5 text-brand-sky"><use href="#i-ethereum"/></svg> L2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- live signature widget (mock product UI) -->
+      <div class="mt-14 grid lg:grid-cols-12 gap-5">
+        <div class="lg:col-span-7 grad-border rounded-2xl p-0 overflow-hidden">
+          <div class="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/[.02]">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-1.5 text-[10px] tracking-[.18em] font-bold uppercase px-2.5 py-1 rounded-full bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/30">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-emerald pulse-dot"></span>
+                LIVE
+              </span>
+              <span class="text-sm text-mute-100 font-semibold">#prop-2024-091</span>
+              <span class="text-[12px] text-mute-400">·</span>
+              <span class="text-[12px] text-mute-300">deploy v2.4 to ops</span>
+            </div>
+            <div class="text-[11px] font-mono text-mute-400">expires in 4h 12m</div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">SIGNATURES COLLECTED</div>
+                <div class="mt-1 flex items-baseline gap-2">
+                  <span class="text-3xl font-bold tracking-tightest text-mute-100">3</span>
+                  <span class="text-lg text-mute-400">/ 5</span>
+                  <span class="ml-2 inline-flex items-center gap-1 text-[11px] font-mono text-brand-emerald"><svg class="w-3 h-3"><use href="#i-key"/></svg> ed25519</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RISK CLASS</div>
+                <div class="mt-1 inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-brand-pink/15 text-brand-pink text-xs font-semibold border border-brand-pink/30">HIGH · treasury</div>
+              </div>
+            </div>
+
+            <div class="mt-5 grid grid-cols-5 gap-1.5">
+              <span class="h-1.5 rounded-full bg-brand-emerald"></span>
+              <span class="h-1.5 rounded-full bg-brand-emerald"></span>
+              <span class="h-1.5 rounded-full bg-brand-emerald"></span>
+              <span class="h-1.5 rounded-full bg-white/8"></span>
+              <span class="h-1.5 rounded-full bg-white/8"></span>
+            </div>
+
+            <ul class="mt-6 space-y-2">
+              <li class="flex items-center gap-3 rounded-xl px-3 py-2.5 bg-white/[.02] border border-white/5">
+                <span class="w-7 h-7 rounded-full bg-brand-violet/15 border border-brand-violet/40 text-brand-violet text-xs font-bold inline-flex items-center justify-center">M</span>
+                <div class="min-w-0 flex-1">
+                  <div class="text-sm text-mute-100 font-semibold flex items-center gap-2">@martin <span class="text-[10px] font-mono text-mute-500">· founder.eth</span></div>
+                  <div class="text-[11px] font-mono text-mute-500 truncate">ed25519:5f9c…1a · signed 21:01</div>
+                </div>
+                <svg class="w-4 h-4 text-brand-emerald"><use href="#i-shield-check"/></svg>
+              </li>
+              <li class="flex items-center gap-3 rounded-xl px-3 py-2.5 bg-white/[.02] border border-white/5">
+                <span class="w-7 h-7 rounded-full bg-brand-cyan/15 border border-brand-cyan/40 text-brand-cyan text-xs font-bold inline-flex items-center justify-center">A</span>
+                <div class="min-w-0 flex-1">
+                  <div class="text-sm text-mute-100 font-semibold flex items-center gap-2">@alex <span class="text-[10px] font-mono text-mute-500">· alex.eth</span></div>
+                  <div class="text-[11px] font-mono text-mute-500 truncate">ed25519:9c3a…2f · signed 21:02</div>
+                </div>
+                <svg class="w-4 h-4 text-brand-emerald"><use href="#i-shield-check"/></svg>
+              </li>
+              <li class="flex items-center gap-3 rounded-xl px-3 py-2.5 bg-white/[.02] border border-white/5">
+                <span class="w-7 h-7 rounded-full bg-brand-emerald/15 border border-brand-emerald/40 text-brand-emerald text-xs font-bold inline-flex items-center justify-center">R</span>
+                <div class="min-w-0 flex-1">
+                  <div class="text-sm text-mute-100 font-semibold flex items-center gap-2">@robi <span class="text-[10px] font-mono text-mute-500">· robi.eth</span></div>
+                  <div class="text-[11px] font-mono text-mute-500 truncate">ed25519:d8ef…77 · signed 21:04</div>
+                </div>
+                <svg class="w-4 h-4 text-brand-emerald"><use href="#i-shield-check"/></svg>
+              </li>
+              <li class="flex items-center gap-3 rounded-xl px-3 py-2.5 bg-white/[.01] border border-white/5 border-dashed">
+                <span class="w-7 h-7 rounded-full bg-brand-amber/10 border border-brand-amber/30 text-brand-amber text-xs font-bold inline-flex items-center justify-center">L</span>
+                <div class="min-w-0 flex-1">
+                  <div class="text-sm text-mute-200 font-semibold flex items-center gap-2">@lukas <span class="text-[10px] font-mono text-mute-500">· lukas.eth</span></div>
+                  <div class="text-[11px] font-mono text-mute-500">awaiting · last seen 10m ago</div>
+                </div>
+                <span class="text-[10px] font-mono text-mute-400">PENDING</span>
+              </li>
+              <li class="flex items-center gap-3 rounded-xl px-3 py-2.5 bg-white/[.01] border border-white/5 border-dashed">
+                <span class="w-7 h-7 rounded-full bg-brand-pink/10 border border-brand-pink/30 text-brand-pink text-xs font-bold inline-flex items-center justify-center">N</span>
+                <div class="min-w-0 flex-1">
+                  <div class="text-sm text-mute-200 font-semibold flex items-center gap-2">@nora <span class="text-[10px] font-mono text-mute-500">· nora.eth</span></div>
+                  <div class="text-[11px] font-mono text-mute-500">optional · needed only if Lukas abstains</div>
+                </div>
+                <span class="text-[10px] font-mono text-mute-400">OPTIONAL</span>
+              </li>
+            </ul>
+
+            <div class="mt-6 flex flex-wrap items-center gap-2">
+              <button class="btn-primary px-4 h-10 rounded-full font-semibold text-sm inline-flex items-center gap-2">
+                <svg class="w-3.5 h-3.5"><use href="#i-key"/></svg>
+                Sign with my device
+              </button>
+              <button class="btn-ghost px-4 h-10 rounded-full font-medium text-sm">View Matrix thread</button>
+              <button class="btn-ghost px-4 h-10 rounded-full font-medium text-sm inline-flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-brand-cyan"><use href="#i-ipfs"/></svg>
+                IPFS blob
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- right column: live activity + anchors mini -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="grad-border rounded-2xl p-6">
+            <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">ACTIVITY</div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="flex gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-emerald mt-2"></span>
+                <div class="flex-1">
+                  <div class="text-mute-100">@robi signed · ed25519:d8ef…77</div>
+                  <div class="text-[11px] font-mono text-mute-500">21:04 · quorum reached</div>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-emerald mt-2"></span>
+                <div class="flex-1">
+                  <div class="text-mute-100">@alex signed</div>
+                  <div class="text-[11px] font-mono text-mute-500">21:02</div>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan mt-2"></span>
+                <div class="flex-1">
+                  <div class="text-mute-100">CID anchored to IPFS · bafyrei…7q9w</div>
+                  <div class="text-[11px] font-mono text-mute-500">21:00</div>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-violet mt-2"></span>
+                <div class="flex-1">
+                  <div class="text-mute-100">@hermes proposed · risk: <span class="text-brand-pink">high</span></div>
+                  <div class="text-[11px] font-mono text-mute-500">20:58 · room #dao-treasury</div>
+                </div>
+              </li>
+              <li class="flex gap-3 opacity-60">
+                <span class="w-1.5 h-1.5 rounded-full bg-mute-400 mt-2"></span>
+                <div class="flex-1">
+                  <div class="text-mute-300">Safe multisig tx · queued</div>
+                  <div class="text-[11px] font-mono text-mute-500">on signature 4/5</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="grad-border rounded-2xl p-6">
+            <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">PROPOSAL META</div>
+            <dl class="mt-4 grid grid-cols-2 gap-y-3 gap-x-4 text-[12px]">
+              <dt class="text-mute-500">Author</dt><dd class="text-mute-100 font-mono">@hermes (agent)</dd>
+              <dt class="text-mute-500">Treasury</dt><dd class="text-mute-100 font-mono">credo.eth</dd>
+              <dt class="text-mute-500">Chain</dt><dd class="text-mute-100 font-mono">base mainnet</dd>
+              <dt class="text-mute-500">Value</dt><dd class="text-mute-100 font-mono">0 ETH</dd>
+              <dt class="text-mute-500">Gas est.</dt><dd class="text-mute-100 font-mono">~ 220 k</dd>
+              <dt class="text-mute-500">Module</dt><dd class="text-mute-100 font-mono">deploy(v2.4)</dd>
+            </dl>
           </div>
         </div>
       </div>
@@ -740,7 +1199,7 @@
       <div class="grid lg:grid-cols-12 gap-10 items-start">
         <div class="lg:col-span-7">
           <div class="rounded-2xl overflow-hidden glow-ring">
-            <img src="../assets/audit-trail.svg" alt="Audit trail per job" class="w-full block"/>
+            <img src="assets/audit-trail.svg" alt="Audit trail per job" class="w-full block"/>
           </div>
         </div>
         <div class="lg:col-span-5">
@@ -769,6 +1228,200 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- use cases bento -->
+  <section id="use-cases" class="relative py-24 lg:py-32 border-t border-white/5 overflow-hidden">
+    <div class="absolute inset-0" style="background: radial-gradient(40rem 28rem at 80% 10%, rgba(167,139,250,.16), transparent 60%), radial-gradient(40rem 28rem at 20% 90%, rgba(34,211,238,.14), transparent 60%), linear-gradient(180deg, #06060A 0%, #0A0A14 100%);"></div>
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 items-end">
+        <div class="lg:col-span-7">
+          <div class="text-xs font-semibold tracking-[.22em] text-brand-pink">USE CASES</div>
+          <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Four shapes Credo fits.</h2>
+        </div>
+        <p class="lg:col-span-5 text-mute-300 text-[15px] leading-relaxed">
+          Same architecture, different settings. Tune quorum, anchors and skills per room
+          and the same Credo stack becomes a treasury copilot, a research collective, a
+          devops coalition, or your personal operating system.
+        </p>
+      </div>
+
+      <div class="mt-14 bento">
+        <!-- 1: DAO Treasury - large -->
+        <div class="b-4 grad-border p-7 flex flex-col justify-between overflow-hidden relative">
+          <div class="absolute -top-12 -right-12 w-56 h-56 rounded-full" style="background: radial-gradient(circle, rgba(167,139,250,.32) 0%, transparent 70%);"></div>
+          <div class="relative">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-violet"><use href="#i-safe"/></svg>
+              <span class="text-[11px] tracking-[.22em] text-brand-violet font-semibold">DAO TREASURY OPS</span>
+            </div>
+            <h3 class="mt-4 text-2xl font-bold text-mute-100">A copilot your council signs off on.</h3>
+            <p class="mt-3 text-[14px] text-mute-300 leading-relaxed max-w-lg">An agent drafts treasury actions in a Matrix room. Council members sign with Ed25519, the queue runs only when Safe quorum is met on L2. Auditable end-to-end.</p>
+          </div>
+          <div class="relative mt-6 flex flex-wrap items-center gap-2">
+            <span class="chip rounded-full px-3 py-1 text-[11px] inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-emerald"><use href="#i-key"/></svg> Ed25519</span>
+            <span class="chip rounded-full px-3 py-1 text-[11px] inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-violet"><use href="#i-safe"/></svg> Safe</span>
+            <span class="chip rounded-full px-3 py-1 text-[11px] inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-sky"><use href="#i-ethereum"/></svg> L2 settlement</span>
+            <span class="chip rounded-full px-3 py-1 text-[11px] inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-amber"><use href="#i-snapshot"/></svg> Snapshot</span>
+          </div>
+        </div>
+
+        <!-- 2: Research collective - smaller -->
+        <div class="b-2 grad-border p-6 overflow-hidden relative">
+          <div class="absolute -top-8 -right-8 w-40 h-40 rounded-full" style="background: radial-gradient(circle, rgba(34,211,238,.32) 0%, transparent 70%);"></div>
+          <div class="relative">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-cyan"><use href="#i-orbit"/></svg>
+              <span class="text-[11px] tracking-[.22em] text-brand-cyan font-semibold">RESEARCH COLLECTIVE</span>
+            </div>
+            <h3 class="mt-4 text-lg font-bold text-mute-100">Many minds, one room.</h3>
+            <p class="mt-3 text-[13px] text-mute-300 leading-relaxed">A researcher, an auditor and a critic agent debate in #research and ship a reviewed memo.</p>
+          </div>
+        </div>
+
+        <!-- 3: DevOps coalition - smaller -->
+        <div class="b-2 grad-border p-6 overflow-hidden relative">
+          <div class="absolute -top-8 -right-8 w-40 h-40 rounded-full" style="background: radial-gradient(circle, rgba(52,211,153,.32) 0%, transparent 70%);"></div>
+          <div class="relative">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-emerald"><use href="#i-skill"/></svg>
+              <span class="text-[11px] tracking-[.22em] text-brand-emerald font-semibold">DEVOPS COALITION</span>
+            </div>
+            <h3 class="mt-4 text-lg font-bold text-mute-100">Signed deploys, only.</h3>
+            <p class="mt-3 text-[13px] text-mute-300 leading-relaxed">No deploy fires without two human signatures and a green policy gate.</p>
+          </div>
+        </div>
+
+        <!-- 4: Personal OS - small -->
+        <div class="b-3 grad-border p-6 overflow-hidden relative">
+          <div class="absolute -bottom-12 -right-12 w-56 h-56 rounded-full" style="background: radial-gradient(circle, rgba(96,165,250,.28) 0%, transparent 70%);"></div>
+          <div class="relative">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-sky"><use href="#i-calcom"/></svg>
+              <span class="text-[11px] tracking-[.22em] text-brand-sky font-semibold">PERSONAL OS</span>
+            </div>
+            <h3 class="mt-4 text-xl font-bold text-mute-100">An advisor that knows your calendar.</h3>
+            <p class="mt-3 text-[13px] text-mute-300 leading-relaxed">Calendar, inbox, memory and habits in one room. Cal.com books, Obsidian remembers, ActivityWatch grounds.</p>
+            <div class="mt-4 flex items-center gap-2">
+              <span class="chip rounded-full px-2.5 py-1 text-[11px] inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-sky"><use href="#i-calcom"/></svg> Cal.com</span>
+              <span class="chip rounded-full px-2.5 py-1 text-[11px] inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-violet"><use href="#i-obsidian"/></svg> Obsidian</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5: Multi-stream automation - small -->
+        <div class="b-3 grad-border p-6 overflow-hidden relative">
+          <div class="absolute -bottom-12 -right-12 w-48 h-48 rounded-full" style="background: radial-gradient(circle, rgba(244,114,182,.28) 0%, transparent 70%);"></div>
+          <div class="relative">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-pink"><use href="#i-bridge"/></svg>
+              <span class="text-[11px] tracking-[.22em] text-brand-pink font-semibold">MULTI-INBOX OPS</span>
+            </div>
+            <h3 class="mt-4 text-xl font-bold text-mute-100">One stack, every channel.</h3>
+            <p class="mt-3 text-[13px] text-mute-300 leading-relaxed">Slack, Discord, Telegram, WhatsApp and Signal bridged into Matrix. Triage, route, respond — with the same audit trail.</p>
+            <div class="mt-4 flex items-center gap-2 text-mute-400">
+              <svg class="w-4 h-4"><use href="#i-slack"/></svg>
+              <svg class="w-4 h-4"><use href="#i-discord"/></svg>
+              <svg class="w-4 h-4"><use href="#i-telegram"/></svg>
+              <svg class="w-4 h-4"><use href="#i-whatsapp"/></svg>
+              <svg class="w-4 h-4"><use href="#i-signal"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- comparison -->
+  <section class="relative py-24 lg:py-32 border-t border-white/5">
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="max-w-3xl">
+        <div class="text-xs font-semibold tracking-[.22em] text-brand-amber">HOW CREDO DIFFERS</div>
+        <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Not a framework. Not a cloud.</h2>
+        <p class="mt-5 text-lg text-mute-300">Credo is the operating model around your runtime, not a runtime itself. Compare the surface area.</p>
+      </div>
+
+      <div class="mt-12 grad-border rounded-2xl p-2 overflow-x-auto">
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th class="w-1/3">Capability</th>
+              <th class="col-credo"><div class="flex items-center gap-2 text-mute-100"><svg class="w-4 h-4 text-brand-cyan"><use href="#i-credo"/></svg> Credo</div></th>
+              <th>Generic agent framework</th>
+              <th>Cloud agent platform</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Self-hosted</td>
+              <td class="col-credo"><span class="yes">✓ end-to-end</span></td>
+              <td><span class="yes">✓</span> partial</td>
+              <td><span class="no">✗</span> SaaS only</td>
+            </tr>
+            <tr>
+              <td>Multi-agent message bus</td>
+              <td class="col-credo"><span class="yes">✓ Matrix rooms</span></td>
+              <td><span class="meh">~</span> in-memory only</td>
+              <td><span class="meh">~</span> proprietary channels</td>
+            </tr>
+            <tr>
+              <td>m-of-n DAO governance</td>
+              <td class="col-credo"><span class="yes">✓ Ed25519 + Safe + IPFS</span></td>
+              <td><span class="no">✗</span></td>
+              <td><span class="no">✗</span></td>
+            </tr>
+            <tr>
+              <td>Cryptographic audit trail</td>
+              <td class="col-credo"><span class="yes">✓ per job · per artifact</span></td>
+              <td><span class="meh">~</span> logs</td>
+              <td><span class="meh">~</span> log dashboard</td>
+            </tr>
+            <tr>
+              <td>Verifiable memory (status)</td>
+              <td class="col-credo"><span class="yes">✓ canonical / reviewed / ephemeral</span></td>
+              <td><span class="no">✗</span> vector dump</td>
+              <td><span class="no">✗</span> opaque store</td>
+            </tr>
+            <tr>
+              <td>Policy gate per tool call</td>
+              <td class="col-credo"><span class="yes">✓ role + scope + risk class</span></td>
+              <td><span class="meh">~</span> hand-rolled</td>
+              <td><span class="meh">~</span> rate limits</td>
+            </tr>
+            <tr>
+              <td>Bridges to chat networks</td>
+              <td class="col-credo"><span class="yes">✓ mautrix · Slack · WA · TG · Discord</span></td>
+              <td><span class="no">✗</span></td>
+              <td><span class="meh">~</span> webhooks</td>
+            </tr>
+            <tr>
+              <td>OpenTelemetry across stack</td>
+              <td class="col-credo"><span class="yes">✓ LLM · MCP · tool · sub-agent</span></td>
+              <td><span class="meh">~</span> partial</td>
+              <td><span class="meh">~</span> vendor-locked</td>
+            </tr>
+            <tr>
+              <td>Your keys, your data</td>
+              <td class="col-credo"><span class="yes">✓ Tailscale-only admin</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="no">✗</span></td>
+            </tr>
+            <tr>
+              <td>Setup cost</td>
+              <td class="col-credo"><span class="meh">~ one weekend</span></td>
+              <td><span class="yes">low</span></td>
+              <td><span class="yes">low</span></td>
+            </tr>
+            <tr>
+              <td>Switching cost later</td>
+              <td class="col-credo"><span class="yes">low · open + Matrix-native</span></td>
+              <td><span class="meh">medium</span></td>
+              <td><span class="no">high · vendor lock</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>

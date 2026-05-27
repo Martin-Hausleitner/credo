@@ -10,12 +10,18 @@
 </p>
 
 <p align="center">
+  <a href="https://martin-hausleitner.github.io/Credo/"><strong>🌐 Live landing page</strong></a> ·
   <a href="#-architektur">Architecture</a> ·
   <a href="#%EF%B8%8F-mvp-scope">MVP</a> ·
   <a href="#-dao--krypto">DAO</a> ·
   <a href="#-roadmap">Roadmap</a> ·
-  <a href="docs/">Docs</a> ·
-  <a href="site/index.html">Landing page</a>
+  <a href="docs/">Docs</a>
+</p>
+
+<p align="center">
+  <a href="https://martin-hausleitner.github.io/Credo/"><img alt="Live on GitHub Pages" src="https://img.shields.io/badge/Live-martin--hausleitner.github.io%2FCredo-22D3EE?style=flat-square&logo=github&logoColor=white&labelColor=06060A"></a>
+  <img alt="Self-hosted" src="https://img.shields.io/badge/Self--hosted-Matrix-A78BFA?style=flat-square&labelColor=06060A">
+  <img alt="DAO-native" src="https://img.shields.io/badge/DAO--native-Ed25519-34D399?style=flat-square&labelColor=06060A">
 </p>
 
 ---
@@ -26,7 +32,7 @@
 
 > 🪪 **DAO &amp; Krypto:** Hochriskante Agenten-Aktionen werden zu Proposals — diskutiert im Matrix-Raum, **Ed25519-signiert** durch m-of-n Mitglieder, auf **IPFS** verankert, und fuer Treasury/Contract-Aktionen zusaetzlich via **Safe multisig** auf L2 (OP, Arbitrum, Base) abgesegnet. Optionales **Snapshot** fuer gasless Off-chain Votes.
 
-> 🌐 **Landing page:** `site/index.html` ist eine eigenstaendige Vercel/Linear-style Marketing-Seite. Lokal oeffnen oder via GitHub Pages (Settings → Pages → Branch `main` /site) ausliefern.
+> 🌐 **Landing page:** Live unter [martin-hausleitner.github.io/Credo](https://martin-hausleitner.github.io/Credo/). Source: `index.html` im Repo-Root, ausgeliefert via GitHub Pages auf `main`.
 
 ## 🧭 Start Here
 
