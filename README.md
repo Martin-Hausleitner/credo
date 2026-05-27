@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/hero.svg" alt="Credo — the operating system for your agents" width="100%"/>
+  <img src="assets/hero.svg" alt="credo — the agent OS for DAOs" width="100%"/>
 </p>
 
-<h1 align="center">Credo</h1>
+<h1 align="center">credo</h1>
 
 <p align="center">
   <strong>The agent OS for DAOs.</strong><br/>
@@ -10,267 +10,204 @@
 </p>
 
 <p align="center">
-  <a href="https://martin-hausleitner.github.io/credo/"><strong>🌐 Live landing page</strong></a> ·
-  <a href="#-architektur">Architecture</a> ·
+  <a href="https://martin-hausleitner.github.io/credo/"><strong>🌐 Live site</strong></a> ·
+  <a href="#-vision">Vision</a> ·
+  <a href="#-stack--open-source-first">Stack</a> ·
   <a href="#%EF%B8%8F-mvp-scope">MVP</a> ·
-  <a href="#-dao--krypto">DAO</a> ·
-  <a href="#-roadmap">Roadmap</a> ·
   <a href="docs/">Docs</a>
 </p>
 
 <p align="center">
-  <a href="https://martin-hausleitner.github.io/credo/"><img alt="Live on GitHub Pages" src="https://img.shields.io/badge/Live-martin--hausleitner.github.io%2FCredo-22D3EE?style=flat-square&logo=github&logoColor=white&labelColor=06060A"></a>
+  <a href="https://martin-hausleitner.github.io/credo/"><img alt="Live on GitHub Pages" src="https://img.shields.io/badge/Live-martin--hausleitner.github.io%2Fcredo-22D3EE?style=flat-square&logo=github&logoColor=white&labelColor=06060A"></a>
   <img alt="Self-hosted" src="https://img.shields.io/badge/Self--hosted-Matrix-A78BFA?style=flat-square&labelColor=06060A">
   <img alt="DAO-native" src="https://img.shields.io/badge/DAO--native-Ed25519-34D399?style=flat-square&labelColor=06060A">
+  <img alt="Open Source First" src="https://img.shields.io/badge/Open%20Source-First-10B981?style=flat-square&labelColor=06060A">
 </p>
 
 ---
 
-**Credo** ist Martins Architekturdeck fuer einen selbst gehosteten, **DAO-nativen** Agent-Kommunikationsstack: **Matrix** als Raum-, Identity-, State- und Audit-Kontext; **Ed25519 + Safe + IPFS** als kryptografische Governance-Schicht; **Hermes/OpenClaw/Codex** als Agent Runtime; **Postgres, Obsidian, Cal.com, ActivityWatch und lokale Skills** als Memory-, Kontext- und Tool-Schicht.
+**credo** ist Martins Architekturdeck fuer einen selbst gehosteten, DAO-nativen Agent-Kommunikationsstack. **Matrix** als Raum-, Identity-, State- und Audit-Schicht. **Ed25519 + Safe + IPFS** als kryptografische Governance. **Hermes / OpenClaw / Codex** als Agent-Runtime. **PostgreSQL + pgvector + MinIO + Logseq/Obsidian + Cal.com + ActivityWatch** als Memory- und Kontext-Schicht. Alles **Open Source first**, alles selbst hostbar.
 
-> 🎯 **MVP:** Synapse als konservativer Start + Element/Cinny + Hermes Matrix-Bot + Redis + Postgres/pgvector + S3/R2 + Obsidian + Cal.com + ActivityWatch + Tailscale-only Admin. Tuwunel bleibt ein schlanker Kandidat, sobald Bot-, Bridge-, MatrixRTC- und MAS-Kompatibilitaet validiert sind.
+## ✨ Vision
 
-> 🪪 **DAO &amp; Krypto:** Hochriskante Agenten-Aktionen werden zu Proposals — diskutiert im Matrix-Raum, **Ed25519-signiert** durch m-of-n Mitglieder, auf **IPFS** verankert, und fuer Treasury/Contract-Aktionen zusaetzlich via **Safe multisig** auf L2 (OP, Arbitrum, Base) abgesegnet. Optionales **Snapshot** fuer gasless Off-chain Votes.
-
-> 🎨 **Generative UI:** Eine eingebaute **DesignSkill** entwirft fuer jede Agent-Aktion ein eigenes UI. Du gibst ⭑, der naechste Lauf startet dort und verfeinert — bis jede wiederkehrende Aktion ihr eigenes "offizialisiertes" Interface hat. Human-in-the-loop UI-Handwerk statt Wall-of-Text.
-
-> 🛡️ **Local-first &amp; sovereign:** Kein zentraler Server, kein Honeypot. Jeder Knoten haelt die volle Chronik, End-to-End verschluesselt, mit Schluesseln die das Geraet nie verlassen. Matrix-Federation + CRDT-Vault — Compromise von einem Knoten kompromittiert nicht den Rest.
-
-> 🌌 **Horizon 2026–2035:** Boring Foundations jetzt (Foundation · Crypto · Generative UI) → Sovereignty Mitte des Jahrzehnts (Local-first · Federated mesh · ZK governance · Self-authoring skills) → Civic Infrastructure zum Ende (Personal charter · Inter-DAO settlement · Co-ops &amp; Staedte auf dem gleichen Stack).
-
-> 🟢 **Open Source First:** Jede Schicht zeigt auf ein OSS-Projekt mit bekanntem Repo und Lizenz — Matrix Synapse (AGPL-3.0) · PostgreSQL · Valkey (BSD-3, Redis-Fork) · MinIO (AGPL-3.0) · NetBird + WireGuard + Headscale (BSD-3 / GPL-2.0) · Caddy · Coturn · LiveKit (Apache-2.0) · OpenTelemetry · Prometheus · Loki · Grafana · Logseq (AGPL-3.0, Obsidian-Alternative) · Cal.com (AGPL-3.0) · libsodium/Ed25519 · IPFS · Safe (LGPL-3.0) · Snapshot · ENS. Tailscale ist raus (Coordination-Server closed); NetBird + Headscale sind die fully-OSS Mesh-Alternativen. *Decentralisation without open source is just outsourcing.*
-
-> 🌐 **Landing page:** Live unter [martin-hausleitner.github.io/credo](https://martin-hausleitner.github.io/credo/). Source: `index.html` im Repo-Root, ausgeliefert via GitHub Pages auf `main`.
+| Pillar | TL;DR |
+|---|---|
+| 🎯 **MVP** | Synapse + Element/Cinny · Hermes Matrix-Bot · Valkey · Postgres/pgvector · MinIO · Cal.com · ActivityWatch · NetBird mesh. |
+| 🪪 **DAO &amp; Krypto** | Risk-classed proposals · m-of-n **Ed25519** quorum · **IPFS** anchor · **Safe** multisig auf L2 (OP / Arbitrum / Base) · optional **Snapshot**. |
+| 🎨 **Generative UI** | DesignSkill entwirft ein UI pro Action · Like-Loop refined · stabile Varianten werden zu kanonischen, "offizialisierten" Interfaces. |
+| 🛡️ **Local-first** | Kein zentraler Server. Jeder Knoten haelt die volle Chronik, E2E verschluesselt. Keys verlassen das Geraet nicht. |
+| 🌌 **Horizon 2026–2035** | Foundation (26–28) → Sovereignty (29–32: federated mesh, ZK governance, self-authoring skills) → Civic infrastructure (33–35). |
+| 🟢 **Open Source First** | Jede Schicht zeigt auf ein OSS-Projekt mit bekannter Lizenz. Tailscale raus (closed coordinator); **NetBird + WireGuard + Headscale** rein. *Decentralisation without OSS is just outsourcing.* |
 
 ## 🧭 Start Here
 
 | Frage | Kurzantwort | Link |
 |---|---|---|
-| Was ist Credo? | Ein Matrix-zentriertes Betriebsmodell fuer Agentenarbeit. | [Operating Model](#%EF%B8%8F-operating-model) |
-| Was ist entschieden? | Matrix ist Kontext und Audit-Timeline; Redis/Worker fuehren Jobs aus; Postgres/S3 sind das kanonische Ledger. | [Kurzurteil](#-kurzurteil) |
-| Was baue ich zuerst? | Text-MVP mit Synapse, Clients, Bot, Redis, Postgres, R2/S3 und Tailscale. | [MVP Scope](#%EF%B8%8F-mvp-scope) |
-| Wo sind Details? | Entscheidungen, Inventare, Roadmap und Research sind in `docs/` gesplittet. | [Detail-Dokumente](#-detail-dokumente) |
+| Was ist credo? | Ein Matrix-zentriertes Betriebsmodell fuer Agentenarbeit. | [Operating Model](#%EF%B8%8F-operating-model) |
+| Was ist entschieden? | Matrix = Kontext + Audit. Valkey/Worker = Jobs. Postgres + MinIO = kanonisches Ledger. | [Stack](#-stack--open-source-first) |
+| Was baue ich zuerst? | Text-MVP mit Synapse, Clients, Bot, Valkey, Postgres, MinIO/R2 und NetBird. | [MVP Scope](#%EF%B8%8F-mvp-scope) |
+| Wo sind Details? | Entscheidungen, Inventare, Roadmap und Research in `docs/`. | [Detail-Dokumente](#-detail-dokumente) |
+| Wo ist die Live-Site? | [martin-hausleitner.github.io/credo](https://martin-hausleitner.github.io/credo/) | — |
+
+## 🧱 Architektur
 
 ![Credo nine planes](assets/credo-planes.svg)
 
-![Credo stack layers](assets/layers.svg)
+Die anderen Diagramme (Hero, Stack-Layers, Agent-Mesh, DAO-Governance, Audit-Trail, Horizon 2026–2035, Brand-Board) liegen in [`assets/`](assets/) und sind ueber die [Live-Site](https://martin-hausleitner.github.io/credo/) im Zusammenhang lesbar.
 
-![Credo agent mesh](assets/agent-mesh.svg)
-
-![Credo DAO governance](assets/dao-governance.svg)
-
-![Credo audit trail](assets/audit-trail.svg)
-
-![Credo horizon 2026–2035](assets/horizon-2035.svg)
-
-![Credo brand mark](assets/logo-board.svg)
-
-## 🎛️ Operating Model
-
-Credo ist kein einzelnes Tool, sondern ein **Betriebsmodell fuer Agentenarbeit**:
-
-| Regel | Bedeutung |
-|---|---|
-| 🟢 Jeder Auftrag hat einen Raum | Matrix liefert Kontext, Menschen, State und eine nachvollziehbare Timeline. |
-| 🚦 Jede Aktion hat eine Policy | Rollen, Freigaben und Risiken werden im Backend entschieden, vor Redis und erneut vor jedem riskanten Tool Call. |
-| 🧾 Jeder Lauf hat eine Job-ID | Redis/Worker entkoppeln lange Agentenarbeit vom Chat-Event. |
-| 🗄️ Jedes Ergebnis hat ein Artefakt | S3/R2, Postgres und Matrix-Links halten Ergebnisse nachvollziehbar. |
-| 🧠 Jede Erinnerung hat einen Status | Ephemeral, reviewed oder canonical statt ungeprueftes Langzeit-Memory. |
-| 📊 Jeder Tool Call hat eine Spur | OTel/Grafana machen LLM, MCP, Tool, RAG und Subagenten debugbar. |
-
-## 🧭 Gesamtbild
+<details>
+<summary>📐 Komplettes Mermaid-Gesamtbild (klicken zum Ausklappen)</summary>
 
 ```mermaid
 flowchart TB
   Human["👤 Martin / Team"] --> UX
 
   subgraph UX["💬 01 Zugänge und UX"]
-    Element["Element Web<br/>Admin + Debug"]
-    ElementX["Element X<br/>Matrix 2.0 Pfad"]
-    HermesDesktop["Hermes Desktop<br/>Agent Companion"]
-    Cinny["Cinny / Sable / Commet<br/>Agent-Räume"]
-    Chatwoot["Chatwoot<br/>Operator Inbox"]
-    Cognitor["Cognitor<br/>Tray / Web / Mobile"]
+    Element["Element Web · Admin + Debug"]
+    ElementX["Element X · Matrix 2.0"]
+    HermesDesktop["Hermes Desktop · Agent Companion"]
+    Cinny["Cinny / Sable / Commet"]
+    Chatwoot["Chatwoot · Operator Inbox"]
+    Cognitor["Cognitor · Tray / Web / Mobile"]
   end
 
-  subgraph Matrix["🟢 02 Matrix Kommunikationskern"]
-    Homeserver["Synapse oder Tuwunel<br/>Rooms, State, Identity, Audit"]
-    Rooms["Room Topology<br/>intake / research / ops / memory / alerts"]
-    Admin["Admin + Ops<br/>synadm, reports, media, purges"]
+  subgraph Matrix["🟢 02 Matrix-Kern"]
+    Homeserver["Synapse oder Tuwunel"]
+    Rooms["Room Topology · intake / research / ops / memory / alerts"]
+    Admin["synadm · reports · purges"]
   end
 
-  subgraph Bridge["📬 03 Bridges und Inbox"]
-    Mautrix["mautrix Bridges<br/>Telegram / WhatsApp / Signal / Slack"]
+  subgraph Bridge["📬 03 Bridges & Inbox"]
+    Mautrix["mautrix · TG / WA / Signal / Slack"]
     Beeper["beeper-matrix-proxy"]
-    Mail["Himalaya + Maildir + notmuch"]
+    Mail["Himalaya · Maildir · notmuch"]
   end
 
-  subgraph Gateway["🚦 04 Gateway und Jobs"]
+  subgraph Gateway["🚦 04 Gateway & Jobs"]
     Bot["Hermes Matrix Bot"]
-    Policy["Policy Gate<br/>Rollen, Freigaben, Audit"]
-    Queue["Redis Queue<br/>Job-ID, Retry, Backpressure"]
+    Policy["Policy Gate · Rollen · Audit"]
+    Queue["Valkey Queue · Job-ID · Retry"]
   end
 
   subgraph Runtime["🤖 05 Agent Runtime"]
     Hermes["Hermes Agent"]
     OpenClaw["OpenClaw / ClawHub"]
     Codex["Codex Computer Use"]
-    Skills["Skills<br/>GitHub, Notion, E-Mail, Apple, Browser, MCP"]
+    Skills["Skills · GitHub / Notion / Mail / MCP"]
   end
 
-  subgraph Data["🧠 06 Daten und Memory"]
+  subgraph Data["🧠 06 Daten & Memory"]
     Pg["Postgres + pgvector"]
-    Supabase["Supabase optional"]
-    S3["S3 / Cloudflare R2"]
-    Vault["Obsidian + Git + Dataview"]
+    S3["MinIO / R2"]
+    Vault["Logseq / Obsidian + Git"]
   end
 
-  subgraph Context["🧩 07 Persönlicher Kontext"]
-    AW["ActivityWatch"]
-    Health["WHOOP / Apple Health / Screen Time"]
-    Media["YouTube / Icons / Presence"]
+  subgraph DAO["🪪 07 Governance"]
+    Sig["Ed25519 m-of-n"]
+    Ipfs["IPFS anchor"]
+    Safe["Safe multisig · L2"]
   end
 
-  subgraph Voice["🎙️ 08 Voice und RTC"]
+  subgraph Voice["🎙️ 08 Voice & RTC"]
     Discord["Discord Voice MVP"]
     ElementCall["Element Call"]
-    LKJWT["lk-jwt-service<br/>Matrix OpenID -> LiveKit JWT"]
     LiveKit["LiveKit SFU"]
-    VoiceAgent["Hermes Voice Agent<br/>LiveKit Participant"]
+    VoiceAgent["Hermes Voice Agent"]
   end
 
-  subgraph Ops["📊 09 Betrieb und Sicherheit"]
+  subgraph Ops["📊 09 Ops & Security"]
     OTel["OpenTelemetry"]
-    Grafana["Prometheus + Loki + Grafana"]
-    Tailnet["Tailscale-only Admin"]
-    Resources["CPU / RAM / Storage Platzhalter"]
+    Grafana["Prometheus · Loki · Grafana"]
+    Net["NetBird · WireGuard · Headscale"]
   end
 
   UX --> Homeserver --> Rooms --> Bot
-  Admin --> Grafana
   Mautrix --> Homeserver
-  Beeper --> Homeserver
-  Mail --> Chatwoot
-  Chatwoot --> Bot
+  Mail --> Chatwoot --> Bot
   Bot --> Policy --> Queue --> Hermes
-  Hermes --> OpenClaw
-  Hermes --> Codex
-  Hermes --> Skills
-  Hermes --> Pg
-  Hermes --> Supabase
-  Hermes --> S3
-  Hermes --> Vault
-  Hermes --> AW
-  Cognitor --> AW
-  Health --> AW
-  Media --> AW
+  Hermes --> OpenClaw & Codex & Skills
+  Hermes --> Pg & S3 & Vault
+  Policy --> Sig --> Ipfs --> Safe
+  Hermes --> OTel --> Grafana
   Discord --> Hermes
-  ElementCall --> LKJWT
-  Homeserver --> LKJWT
-  LKJWT --> LiveKit
-  ElementCall --> LiveKit
-  VoiceAgent --> LiveKit
-  VoiceAgent --> Hermes
-  Hermes --> OTel --> Grafana --> Tailnet
-  Resources --> Grafana
+  ElementCall --> LiveKit --> VoiceAgent --> Hermes
+  Admin --> Net
 ```
+</details>
 
-## 🧱 Stack-Kategorien
+## 🎛️ Operating Model
 
-| Kategorie | Logos | Was es macht | Haupt-Dokument |
-|---|---|---|---|
-| 🟢 Kommunikation | <img src="https://cdn.simpleicons.org/matrix/000000" width="22"> <img src="https://cdn.simpleicons.org/element/0DBD8B" width="22"> | Matrix-Räume, Nutzer, State, Federation, Audit, Clients | [Zielstack](docs/target-stack.md) |
-| 📬 Inbox und Bridges | <img src="https://www.google.com/s2/favicons?domain=chatwoot.com&sz=64" width="22"> <img src="https://www.google.com/s2/favicons?domain=pimalaya.org&sz=64" width="22"> | E-Mail, Beeper, Telegram, WhatsApp, Signal, Operator-Inbox | [Matrix Ops Runbook](docs/matrix-ops-runbook.md) |
-| 🤖 Agent Runtime | <img src="https://www.google.com/s2/favicons?domain=nousresearch.com&sz=64" width="22"> <img src="https://www.google.com/s2/favicons?domain=openclawdoc.com&sz=64" width="22"> <img src="https://www.google.com/s2/favicons?domain=openai.com&sz=64" width="22"> | Hermes, OpenClaw, Codex, Skills, Subagents, Computer Use | [Hermes Skills](docs/hermes-skills.md) |
-| 🧠 Daten und Memory | <img src="https://cdn.simpleicons.org/postgresql/4169E1" width="22"> <img src="https://cdn.simpleicons.org/redis/DC382D" width="22"> <img src="https://cdn.simpleicons.org/supabase/3FCF8E" width="22"> | Jobs, Agent-State, Audit, RAG, Artefakte, interne Dashboards | [Ressourcenplanung](docs/resource-planning.md) |
-| 🧩 Wissen und Kontext | <img src="https://cdn.simpleicons.org/obsidian/7C3AED" width="22"> <img src="https://www.google.com/s2/favicons?domain=activitywatch.net&sz=64" width="22"> <img src="https://cdn.simpleicons.org/apple/000000" width="22"> | Obsidian Vault, ActivityWatch, WHOOP, Apple, YouTube, Presence | [Repo-Landkarte](docs/repository-map.md) |
-| 🎙️ Voice und RTC | <img src="https://cdn.simpleicons.org/discord/5865F2" width="22"> <img src="https://www.google.com/s2/favicons?domain=livekit.io&sz=64" width="22"> | Discord Voice MVP, Element Call, LiveKit, OpenAI Realtime | [Architekturfluesse](docs/architecture-flows.md) |
-| 📊 Betrieb | <img src="https://cdn.simpleicons.org/grafana/F46800" width="22"> <img src="https://cdn.simpleicons.org/prometheus/E6522C" width="22"> <img src="https://cdn.simpleicons.org/tailscale/242424" width="22"> | Logs, Metriken, Alerts, Tailscale-only Admin, Redaction | [Build-Plan](docs/implementation-roadmap.md) |
-
-## ✅ Kurzurteil
-
-Matrix ist **nicht** das Agent-Framework und auch **nicht** die interne Queue.
-
-| Schicht | Entscheidung |
-|---|---|
-| 🟢 Matrix | Kommunikations-, Raum-, Identity-, State- und Audit-Timeline |
-| 🚦 Redis/Worker | echte Job-Ausführung, Retries, Backpressure und Status |
-| 🤖 Hermes/OpenClaw/Codex | Agent Runtime, Skills, Tools, Memory, Automationen |
-| 🧠 Postgres/pgvector | Core Memory, kanonisches Audit, Agent-State und RAG |
-| 🧩 ActivityWatch/Obsidian/Cognitor | persönlicher Kontext, Wissen, Lifelog und Dashboards |
-| 🎙️ LiveKit/Discord Voice | separater späterer Voice-/Realtime-Strang |
-
-**Synapse** ist der konservative Produktionsstart. **Tuwunel** ist der interessante Greenfield-Test, wenn RAM, S3 und schlanke Ops wichtiger sind. **Supabase** ist sinnvoll fuer schnelle interne Dashboards/Auth/Realtime, aber nicht als Ersatz fuer Core-Postgres + pgvector.
-
-## 🏆 Bester Zielstack
-
-| Kategorie | Gewinner | Gedacht fuer | Status |
-|---|---|---|---|
-| 🟢 Kommunikationskern | Synapse oder Tuwunel | Rooms, State, Federation, Audit | MVP-Entscheidung |
-| 🚀 Deployment | matrix-docker-ansible-deploy | Homeserver, TLS, TURN, Clients, Bridges | empfohlen |
-| 💬 UX | Element Web + Cinny/Sable + Element X | Admin, Alltag, Matrix-2.0, Agent-Räume | empfohlen |
-| 🖥️ Agent Desktop | Hermes Desktop | lokale/remote Hermes-Konfiguration, Chat, Sessions, Skills, Gateways | sehr interessant |
-| 📬 Inbox | Chatwoot + Himalaya + Maildir/notmuch | E-Mail, Beeper, Agent-Ops | aktiv/lokal |
-| 🤖 Runtime | Hermes + OpenClaw + Codex | Skills, Subagents, Tools, Computer Use | Core |
-| 🚦 Jobs | Redis Queue + Worker | Job-ID, Backpressure, Retry | Core |
-| 🧠 Memory | Postgres + pgvector | Agent-State, Audit, RAG | Core |
-| ⚡ App Layer | Supabase optional | Dashboard, Auth, Realtime, Studio | optional |
-| 🗄️ Artefakte | S3 / Cloudflare R2 | Medien, Exporte, Reports | Core |
-| 🧩 Wissen | Obsidian + Git + Dataview | Knowledge Vault und Audit Trail | aktiv |
-| 📈 Kontext | ActivityWatch + Importer | Fokus, Health, Medien, Presence | aktiv |
-| 🎙️ Voice | Discord MVP, später Element Call + LiveKit + lk-jwt-service | niedrige Latenz, Calls, Streaming, RTC-Foci | später |
-| 🧑‍✈️ Voice Agent | Hermes als LiveKit Participant | Tool Calls und Raum-Zusammenfassungen aus Calls | später |
-| 📊 Ops | OTel + Prometheus + Loki + Grafana | Logs, Metriken, Alerts | Core |
-| 🔐 Admin | Tailscale | private Admin- und Dashboard-Schicht | Core |
-
-## 📚 Detail-Dokumente
-
-| Wenn du wissen willst... | Lies | Status |
+| # | Regel | Bedeutung |
 |---|---|---|
-| Was der Zielstack ist | [docs/target-stack.md](docs/target-stack.md) | Entscheidungsdoc |
-| Welche Bilder und Diagramme es gibt | [docs/visual-gallery.md](docs/visual-gallery.md) | Visual Guide |
-| Wie die Flows laufen | [docs/architecture-flows.md](docs/architecture-flows.md) und [docs/architecture.mmd](docs/architecture.mmd) | Architektur |
-| Wie Matrix betrieben wird | [docs/matrix-ops-runbook.md](docs/matrix-ops-runbook.md) | Runbook |
-| Was zuerst gebaut wird | [docs/implementation-roadmap.md](docs/implementation-roadmap.md) | Roadmap |
-| Welche Ressourcen gebraucht werden | [docs/resource-planning.md](docs/resource-planning.md) | Dimensionierung |
-| Welche Services beteiligt sind | [docs/service-catalog.md](docs/service-catalog.md) | Katalog |
-| Welche Packages/Skills existieren | [docs/package-inventory.md](docs/package-inventory.md) und [docs/hermes-skills.md](docs/hermes-skills.md) | Inventar |
-| Welche Repos beteiligt sind | [docs/repository-map.md](docs/repository-map.md), [docs/local-repositories.md](docs/local-repositories.md), [docs/github-repositories.md](docs/github-repositories.md), [docs/matrix-repositories.md](docs/matrix-repositories.md) | Inventar |
-| Welche Alternativen verglichen wurden | [docs/stack-comparison.md](docs/stack-comparison.md) | Vergleich |
-| Welche Research-Ideen als Backlog gelten | [docs/research-improvements.md](docs/research-improvements.md) | Synthese |
+| 01 | 🟢 Jeder Auftrag hat einen Raum | Matrix liefert Kontext, Menschen, State und eine nachvollziehbare Timeline. |
+| 02 | 🚦 Jede Aktion hat eine Policy | Rollen, Freigaben und Risiken werden im Backend entschieden — vor der Queue und erneut vor jedem riskanten Tool-Call. |
+| 03 | 🧾 Jeder Lauf hat eine Job-ID | Valkey/Worker entkoppeln lange Agentenarbeit vom Chat-Event. |
+| 04 | 🗄️ Jedes Ergebnis hat ein Artefakt | MinIO/R2, Postgres und Matrix-Links halten Ergebnisse nachvollziehbar. |
+| 05 | 🧠 Jede Erinnerung hat einen Status | Ephemeral, reviewed oder canonical — kein ungeprueftes Langzeit-Memory. |
+| 06 | 📊 Jeder Tool-Call hat eine Spur | OTel / Grafana macht LLM, MCP, Tool, RAG und Sub-Agenten debugbar. |
+| 07 | 🪪 Jede Aktion ist signiert | Ed25519 device keys · m-of-n Quorum · Matrix + IPFS + (optional) Safe. |
+
+## 🧱 Stack — Open Source First
+
+| Layer | Projekte | Lizenz |
+|---|---|---|
+| 🟢 Communication | Matrix Synapse · Element Web · mautrix bridges · Chatwoot | AGPL-3.0 · Apache-2.0 · MIT |
+| 🤖 Runtime & Queue | Hermes · OpenClaw · Codex · MCP · Valkey · Ollama | MIT · BSD-3 |
+| 🧠 Data & Memory | PostgreSQL + pgvector · MinIO · IPFS / Kubo · Logseq · Cal.com | PG-Lic · AGPL-3.0 · MIT + Apache-2.0 |
+| 🛡️ Network & Edge | NetBird · WireGuard · Headscale · Caddy · Coturn · LiveKit | BSD-3 · GPL-2.0 · Apache-2.0 |
+| 📊 Observability | OpenTelemetry · Prometheus · Loki · Grafana · Tempo | Apache-2.0 · AGPL-3.0 |
+| 🪪 Crypto & Governance | libsodium · Ed25519 · Safe Smart Account · Snapshot · ENS · IPFS | ISC · LGPL-3.0 · MIT · public goods |
+
+> Tailscale ist raus (closed coordinator). **NetBird + WireGuard + Headscale** sind die fully-OSS Mesh-Alternativen. Wenn ein Projekt seine Lizenz aendert, haben wir den Fork bereit — **Valkey** statt Redis, **Headscale** statt Tailscale-Coordinator.
 
 ## 🛣️ MVP Scope
 
-1. 🟢 Matrix Homeserver aufsetzen.
+1. 🟢 Matrix Homeserver (Synapse) aufsetzen.
 2. 💬 Element Web + Cinny/Sable bereitstellen.
-3. 🤖 Hermes/OpenClaw Matrix-Bot registrieren, inklusive Bot-Account/Appservice-Entscheidung, Power Levels, Rate Limits, Invite-Policy und E2EE-Key-Handling.
-4. 🚦 Matrix-Nachrichten in Redis-Jobs verwandeln.
-5. 🧠 Postgres + pgvector fuer Memory/RAG anbinden.
-6. 🗄️ S3/R2 fuer Artefakte und grosse Dateien verwenden.
-7. 📊 Redigierte Logs/Metriken intern sichtbar machen und Trace-ID zurueck in Matrix posten.
-8. 🔐 Public Plane und Admin Plane trennen: Clients/Federation/Bridges kontrolliert oeffentlich, Admin-APIs, Grafana, Loki, Prometheus, Postgres, Redis, Supabase Studio und S3-Admin nur ueber Tailscale.
+3. 🤖 Hermes/OpenClaw Matrix-Bot registrieren (Bot vs. Appservice, Power Levels, Rate Limits, Invite-Policy, E2EE-Keys).
+4. 🚦 Matrix-Nachrichten in Valkey-Jobs verwandeln (Policy-Gate davor).
+5. 🧠 Postgres + pgvector fuer Memory/RAG.
+6. 🗄️ MinIO oder Cloudflare R2 fuer Artefakte.
+7. 🪪 Ed25519-Signaturen pro Job (libsodium); IPFS-Anchor fuer high-risk.
+8. 📊 Redigierte Logs/Metriken intern sichtbar; Trace-ID zurueck in Matrix posten.
+9. 🔐 Public vs. Admin Plane trennen: Clients/Federation/Bridges kontrolliert oeffentlich; Admin-APIs, Grafana, Loki, Prometheus, Postgres, Valkey und MinIO-Admin nur ueber **NetBird/WireGuard**.
 
-## ⏳ Nicht in den MVP
+## ⏳ Nicht im MVP
 
 | Thema | Warum warten? |
 |---|---|
 | 🔒 E2EE Recording | Bots brauchen echte Teilnehmer-Keys; hoher Engineering-Aufwand |
-| 🎥 4K60 MatrixRTC | Bandbreite, Codecs, Simulcast und Browser-Limits machen es teuer |
-| 🧱 Eigener Matrix Client | Zu viel UI-/Crypto-/Sync-Komplexitaet |
+| 🎥 4K60 MatrixRTC | Bandbreite, Codecs, Simulcast und Browser-Limits |
+| 🧱 Eigener Matrix Client | UI-/Crypto-/Sync-Komplexitaet zu hoch |
 | 📱 Meta/Instagram Bridges | Ban-, Proxy-, Session- und Cookie-Risiko |
 | 🗝️ Agenten mit Admin-Tokens | Nur in eng begrenzten Ops-Raeumen mit Audit |
-| ☸️ Kubernetes | Fuer den Start Overkill; Ansible + Docker ist passender |
+| ☸️ Kubernetes | Fuer den Start Overkill; Ansible + Docker reicht |
+
+## 📚 Detail-Dokumente
+
+| Worum geht's? | Lies | Status |
+|---|---|---|
+| Zielstack | [docs/target-stack.md](docs/target-stack.md) | Entscheidung |
+| Visuals & Diagramme | [docs/visual-gallery.md](docs/visual-gallery.md) | Guide |
+| Architektur-Flows | [docs/architecture-flows.md](docs/architecture-flows.md) · [.mmd](docs/architecture.mmd) | Architektur |
+| Matrix-Runbook | [docs/matrix-ops-runbook.md](docs/matrix-ops-runbook.md) | Runbook |
+| Roadmap | [docs/implementation-roadmap.md](docs/implementation-roadmap.md) | Roadmap |
+| Ressourcenplanung | [docs/resource-planning.md](docs/resource-planning.md) | Dimensionierung |
+| Service-Katalog | [docs/service-catalog.md](docs/service-catalog.md) | Katalog |
+| Packages & Skills | [docs/package-inventory.md](docs/package-inventory.md) · [hermes-skills.md](docs/hermes-skills.md) | Inventar |
+| Repos | [docs/repository-map.md](docs/repository-map.md) · [local](docs/local-repositories.md) · [github](docs/github-repositories.md) · [matrix](docs/matrix-repositories.md) | Inventar |
+| Stack-Vergleich | [docs/stack-comparison.md](docs/stack-comparison.md) | Vergleich |
+| Research-Backlog | [docs/research-improvements.md](docs/research-improvements.md) | Synthese |
 
 ## 🧼 Pflege-Regeln
 
 - Neue Services zuerst in [docs/service-catalog.md](docs/service-catalog.md) eintragen.
 - Neue lokale Packages in [docs/package-inventory.md](docs/package-inventory.md) kategorisieren.
 - Neue eigene Repos in [docs/repository-map.md](docs/repository-map.md) einordnen.
-- GitHub-Stars, lokale Repo-Zustaende und Screenshots sind Momentaufnahmen und muessen bei groesseren Updates neu validiert werden.
-- Generierte Inventare nicht von Hand schoenfaerben; lieber Quelle, Datum und Erzeugungsweg sichtbar lassen.
-- Architekturveraenderungen im README-Diagramm und in [docs/architecture.mmd](docs/architecture.mmd) synchron halten.
+- GitHub-Stars, lokale Repo-Zustaende und Screenshots sind Momentaufnahmen — bei groesseren Updates neu validieren.
+- Architekturveraenderungen im README, in [docs/architecture.mmd](docs/architecture.mmd) und auf der Landing-Page synchron halten.
 - Keine Tokens, Roh-Exports, personenbezogenen Chat-Inhalte oder privaten Credentials einchecken.
 
-## 🔗 Repo-Hinweis
+## 🔗 Repo
 
-[Credo](https://github.com/Martin-Hausleitner/credo) fasst die ausgewerteten Notion-Unterlagen, lokalen Repo-Infos und Stack-Reviews als private Architektur-Spezifikation zusammen. Es enthaelt keine Notion-Tokens, keine Roh-Exports und keine privaten Credentials.
+[github.com/Martin-Hausleitner/credo](https://github.com/Martin-Hausleitner/credo) — public · Open Source first · keine Notion-Tokens, keine Roh-Exports, keine privaten Credentials.
