@@ -1,8 +1,38 @@
-# Credo
+<p align="center">
+  <img src="assets/hero.svg" alt="Credo — the operating system for your agents" width="100%"/>
+</p>
 
-**Credo** ist Martins Architekturdeck fuer einen selbst gehosteten Agent-Kommunikationsstack: **Matrix** als Raum-, Identity-, State- und Audit-Kontext; **Hermes/OpenClaw/Codex** als Agent Runtime; **Postgres, Obsidian, ActivityWatch und lokale Skills** als Memory-, Kontext- und Tool-Schicht.
+<h1 align="center">Credo</h1>
 
-> 🎯 **MVP:** Synapse als konservativer Start + Element/Cinny + Hermes Matrix-Bot + Redis + Postgres/pgvector + S3/R2 + Obsidian + ActivityWatch + Tailscale-only Admin. Tuwunel bleibt ein schlanker Kandidat, sobald Bot-, Bridge-, MatrixRTC- und MAS-Kompatibilitaet validiert sind.
+<p align="center">
+  <strong>The agent OS for DAOs.</strong><br/>
+  Self-hosted Matrix backbone · Ed25519-signed actions · m-of-n quorum · verifiable memory.
+</p>
+
+<p align="center">
+  <a href="https://martin-hausleitner.github.io/Credo/"><strong>🌐 Live landing page</strong></a> ·
+  <a href="#-architektur">Architecture</a> ·
+  <a href="#%EF%B8%8F-mvp-scope">MVP</a> ·
+  <a href="#-dao--krypto">DAO</a> ·
+  <a href="#-roadmap">Roadmap</a> ·
+  <a href="docs/">Docs</a>
+</p>
+
+<p align="center">
+  <a href="https://martin-hausleitner.github.io/Credo/"><img alt="Live on GitHub Pages" src="https://img.shields.io/badge/Live-martin--hausleitner.github.io%2FCredo-22D3EE?style=flat-square&logo=github&logoColor=white&labelColor=06060A"></a>
+  <img alt="Self-hosted" src="https://img.shields.io/badge/Self--hosted-Matrix-A78BFA?style=flat-square&labelColor=06060A">
+  <img alt="DAO-native" src="https://img.shields.io/badge/DAO--native-Ed25519-34D399?style=flat-square&labelColor=06060A">
+</p>
+
+---
+
+**Credo** ist Martins Architekturdeck fuer einen selbst gehosteten, **DAO-nativen** Agent-Kommunikationsstack: **Matrix** als Raum-, Identity-, State- und Audit-Kontext; **Ed25519 + Safe + IPFS** als kryptografische Governance-Schicht; **Hermes/OpenClaw/Codex** als Agent Runtime; **Postgres, Obsidian, Cal.com, ActivityWatch und lokale Skills** als Memory-, Kontext- und Tool-Schicht.
+
+> 🎯 **MVP:** Synapse als konservativer Start + Element/Cinny + Hermes Matrix-Bot + Redis + Postgres/pgvector + S3/R2 + Obsidian + Cal.com + ActivityWatch + Tailscale-only Admin. Tuwunel bleibt ein schlanker Kandidat, sobald Bot-, Bridge-, MatrixRTC- und MAS-Kompatibilitaet validiert sind.
+
+> 🪪 **DAO &amp; Krypto:** Hochriskante Agenten-Aktionen werden zu Proposals — diskutiert im Matrix-Raum, **Ed25519-signiert** durch m-of-n Mitglieder, auf **IPFS** verankert, und fuer Treasury/Contract-Aktionen zusaetzlich via **Safe multisig** auf L2 (OP, Arbitrum, Base) abgesegnet. Optionales **Snapshot** fuer gasless Off-chain Votes.
+
+> 🌐 **Landing page:** Live unter [martin-hausleitner.github.io/Credo](https://martin-hausleitner.github.io/Credo/). Source: `index.html` im Repo-Root, ausgeliefert via GitHub Pages auf `main`.
 
 ## 🧭 Start Here
 
@@ -13,9 +43,17 @@
 | Was baue ich zuerst? | Text-MVP mit Synapse, Clients, Bot, Redis, Postgres, R2/S3 und Tailscale. | [MVP Scope](#%EF%B8%8F-mvp-scope) |
 | Wo sind Details? | Entscheidungen, Inventare, Roadmap und Research sind in `docs/` gesplittet. | [Detail-Dokumente](#-detail-dokumente) |
 
-![Credo logo board](assets/logo-board.svg)
+![Credo nine planes](assets/credo-planes.svg)
 
-![Credo stack planes](assets/credo-planes.svg)
+![Credo stack layers](assets/layers.svg)
+
+![Credo agent mesh](assets/agent-mesh.svg)
+
+![Credo DAO governance](assets/dao-governance.svg)
+
+![Credo audit trail](assets/audit-trail.svg)
+
+![Credo brand mark](assets/logo-board.svg)
 
 ## 🎛️ Operating Model
 

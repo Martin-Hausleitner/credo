@@ -1,70 +1,212 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
-  <title id="title">Credo Planes</title>
-  <desc id="desc">Abstrakte Schichtung des Credo Stacks von UX ueber Matrix, Policy, Agent Runtime, Memory und Ops.</desc>
-  <style>
-    .bg{fill:#0b1020}
-    .title{font:700 34px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
-    .sub{font:500 16px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#cbd5e1}
-    .label{font:700 20px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
-    .small{font:500 14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#dbeafe}
-    .card{rx:18;stroke-width:2}
-    .arrow{stroke:#94a3b8;stroke-width:4;fill:none;marker-end:url(#arrow)}
-  </style>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="cp-title cp-desc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="cp-title">Credo — nine planes</title>
+  <desc id="cp-desc">Nine architectural planes of Credo: access, Matrix core, bridges, gateway, agent runtime, data, context, voice, ops.</desc>
   <defs>
-    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
-      <path d="M2,2 L10,6 L2,10 Z" fill="#94a3b8"/>
-    </marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#06060A"/>
+      <stop offset="1" stop-color="#0A0A14"/>
+    </linearGradient>
+    <radialGradient id="orb-a" cx="-100" cy="0" r="700" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6366F1" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#6366F1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb-b" cx="1500" cy="900" r="700" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22D3EE" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#FFFFFF" stroke-opacity=".035"/>
+    </pattern>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".02"/>
+    </linearGradient>
+    <linearGradient id="card-border" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".04"/>
+    </linearGradient>
+    <linearGradient id="accent-purple" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#6366F1"/>
+    </linearGradient>
+    <linearGradient id="accent-cyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="accent-emerald" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#34D399"/>
+      <stop offset="1" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="accent-pink" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F472B6"/>
+      <stop offset="1" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="accent-amber" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FBBF24"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="accent-sky" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#60A5FA"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
   </defs>
-  <rect class="bg" width="1200" height="520"/>
-  <text class="title" x="48" y="58">Credo Stack Planes</text>
-  <text class="sub" x="48" y="88">Room first, policy gated, job based, artifact backed, observable by default.</text>
 
-  <rect class="card" x="52" y="132" width="188" height="104" fill="#12333a" stroke="#22d3ee"/>
-  <text class="label" x="76" y="170">UX Plane</text>
-  <text class="small" x="76" y="198">Element, Cinny,</text>
-  <text class="small" x="76" y="218">Hermes Desktop</text>
+  <rect width="1400" height="900" fill="url(#bg)"/>
+  <rect width="1400" height="900" fill="url(#grid)"/>
+  <rect width="1400" height="900" fill="url(#orb-a)"/>
+  <rect width="1400" height="900" fill="url(#orb-b)"/>
 
-  <rect class="card" x="282" y="132" width="188" height="104" fill="#12351f" stroke="#4ade80"/>
-  <text class="label" x="306" y="170">Matrix Plane</text>
-  <text class="small" x="306" y="198">Rooms, State,</text>
-  <text class="small" x="306" y="218">Identity, Timeline</text>
+  <text x="60" y="64" fill="#6366F1" font-size="12" letter-spacing="3" font-weight="600">CREDO  /  PLANES</text>
+  <text x="60" y="104" fill="#EDEDED" font-size="34" font-weight="700" letter-spacing="-1.4">Nine planes. One operating model.</text>
+  <text x="60" y="134" fill="#94A3B8" font-size="15">Access → Matrix → Bridges → Gateway → Runtime → Data → Context → Voice → Ops</text>
 
-  <rect class="card" x="512" y="132" width="188" height="104" fill="#3b2b12" stroke="#f59e0b"/>
-  <text class="label" x="536" y="170">Policy Plane</text>
-  <text class="small" x="536" y="198">Approvals, Risk,</text>
-  <text class="small" x="536" y="218">Tool Scope</text>
+  <!-- 3x3 grid of plane cards
+       card size: 400 x 200, gutter 30, start at x=60, y=180
+       grid spans: 3 cols × 400 + 2 × 30 = 1260; 60 left + 80 right -->
+  <g font-family="Inter, ui-sans-serif, system-ui, sans-serif">
 
-  <rect class="card" x="742" y="132" width="188" height="104" fill="#2e1d45" stroke="#a78bfa"/>
-  <text class="label" x="766" y="170">Runtime Plane</text>
-  <text class="small" x="766" y="198">Hermes, OpenClaw,</text>
-  <text class="small" x="766" y="218">Codex, Skills</text>
+    <!-- 01 Access & UX -->
+    <g transform="translate(60 180)">
+      <rect width="400" height="200" rx="20" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="20" y="20" width="36" height="36" rx="10" fill="url(#accent-purple)"/>
+      <text x="30" y="44" fill="#0A0A0A" font-size="16" font-weight="800">01</text>
+      <text x="68" y="44" fill="#EDEDED" font-size="18" font-weight="700">Access &amp; UX</text>
+      <text x="20" y="84" fill="#94A3B8" font-size="12">Where humans meet agents.</text>
+      <g transform="translate(20 102)" font-size="11" fill="#CBD5E1">
+        <text y="0">·  Element Web · Element X</text>
+        <text y="18">·  Cinny  ·  Sable  ·  Commet</text>
+        <text y="36">·  Hermes Desktop · Cognitor tray</text>
+        <text y="54">·  Chatwoot operator inbox</text>
+      </g>
+      <circle cx="378" cy="22" r="3" fill="#A78BFA"/>
+    </g>
 
-  <rect class="card" x="972" y="132" width="188" height="104" fill="#421c2b" stroke="#fb7185"/>
-  <text class="label" x="996" y="170">Memory Plane</text>
-  <text class="small" x="996" y="198">Postgres, R2,</text>
-  <text class="small" x="996" y="218">Obsidian, AW</text>
+    <!-- 02 Matrix Core -->
+    <g transform="translate(490 180)">
+      <rect width="400" height="200" rx="20" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="20" y="20" width="36" height="36" rx="10" fill="url(#accent-emerald)"/>
+      <text x="30" y="44" fill="#0A0A0A" font-size="16" font-weight="800">02</text>
+      <text x="68" y="44" fill="#EDEDED" font-size="18" font-weight="700">Matrix Core</text>
+      <text x="20" y="84" fill="#94A3B8" font-size="12">Rooms, state, identity, audit.</text>
+      <g transform="translate(20 102)" font-size="11" fill="#CBD5E1">
+        <text y="0">·  Synapse (MVP) · Tuwunel candidate</text>
+        <text y="18">·  Room topology: intake / research / ops</text>
+        <text y="36">·  Memory · alerts rooms</text>
+        <text y="54">·  synadm · purges · reports</text>
+      </g>
+      <circle cx="378" cy="22" r="3" fill="#34D399"/>
+    </g>
 
-  <path class="arrow" d="M242 184 H276"/>
-  <path class="arrow" d="M472 184 H506"/>
-  <path class="arrow" d="M702 184 H736"/>
-  <path class="arrow" d="M932 184 H966"/>
+    <!-- 03 Bridges & Inbox -->
+    <g transform="translate(920 180)">
+      <rect width="400" height="200" rx="20" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="20" y="20" width="36" height="36" rx="10" fill="url(#accent-sky)"/>
+      <text x="30" y="44" fill="#0A0A0A" font-size="16" font-weight="800">03</text>
+      <text x="68" y="44" fill="#EDEDED" font-size="18" font-weight="700">Bridges &amp; Inbox</text>
+      <text x="20" y="84" fill="#94A3B8" font-size="12">External world becomes Matrix.</text>
+      <g transform="translate(20 102)" font-size="11" fill="#CBD5E1">
+        <text y="0">·  mautrix · Telegram / WhatsApp / Signal</text>
+        <text y="18">·  Slack bridge</text>
+        <text y="36">·  beeper-matrix-proxy</text>
+        <text y="54">·  Himalaya + Maildir + notmuch</text>
+      </g>
+      <circle cx="378" cy="22" r="3" fill="#60A5FA"/>
+    </g>
 
-  <rect class="card" x="180" y="312" width="260" height="112" fill="#172554" stroke="#60a5fa"/>
-  <text class="label" x="208" y="350">Ops Plane</text>
-  <text class="small" x="208" y="378">OpenTelemetry, Grafana, Loki,</text>
-  <text class="small" x="208" y="398">Prometheus, Tailscale</text>
+    <!-- 04 Gateway & Jobs -->
+    <g transform="translate(60 410)">
+      <rect width="400" height="200" rx="20" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="20" y="20" width="36" height="36" rx="10" fill="url(#accent-amber)"/>
+      <text x="30" y="44" fill="#0A0A0A" font-size="16" font-weight="800">04</text>
+      <text x="68" y="44" fill="#EDEDED" font-size="18" font-weight="700">Gateway &amp; Jobs</text>
+      <text x="20" y="84" fill="#94A3B8" font-size="12">Every action has a policy and a job-id.</text>
+      <g transform="translate(20 102)" font-size="11" fill="#CBD5E1">
+        <text y="0">·  Hermes Matrix bot</text>
+        <text y="18">·  Policy gate · roles · approvals</text>
+        <text y="36">·  Redis queue · retry · backpressure</text>
+        <text y="54">·  Audit trail per job</text>
+      </g>
+      <circle cx="378" cy="22" r="3" fill="#FBBF24"/>
+    </g>
 
-  <rect class="card" x="470" y="312" width="260" height="112" fill="#312e19" stroke="#facc15"/>
-  <text class="label" x="498" y="350">Artifact Ledger</text>
-  <text class="small" x="498" y="378">run_id, trace_id, checksum,</text>
-  <text class="small" x="498" y="398">retention, visibility</text>
+    <!-- 05 Agent Runtime -->
+    <g transform="translate(490 410)">
+      <rect width="400" height="200" rx="20" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="20" y="20" width="36" height="36" rx="10" fill="url(#accent-cyan)"/>
+      <text x="30" y="44" fill="#0A0A0A" font-size="16" font-weight="800">05</text>
+      <text x="68" y="44" fill="#EDEDED" font-size="18" font-weight="700">Agent Runtime</text>
+      <text x="20" y="84" fill="#94A3B8" font-size="12">The brains. Pluggable, multi-agent.</text>
+      <g transform="translate(20 102)" font-size="11" fill="#CBD5E1">
+        <text y="0">·  Hermes Agent · OpenClaw / ClawHub</text>
+        <text y="18">·  Codex Computer Use</text>
+        <text y="36">·  Skills: GitHub · Notion · Mail · Apple</text>
+        <text y="54">·  MCP · browser · custom tools</text>
+      </g>
+      <circle cx="378" cy="22" r="3" fill="#22D3EE"/>
+    </g>
 
-  <rect class="card" x="760" y="312" width="260" height="112" fill="#1f2937" stroke="#cbd5e1"/>
-  <text class="label" x="788" y="350">Security Boundary</text>
-  <text class="small" x="788" y="378">Public plane separated from</text>
-  <text class="small" x="788" y="398">Tailscale admin plane</text>
+    <!-- 06 Data & Memory -->
+    <g transform="translate(920 410)">
+      <rect width="400" height="200" rx="20" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="20" y="20" width="36" height="36" rx="10" fill="url(#accent-pink)"/>
+      <text x="30" y="44" fill="#0A0A0A" font-size="16" font-weight="800">06</text>
+      <text x="68" y="44" fill="#EDEDED" font-size="18" font-weight="700">Data &amp; Memory</text>
+      <text x="20" y="84" fill="#94A3B8" font-size="12">Every memory has a status.</text>
+      <g transform="translate(20 102)" font-size="11" fill="#CBD5E1">
+        <text y="0">·  Postgres + pgvector</text>
+        <text y="18">·  Supabase (optional)</text>
+        <text y="36">·  S3 · Cloudflare R2 artifacts</text>
+        <text y="54">·  Obsidian + Git + Dataview</text>
+      </g>
+      <circle cx="378" cy="22" r="3" fill="#F472B6"/>
+    </g>
 
-  <path class="arrow" d="M600 240 V304"/>
-  <path class="arrow" d="M600 424 V470 H310 V430"/>
-  <path class="arrow" d="M600 424 V470 H890 V430"/>
+    <!-- 07 Personal Context -->
+    <g transform="translate(60 640)">
+      <rect width="400" height="200" rx="20" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="20" y="20" width="36" height="36" rx="10" fill="url(#accent-purple)"/>
+      <text x="30" y="44" fill="#0A0A0A" font-size="16" font-weight="800">07</text>
+      <text x="68" y="44" fill="#EDEDED" font-size="18" font-weight="700">Personal Context</text>
+      <text x="20" y="84" fill="#94A3B8" font-size="12">Signals that shape advice.</text>
+      <g transform="translate(20 102)" font-size="11" fill="#CBD5E1">
+        <text y="0">·  ActivityWatch · presence</text>
+        <text y="18">·  WHOOP · Apple Health · Screen Time</text>
+        <text y="36">·  YouTube · icons · media</text>
+        <text y="54">·  Calendar · location · habits</text>
+      </g>
+      <circle cx="378" cy="22" r="3" fill="#A78BFA"/>
+    </g>
+
+    <!-- 08 Voice & RTC -->
+    <g transform="translate(490 640)">
+      <rect width="400" height="200" rx="20" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="20" y="20" width="36" height="36" rx="10" fill="url(#accent-pink)"/>
+      <text x="30" y="44" fill="#0A0A0A" font-size="16" font-weight="800">08</text>
+      <text x="68" y="44" fill="#EDEDED" font-size="18" font-weight="700">Voice &amp; RTC</text>
+      <text x="20" y="84" fill="#94A3B8" font-size="12">Same agents, in your ears.</text>
+      <g transform="translate(20 102)" font-size="11" fill="#CBD5E1">
+        <text y="0">·  Discord voice MVP</text>
+        <text y="18">·  Element Call · LiveKit SFU</text>
+        <text y="36">·  lk-jwt-service · OpenID → JWT</text>
+        <text y="54">·  Hermes voice agent participant</text>
+      </g>
+      <circle cx="378" cy="22" r="3" fill="#F472B6"/>
+    </g>
+
+    <!-- 09 Ops & Security -->
+    <g transform="translate(920 640)">
+      <rect width="400" height="200" rx="20" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="20" y="20" width="36" height="36" rx="10" fill="url(#accent-emerald)"/>
+      <text x="30" y="44" fill="#0A0A0A" font-size="16" font-weight="800">09</text>
+      <text x="68" y="44" fill="#EDEDED" font-size="18" font-weight="700">Ops &amp; Security</text>
+      <text x="20" y="84" fill="#94A3B8" font-size="12">Debug every tool call. Lock every door.</text>
+      <g transform="translate(20 102)" font-size="11" fill="#CBD5E1">
+        <text y="0">·  OpenTelemetry traces</text>
+        <text y="18">·  Prometheus · Loki · Grafana</text>
+        <text y="36">·  Tailscale-only admin</text>
+        <text y="54">·  Resource planning placeholders</text>
+      </g>
+      <circle cx="378" cy="22" r="3" fill="#34D399"/>
+    </g>
+  </g>
 </svg>
