@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://martin-hausleitner.github.io/Credo/"><strong>🌐 Live landing page</strong></a> ·
+  <a href="https://martin-hausleitner.github.io/credo/"><strong>🌐 Live landing page</strong></a> ·
   <a href="#-architektur">Architecture</a> ·
   <a href="#%EF%B8%8F-mvp-scope">MVP</a> ·
   <a href="#-dao--krypto">DAO</a> ·
@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="https://martin-hausleitner.github.io/Credo/"><img alt="Live on GitHub Pages" src="https://img.shields.io/badge/Live-martin--hausleitner.github.io%2FCredo-22D3EE?style=flat-square&logo=github&logoColor=white&labelColor=06060A"></a>
+  <a href="https://martin-hausleitner.github.io/credo/"><img alt="Live on GitHub Pages" src="https://img.shields.io/badge/Live-martin--hausleitner.github.io%2FCredo-22D3EE?style=flat-square&logo=github&logoColor=white&labelColor=06060A"></a>
   <img alt="Self-hosted" src="https://img.shields.io/badge/Self--hosted-Matrix-A78BFA?style=flat-square&labelColor=06060A">
   <img alt="DAO-native" src="https://img.shields.io/badge/DAO--native-Ed25519-34D399?style=flat-square&labelColor=06060A">
 </p>
@@ -32,7 +32,13 @@
 
 > 🪪 **DAO &amp; Krypto:** Hochriskante Agenten-Aktionen werden zu Proposals — diskutiert im Matrix-Raum, **Ed25519-signiert** durch m-of-n Mitglieder, auf **IPFS** verankert, und fuer Treasury/Contract-Aktionen zusaetzlich via **Safe multisig** auf L2 (OP, Arbitrum, Base) abgesegnet. Optionales **Snapshot** fuer gasless Off-chain Votes.
 
-> 🌐 **Landing page:** Live unter [martin-hausleitner.github.io/Credo](https://martin-hausleitner.github.io/Credo/). Source: `index.html` im Repo-Root, ausgeliefert via GitHub Pages auf `main`.
+> 🎨 **Generative UI:** Eine eingebaute **DesignSkill** entwirft fuer jede Agent-Aktion ein eigenes UI. Du gibst ⭑, der naechste Lauf startet dort und verfeinert — bis jede wiederkehrende Aktion ihr eigenes "offizialisiertes" Interface hat. Human-in-the-loop UI-Handwerk statt Wall-of-Text.
+
+> 🛡️ **Local-first &amp; sovereign:** Kein zentraler Server, kein Honeypot. Jeder Knoten haelt die volle Chronik, End-to-End verschluesselt, mit Schluesseln die das Geraet nie verlassen. Matrix-Federation + CRDT-Vault — Compromise von einem Knoten kompromittiert nicht den Rest.
+
+> 🌌 **Horizon 2026–2035:** Boring Foundations jetzt (Foundation · Crypto · Generative UI) → Sovereignty Mitte des Jahrzehnts (Local-first · Federated mesh · ZK governance · Self-authoring skills) → Civic Infrastructure zum Ende (Personal charter · Inter-DAO settlement · Co-ops &amp; Staedte auf dem gleichen Stack).
+
+> 🌐 **Landing page:** Live unter [martin-hausleitner.github.io/credo](https://martin-hausleitner.github.io/credo/). Source: `index.html` im Repo-Root, ausgeliefert via GitHub Pages auf `main`.
 
 ## 🧭 Start Here
 
@@ -52,6 +58,8 @@
 ![Credo DAO governance](assets/dao-governance.svg)
 
 ![Credo audit trail](assets/audit-trail.svg)
+
+![Credo horizon 2026–2035](assets/horizon-2035.svg)
 
 ![Credo brand mark](assets/logo-board.svg)
 
@@ -263,4 +271,4 @@ Matrix ist **nicht** das Agent-Framework und auch **nicht** die interne Queue.
 
 ## 🔗 Repo-Hinweis
 
-[Credo](https://github.com/Martin-Hausleitner/Credo) fasst die ausgewerteten Notion-Unterlagen, lokalen Repo-Infos und Stack-Reviews als private Architektur-Spezifikation zusammen. Es enthaelt keine Notion-Tokens, keine Roh-Exports und keine privaten Credentials.
+[Credo](https://github.com/Martin-Hausleitner/credo) fasst die ausgewerteten Notion-Unterlagen, lokalen Repo-Infos und Stack-Reviews als private Architektur-Spezifikation zusammen. Es enthaelt keine Notion-Tokens, keine Roh-Exports und keine privaten Credentials.

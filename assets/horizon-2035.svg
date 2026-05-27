@@ -1,0 +1,282 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" role="img" aria-labelledby="hz-title hz-desc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="hz-title">credo — horizon 2026–2035</title>
+  <desc id="hz-desc">Ten-year roadmap from text MVP to civic infrastructure: foundation, crypto layer, generative UI, local-first sovereignty, federated mesh, ZK governance, self-authoring skills, personal constitution, inter-DAO settlement, civic infra.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="860" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#06060A"/>
+      <stop offset="1" stop-color="#0A0A14"/>
+    </linearGradient>
+    <radialGradient id="orb-a" cx="200" cy="200" r="540" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6366F1" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#6366F1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb-b" cx="1200" cy="660" r="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F472B6" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#FFFFFF" stroke-opacity=".035"/>
+    </pattern>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".07"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".02"/>
+    </linearGradient>
+    <linearGradient id="card-border" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".06"/>
+    </linearGradient>
+    <linearGradient id="rail" x1="0" y1="0" x2="1400" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0"   stop-color="#34D399" stop-opacity=".85"/>
+      <stop offset=".22" stop-color="#22D3EE" stop-opacity=".85"/>
+      <stop offset=".48" stop-color="#A78BFA" stop-opacity=".80"/>
+      <stop offset=".74" stop-color="#F472B6" stop-opacity=".55"/>
+      <stop offset="1"   stop-color="#FBBF24" stop-opacity=".35"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1400" height="860" fill="url(#bg)"/>
+  <rect width="1400" height="860" fill="url(#grid)"/>
+  <rect width="1400" height="860" fill="url(#orb-a)"/>
+  <rect width="1400" height="860" fill="url(#orb-b)"/>
+
+  <text x="60" y="64" fill="#A78BFA" font-size="12" letter-spacing="3" font-weight="600">CREDO  /  HORIZON  2026 — 2035</text>
+  <text x="60" y="104" fill="#EDEDED" font-size="34" font-weight="700" letter-spacing="-1.4">Ten years from MVP to civic infrastructure.</text>
+  <text x="60" y="134" fill="#94A3B8" font-size="15">Each year compounds on the last. Boring foundations first, then crypto, then generative interfaces, then sovereignty.</text>
+
+  <!-- legend -->
+  <g transform="translate(60 170)" font-size="11" fill="#94A3B8">
+    <g><circle r="4" cx="6" cy="6" fill="#34D399"/><text x="18" y="10">SHIPPING</text></g>
+    <g transform="translate(96 0)"><circle r="4" cx="6" cy="6" fill="#22D3EE"/><text x="18" y="10">NEAR TERM</text></g>
+    <g transform="translate(204 0)"><circle r="4" cx="6" cy="6" fill="#A78BFA"/><text x="18" y="10">VISION</text></g>
+    <g transform="translate(286 0)"><circle r="4" cx="6" cy="6" fill="#F472B6"/><text x="18" y="10">FAR HORIZON</text></g>
+    <g transform="translate(396 0)"><circle r="4" cx="6" cy="6" fill="#FBBF24"/><text x="18" y="10">CIVIC SCALE</text></g>
+  </g>
+
+  <!-- rail -->
+  <line x1="100" y1="450" x2="1340" y2="450" stroke="url(#rail)" stroke-width="3"/>
+
+  <!-- 10 year stations: x positions evenly spaced -->
+  <!-- 100, 238, 376, 514, 652, 790, 928, 1066, 1204, 1342 -->
+  <g font-family="Inter, ui-sans-serif, system-ui, sans-serif">
+
+    <!-- helper: x-positions -->
+    <!-- 2026 -->
+    <g transform="translate(100 0)">
+      <line x1="0" y1="440" x2="0" y2="240" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <circle cx="0" cy="450" r="7" fill="#0A0A14" stroke="#34D399" stroke-width="2.4"/>
+      <text x="0" y="488" text-anchor="middle" fill="#34D399" font-size="14" font-weight="700">2026</text>
+      <g transform="translate(-58 230)">
+        <rect width="124" height="200" rx="14" fill="url(#card)" stroke="url(#card-border)"/>
+        <rect x="12" y="14" width="24" height="20" rx="6" fill="#34D399"/>
+        <text x="24" y="29" text-anchor="middle" fill="#0A0A0A" font-size="11" font-weight="800">01</text>
+        <text x="44" y="29" fill="#34D399" font-size="9" letter-spacing="2" font-weight="700">SHIP</text>
+        <text x="12" y="62" fill="#EDEDED" font-size="13" font-weight="700">Foundation</text>
+        <text x="12" y="86" fill="#94A3B8" font-size="11">Text MVP</text>
+        <text x="12" y="104" fill="#94A3B8" font-size="11">Synapse + Hermes</text>
+        <text x="12" y="122" fill="#94A3B8" font-size="11">Postgres + R2</text>
+        <line x1="12" y1="138" x2="112" y2="138" stroke="#FFFFFF" stroke-opacity=".08"/>
+        <text x="12" y="158" fill="#6B7280" font-size="10">Tailscale-only</text>
+        <text x="12" y="176" fill="#6B7280" font-size="10">OTel across stack</text>
+      </g>
+    </g>
+
+    <!-- 2027 -->
+    <g transform="translate(238 0)">
+      <line x1="0" y1="440" x2="0" y2="240" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <circle cx="0" cy="450" r="7" fill="#0A0A14" stroke="#34D399" stroke-width="2.4"/>
+      <text x="0" y="488" text-anchor="middle" fill="#34D399" font-size="14" font-weight="700">2027</text>
+      <g transform="translate(-58 230)">
+        <rect width="124" height="200" rx="14" fill="url(#card)" stroke="url(#card-border)"/>
+        <rect x="12" y="14" width="24" height="20" rx="6" fill="#34D399"/>
+        <text x="24" y="29" text-anchor="middle" fill="#0A0A0A" font-size="11" font-weight="800">02</text>
+        <text x="44" y="29" fill="#34D399" font-size="9" letter-spacing="2" font-weight="700">SHIP</text>
+        <text x="12" y="62" fill="#EDEDED" font-size="13" font-weight="700">Crypto layer</text>
+        <text x="12" y="86" fill="#94A3B8" font-size="11">Ed25519 m-of-n</text>
+        <text x="12" y="104" fill="#94A3B8" font-size="11">Safe + IPFS anchors</text>
+        <text x="12" y="122" fill="#94A3B8" font-size="11">Snapshot opt-in</text>
+        <line x1="12" y1="138" x2="112" y2="138" stroke="#FFFFFF" stroke-opacity=".08"/>
+        <text x="12" y="158" fill="#6B7280" font-size="10">DAO becomes signing</text>
+        <text x="12" y="176" fill="#6B7280" font-size="10">7th operating rule</text>
+      </g>
+    </g>
+
+    <!-- 2028 -->
+    <g transform="translate(376 0)">
+      <line x1="0" y1="440" x2="0" y2="240" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <circle cx="0" cy="450" r="7" fill="#0A0A14" stroke="#22D3EE" stroke-width="2.4"/>
+      <text x="0" y="488" text-anchor="middle" fill="#22D3EE" font-size="14" font-weight="700">2028</text>
+      <g transform="translate(-58 230)">
+        <rect width="124" height="200" rx="14" fill="url(#card)" stroke="url(#card-border)"/>
+        <rect x="12" y="14" width="24" height="20" rx="6" fill="#22D3EE"/>
+        <text x="24" y="29" text-anchor="middle" fill="#0A0A0A" font-size="11" font-weight="800">03</text>
+        <text x="44" y="29" fill="#22D3EE" font-size="9" letter-spacing="2" font-weight="700">NEXT</text>
+        <text x="12" y="62" fill="#EDEDED" font-size="13" font-weight="700">Generative UI</text>
+        <text x="12" y="86" fill="#94A3B8" font-size="11">DesignSkill agent</text>
+        <text x="12" y="104" fill="#94A3B8" font-size="11">UI per action</text>
+        <text x="12" y="122" fill="#94A3B8" font-size="11">Like-loop refine</text>
+        <line x1="12" y1="138" x2="112" y2="138" stroke="#FFFFFF" stroke-opacity=".08"/>
+        <text x="12" y="158" fill="#6B7280" font-size="10">Human-in-the-loop</text>
+        <text x="12" y="176" fill="#6B7280" font-size="10">official interfaces</text>
+      </g>
+    </g>
+
+    <!-- 2029 -->
+    <g transform="translate(514 0)">
+      <line x1="0" y1="440" x2="0" y2="240" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <circle cx="0" cy="450" r="7" fill="#0A0A14" stroke="#22D3EE" stroke-width="2.4"/>
+      <text x="0" y="488" text-anchor="middle" fill="#22D3EE" font-size="14" font-weight="700">2029</text>
+      <g transform="translate(-58 230)">
+        <rect width="124" height="200" rx="14" fill="url(#card)" stroke="url(#card-border)"/>
+        <rect x="12" y="14" width="24" height="20" rx="6" fill="#22D3EE"/>
+        <text x="24" y="29" text-anchor="middle" fill="#0A0A0A" font-size="11" font-weight="800">04</text>
+        <text x="44" y="29" fill="#22D3EE" font-size="9" letter-spacing="2" font-weight="700">NEXT</text>
+        <text x="12" y="62" fill="#EDEDED" font-size="13" font-weight="700">Local-first</text>
+        <text x="12" y="86" fill="#94A3B8" font-size="11">CRDT vault</text>
+        <text x="12" y="104" fill="#94A3B8" font-size="11">Full device replica</text>
+        <text x="12" y="122" fill="#94A3B8" font-size="11">No central honeypot</text>
+        <line x1="12" y1="138" x2="112" y2="138" stroke="#FFFFFF" stroke-opacity=".08"/>
+        <text x="12" y="158" fill="#6B7280" font-size="10">Keys never leave</text>
+        <text x="12" y="176" fill="#6B7280" font-size="10">E2E encrypted</text>
+      </g>
+    </g>
+
+    <!-- 2030 -->
+    <g transform="translate(652 0)">
+      <line x1="0" y1="440" x2="0" y2="240" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <circle cx="0" cy="450" r="7" fill="#0A0A14" stroke="#A78BFA" stroke-width="2.4"/>
+      <text x="0" y="488" text-anchor="middle" fill="#A78BFA" font-size="14" font-weight="700">2030</text>
+      <g transform="translate(-58 230)">
+        <rect width="124" height="200" rx="14" fill="url(#card)" stroke="url(#card-border)"/>
+        <rect x="12" y="14" width="24" height="20" rx="6" fill="#A78BFA"/>
+        <text x="24" y="29" text-anchor="middle" fill="#0A0A0A" font-size="11" font-weight="800">05</text>
+        <text x="44" y="29" fill="#A78BFA" font-size="9" letter-spacing="2" font-weight="700">VISION</text>
+        <text x="12" y="62" fill="#EDEDED" font-size="13" font-weight="700">Federated mesh</text>
+        <text x="12" y="86" fill="#94A3B8" font-size="11">Cross-DAO consults</text>
+        <text x="12" y="104" fill="#94A3B8" font-size="11">Agent diplomacy</text>
+        <text x="12" y="122" fill="#94A3B8" font-size="11">Trust ratings</text>
+        <line x1="12" y1="138" x2="112" y2="138" stroke="#FFFFFF" stroke-opacity=".08"/>
+        <text x="12" y="158" fill="#6B7280" font-size="10">Matrix federation</text>
+        <text x="12" y="176" fill="#6B7280" font-size="10">+ ENS namespaces</text>
+      </g>
+    </g>
+
+    <!-- 2031 -->
+    <g transform="translate(790 0)">
+      <line x1="0" y1="440" x2="0" y2="240" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <circle cx="0" cy="450" r="7" fill="#0A0A14" stroke="#A78BFA" stroke-width="2.4"/>
+      <text x="0" y="488" text-anchor="middle" fill="#A78BFA" font-size="14" font-weight="700">2031</text>
+      <g transform="translate(-58 230)">
+        <rect width="124" height="200" rx="14" fill="url(#card)" stroke="url(#card-border)"/>
+        <rect x="12" y="14" width="24" height="20" rx="6" fill="#A78BFA"/>
+        <text x="24" y="29" text-anchor="middle" fill="#0A0A0A" font-size="11" font-weight="800">06</text>
+        <text x="44" y="29" fill="#A78BFA" font-size="9" letter-spacing="2" font-weight="700">VISION</text>
+        <text x="12" y="62" fill="#EDEDED" font-size="13" font-weight="700">ZK governance</text>
+        <text x="12" y="86" fill="#94A3B8" font-size="11">Zero-knowledge votes</text>
+        <text x="12" y="104" fill="#94A3B8" font-size="11">Private audits</text>
+        <text x="12" y="122" fill="#94A3B8" font-size="11">Plausibly-anon roles</text>
+        <line x1="12" y1="138" x2="112" y2="138" stroke="#FFFFFF" stroke-opacity=".08"/>
+        <text x="12" y="158" fill="#6B7280" font-size="10">Provable, not visible</text>
+        <text x="12" y="176" fill="#6B7280" font-size="10">SNARK / STARK</text>
+      </g>
+    </g>
+
+    <!-- 2032 -->
+    <g transform="translate(928 0)">
+      <line x1="0" y1="440" x2="0" y2="240" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <circle cx="0" cy="450" r="7" fill="#0A0A14" stroke="#A78BFA" stroke-width="2.4"/>
+      <text x="0" y="488" text-anchor="middle" fill="#A78BFA" font-size="14" font-weight="700">2032</text>
+      <g transform="translate(-58 230)">
+        <rect width="124" height="200" rx="14" fill="url(#card)" stroke="url(#card-border)"/>
+        <rect x="12" y="14" width="24" height="20" rx="6" fill="#A78BFA"/>
+        <text x="24" y="29" text-anchor="middle" fill="#0A0A0A" font-size="11" font-weight="800">07</text>
+        <text x="44" y="29" fill="#A78BFA" font-size="9" letter-spacing="2" font-weight="700">VISION</text>
+        <text x="12" y="62" fill="#EDEDED" font-size="13" font-weight="700">Self-authoring</text>
+        <text x="12" y="86" fill="#94A3B8" font-size="11">Agents draft skills</text>
+        <text x="12" y="104" fill="#94A3B8" font-size="11">DAO-approved diffs</text>
+        <text x="12" y="122" fill="#94A3B8" font-size="11">Versioned, audited</text>
+        <line x1="12" y1="138" x2="112" y2="138" stroke="#FFFFFF" stroke-opacity=".08"/>
+        <text x="12" y="158" fill="#6B7280" font-size="10">Memetic evolution</text>
+        <text x="12" y="176" fill="#6B7280" font-size="10">guarded by quorum</text>
+      </g>
+    </g>
+
+    <!-- 2033 -->
+    <g transform="translate(1066 0)">
+      <line x1="0" y1="440" x2="0" y2="240" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <circle cx="0" cy="450" r="7" fill="#0A0A14" stroke="#F472B6" stroke-width="2.4"/>
+      <text x="0" y="488" text-anchor="middle" fill="#F472B6" font-size="14" font-weight="700">2033</text>
+      <g transform="translate(-58 230)">
+        <rect width="124" height="200" rx="14" fill="url(#card)" stroke="url(#card-border)"/>
+        <rect x="12" y="14" width="24" height="20" rx="6" fill="#F472B6"/>
+        <text x="24" y="29" text-anchor="middle" fill="#0A0A0A" font-size="11" font-weight="800">08</text>
+        <text x="44" y="29" fill="#F472B6" font-size="9" letter-spacing="2" font-weight="700">HORIZON</text>
+        <text x="12" y="62" fill="#EDEDED" font-size="13" font-weight="700">Personal charter</text>
+        <text x="12" y="86" fill="#94A3B8" font-size="11">Your credo file</text>
+        <text x="12" y="104" fill="#94A3B8" font-size="11">Portable identity</text>
+        <text x="12" y="122" fill="#94A3B8" font-size="11">Across providers</text>
+        <line x1="12" y1="138" x2="112" y2="138" stroke="#FFFFFF" stroke-opacity=".08"/>
+        <text x="12" y="158" fill="#6B7280" font-size="10">Beliefs as config</text>
+        <text x="12" y="176" fill="#6B7280" font-size="10">data-sovereign</text>
+      </g>
+    </g>
+
+    <!-- 2034 -->
+    <g transform="translate(1204 0)">
+      <line x1="0" y1="440" x2="0" y2="240" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <circle cx="0" cy="450" r="7" fill="#0A0A14" stroke="#F472B6" stroke-width="2.4"/>
+      <text x="0" y="488" text-anchor="middle" fill="#F472B6" font-size="14" font-weight="700">2034</text>
+      <g transform="translate(-58 230)">
+        <rect width="124" height="200" rx="14" fill="url(#card)" stroke="url(#card-border)"/>
+        <rect x="12" y="14" width="24" height="20" rx="6" fill="#F472B6"/>
+        <text x="24" y="29" text-anchor="middle" fill="#0A0A0A" font-size="11" font-weight="800">09</text>
+        <text x="44" y="29" fill="#F472B6" font-size="9" letter-spacing="2" font-weight="700">HORIZON</text>
+        <text x="12" y="62" fill="#EDEDED" font-size="13" font-weight="700">Inter-DAO</text>
+        <text x="12" y="86" fill="#94A3B8" font-size="11">Programmable</text>
+        <text x="12" y="104" fill="#94A3B8" font-size="11">governance treaties</text>
+        <text x="12" y="122" fill="#94A3B8" font-size="11">Settlements on L2</text>
+        <line x1="12" y1="138" x2="112" y2="138" stroke="#FFFFFF" stroke-opacity=".08"/>
+        <text x="12" y="158" fill="#6B7280" font-size="10">DAOs as protocols</text>
+        <text x="12" y="176" fill="#6B7280" font-size="10">not just rooms</text>
+      </g>
+    </g>
+
+    <!-- 2035 -->
+    <g transform="translate(1342 0)">
+      <line x1="0" y1="440" x2="0" y2="240" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <circle cx="0" cy="450" r="8" fill="#0A0A14" stroke="#FBBF24" stroke-width="2.6"/>
+      <text x="0" y="488" text-anchor="middle" fill="#FBBF24" font-size="14" font-weight="700">2035</text>
+      <g transform="translate(-58 230)">
+        <rect width="124" height="200" rx="14" fill="url(#card)" stroke="url(#card-border)"/>
+        <rect x="12" y="14" width="24" height="20" rx="6" fill="#FBBF24"/>
+        <text x="24" y="29" text-anchor="middle" fill="#0A0A0A" font-size="11" font-weight="800">10</text>
+        <text x="44" y="29" fill="#FBBF24" font-size="9" letter-spacing="2" font-weight="700">CIVIC</text>
+        <text x="12" y="62" fill="#EDEDED" font-size="13" font-weight="700">Civic infra</text>
+        <text x="12" y="86" fill="#94A3B8" font-size="11">Co-ops &amp; cities</text>
+        <text x="12" y="104" fill="#94A3B8" font-size="11">Public bodies</text>
+        <text x="12" y="122" fill="#94A3B8" font-size="11">on the same stack</text>
+        <line x1="12" y1="138" x2="112" y2="138" stroke="#FFFFFF" stroke-opacity=".08"/>
+        <text x="12" y="158" fill="#6B7280" font-size="10">Boring becomes</text>
+        <text x="12" y="176" fill="#6B7280" font-size="10">civic, like email did</text>
+      </g>
+    </g>
+
+  </g>
+
+  <!-- bottom narrative -->
+  <g transform="translate(60 600)">
+    <text x="0" y="0" fill="#6366F1" font-size="11" letter-spacing="2.4" font-weight="600">TRAJECTORY</text>
+    <text x="0" y="40" fill="#EDEDED" font-size="20" font-weight="700" letter-spacing="-.4">From a chat room with one bot, to a public protocol cities can run on.</text>
+    <text x="0" y="76" fill="#94A3B8" font-size="14" font-weight="400">The first three years are about boring foundations: ship the MVP, add Ed25519 governance, give every agent action its own generated interface.</text>
+    <text x="0" y="100" fill="#94A3B8" font-size="14" font-weight="400">Years four through seven are about sovereignty and federation: local-first replicas, ZK governance, agents that author and version their own skills.</text>
+    <text x="0" y="124" fill="#94A3B8" font-size="14" font-weight="400">By 2033 every person carries a portable Credo charter. By 2035 the same stack runs co-ops, neighbourhoods and public bodies — boring like email, civic like the postal service.</text>
+  </g>
+
+  <!-- timeline marker for "today" -->
+  <g transform="translate(100 412)">
+    <rect x="-30" y="0" width="60" height="20" rx="10" fill="#34D399" fill-opacity=".15" stroke="#34D399" stroke-width="1"/>
+    <text x="0" y="14" text-anchor="middle" fill="#34D399" font-size="10" font-weight="700" letter-spacing="1.5">YOU ARE HERE</text>
+  </g>
+
+  <!-- decorative trailing arrow -->
+  <path d="M1346 446 L1366 450 L1346 454 Z" fill="#FBBF24" opacity=".6"/>
+</svg>
