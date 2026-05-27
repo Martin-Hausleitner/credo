@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="640" viewBox="0 0 1400 640" role="img" aria-labelledby="at-title at-desc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="at-title">Audit trail per job</title>
+  <desc id="at-desc">Every Credo job has a verifiable lineage: intent, policy, queue, tool call, artifact, memory.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#06060A"/>
+      <stop offset="1" stop-color="#0A0A14"/>
+    </linearGradient>
+    <radialGradient id="orb" cx="700" cy="320" r="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22D3EE" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#FFFFFF" stroke-opacity=".035"/>
+    </pattern>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".07"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".02"/>
+    </linearGradient>
+    <linearGradient id="card-border" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".06"/>
+    </linearGradient>
+    <linearGradient id="rail" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6366F1" stop-opacity=".1"/>
+      <stop offset=".5" stop-color="#22D3EE" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#34D399" stop-opacity=".5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1400" height="640" fill="url(#bg)"/>
+  <rect width="1400" height="640" fill="url(#grid)"/>
+  <rect width="1400" height="640" fill="url(#orb)"/>
+
+  <text x="60" y="64" fill="#34D399" font-size="12" letter-spacing="3" font-weight="600">CREDO  /  AUDIT TRAIL</text>
+  <text x="60" y="104" fill="#EDEDED" font-size="34" font-weight="700" letter-spacing="-1.4">Every job is a story you can check.</text>
+  <text x="60" y="134" fill="#94A3B8" font-size="15">Intent → policy → queue → tool call → artifact → memory. Same job-id end to end.</text>
+
+  <!-- rail -->
+  <line x1="120" y1="290" x2="1280" y2="290" stroke="url(#rail)" stroke-width="3"/>
+
+  <!-- stages -->
+  <g font-family="Inter, ui-sans-serif, system-ui, sans-serif">
+    <!-- 01 Intent -->
+    <g transform="translate(60 200)">
+      <rect width="190" height="180" rx="16" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="14" y="14" width="32" height="32" rx="9" fill="#A78BFA"/>
+      <text x="30" y="34" fill="#0A0A0A" font-size="14" font-weight="800" text-anchor="middle">01</text>
+      <text x="56" y="34" fill="#EDEDED" font-size="13" font-weight="700">Intent</text>
+      <text x="14" y="62" fill="#94A3B8" font-size="11">Room: #ops</text>
+      <text x="14" y="80" fill="#94A3B8" font-size="11">User: @martin</text>
+      <text x="14" y="104" fill="#CBD5E1" font-size="11" font-weight="500">“Run lint on PR #42”</text>
+      <line x1="14" y1="124" x2="176" y2="124" stroke="#FFFFFF" stroke-opacity=".08"/>
+      <text x="14" y="146" fill="#6B7280" font-size="10" font-family="ui-monospace, monospace">evt 7a1b…c5</text>
+      <g transform="translate(150 142)">
+        <circle r="10" fill="#34D399" fill-opacity=".15" stroke="#34D399" stroke-width="1.4"/>
+        <path d="M-4 0 l3 3 l5 -6" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+      <text x="14" y="170" fill="#6B7280" font-size="9">signed by user device</text>
+    </g>
+
+    <!-- 02 Policy -->
+    <g transform="translate(258 200)">
+      <rect width="190" height="180" rx="16" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="14" y="14" width="32" height="32" rx="9" fill="#6366F1"/>
+      <text x="30" y="34" fill="#0A0A0A" font-size="14" font-weight="800" text-anchor="middle">02</text>
+      <text x="56" y="34" fill="#EDEDED" font-size="13" font-weight="700">Policy</text>
+      <text x="14" y="62" fill="#94A3B8" font-size="11">role: owner</text>
+      <text x="14" y="80" fill="#94A3B8" font-size="11">scope: repo:credo</text>
+      <text x="14" y="104" fill="#CBD5E1" font-size="11" font-weight="500">allow lint · read-only</text>
+      <line x1="14" y1="124" x2="176" y2="124" stroke="#FFFFFF" stroke-opacity=".08"/>
+      <text x="14" y="146" fill="#6B7280" font-size="10" font-family="ui-monospace, monospace">rule v2.4</text>
+      <g transform="translate(150 142)">
+        <circle r="10" fill="#34D399" fill-opacity=".15" stroke="#34D399" stroke-width="1.4"/>
+        <path d="M-4 0 l3 3 l5 -6" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+      <text x="14" y="170" fill="#6B7280" font-size="9">gate approved · 0 ms</text>
+    </g>
+
+    <!-- 03 Queue -->
+    <g transform="translate(456 200)">
+      <rect width="190" height="180" rx="16" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="14" y="14" width="32" height="32" rx="9" fill="#22D3EE"/>
+      <text x="30" y="34" fill="#0A0A0A" font-size="14" font-weight="800" text-anchor="middle">03</text>
+      <text x="56" y="34" fill="#EDEDED" font-size="13" font-weight="700">Queue</text>
+      <text x="14" y="62" fill="#94A3B8" font-size="11">redis: credo.jobs</text>
+      <text x="14" y="80" fill="#94A3B8" font-size="11">worker: hermes-1</text>
+      <text x="14" y="104" fill="#CBD5E1" font-size="11" font-weight="500">picked up · attempt 1/3</text>
+      <line x1="14" y1="124" x2="176" y2="124" stroke="#FFFFFF" stroke-opacity=".08"/>
+      <text x="14" y="146" fill="#6B7280" font-size="10" font-family="ui-monospace, monospace">job 2024:42a1</text>
+      <g transform="translate(150 142)">
+        <circle r="10" fill="#34D399" fill-opacity=".15" stroke="#34D399" stroke-width="1.4"/>
+        <path d="M-4 0 l3 3 l5 -6" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+      <text x="14" y="170" fill="#6B7280" font-size="9">enqueued · 12 ms</text>
+    </g>
+
+    <!-- 04 Tool call -->
+    <g transform="translate(654 200)">
+      <rect width="190" height="180" rx="16" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="14" y="14" width="32" height="32" rx="9" fill="#F472B6"/>
+      <text x="30" y="34" fill="#0A0A0A" font-size="14" font-weight="800" text-anchor="middle">04</text>
+      <text x="56" y="34" fill="#EDEDED" font-size="13" font-weight="700">Tool call</text>
+      <text x="14" y="62" fill="#94A3B8" font-size="11">skill: github.lint</text>
+      <text x="14" y="80" fill="#94A3B8" font-size="11">model: opus-4.7</text>
+      <text x="14" y="104" fill="#CBD5E1" font-size="11" font-weight="500">tokens · 1 240 / 312</text>
+      <line x1="14" y1="124" x2="176" y2="124" stroke="#FFFFFF" stroke-opacity=".08"/>
+      <text x="14" y="146" fill="#6B7280" font-size="10" font-family="ui-monospace, monospace">span 9f0c…</text>
+      <g transform="translate(150 142)">
+        <circle r="10" fill="#34D399" fill-opacity=".15" stroke="#34D399" stroke-width="1.4"/>
+        <path d="M-4 0 l3 3 l5 -6" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+      <text x="14" y="170" fill="#6B7280" font-size="9">otel · 4 spans</text>
+    </g>
+
+    <!-- 05 Artifact -->
+    <g transform="translate(852 200)">
+      <rect width="190" height="180" rx="16" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="14" y="14" width="32" height="32" rx="9" fill="#FBBF24"/>
+      <text x="30" y="34" fill="#0A0A0A" font-size="14" font-weight="800" text-anchor="middle">05</text>
+      <text x="56" y="34" fill="#EDEDED" font-size="13" font-weight="700">Artifact</text>
+      <text x="14" y="62" fill="#94A3B8" font-size="11">bucket: r2://credo</text>
+      <text x="14" y="80" fill="#94A3B8" font-size="11">size: 12.4 KB</text>
+      <text x="14" y="104" fill="#CBD5E1" font-size="11" font-weight="500">lint-report.json</text>
+      <line x1="14" y1="124" x2="176" y2="124" stroke="#FFFFFF" stroke-opacity=".08"/>
+      <text x="14" y="146" fill="#6B7280" font-size="10" font-family="ui-monospace, monospace">sha 4d77…ab</text>
+      <g transform="translate(150 142)">
+        <circle r="10" fill="#34D399" fill-opacity=".15" stroke="#34D399" stroke-width="1.4"/>
+        <path d="M-4 0 l3 3 l5 -6" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+      <text x="14" y="170" fill="#6B7280" font-size="9">linked to mxc://</text>
+    </g>
+
+    <!-- 06 Memory -->
+    <g transform="translate(1050 200)">
+      <rect width="190" height="180" rx="16" fill="url(#card)" stroke="url(#card-border)"/>
+      <rect x="14" y="14" width="32" height="32" rx="9" fill="#34D399"/>
+      <text x="30" y="34" fill="#0A0A0A" font-size="14" font-weight="800" text-anchor="middle">06</text>
+      <text x="56" y="34" fill="#EDEDED" font-size="13" font-weight="700">Memory</text>
+      <text x="14" y="62" fill="#94A3B8" font-size="11">postgres + pgvector</text>
+      <text x="14" y="80" fill="#94A3B8" font-size="11">status: reviewed</text>
+      <text x="14" y="104" fill="#CBD5E1" font-size="11" font-weight="500">recallable for next run</text>
+      <line x1="14" y1="124" x2="176" y2="124" stroke="#FFFFFF" stroke-opacity=".08"/>
+      <text x="14" y="146" fill="#6B7280" font-size="10" font-family="ui-monospace, monospace">rev martin@2026</text>
+      <g transform="translate(150 142)">
+        <circle r="10" fill="#34D399" fill-opacity=".15" stroke="#34D399" stroke-width="1.4"/>
+        <path d="M-4 0 l3 3 l5 -6" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+      <text x="14" y="170" fill="#6B7280" font-size="9">canonical pending</text>
+    </g>
+  </g>
+
+  <!-- rail nodes (between cards) -->
+  <g>
+    <circle cx="250" cy="290" r="6" fill="#0A0A14" stroke="url(#rail)" stroke-width="2"/>
+    <circle cx="448" cy="290" r="6" fill="#0A0A14" stroke="url(#rail)" stroke-width="2"/>
+    <circle cx="646" cy="290" r="6" fill="#0A0A14" stroke="url(#rail)" stroke-width="2"/>
+    <circle cx="844" cy="290" r="6" fill="#0A0A14" stroke="url(#rail)" stroke-width="2"/>
+    <circle cx="1042" cy="290" r="6" fill="#0A0A14" stroke="url(#rail)" stroke-width="2"/>
+  </g>
+
+  <!-- footer: verification badge -->
+  <g transform="translate(60 460)">
+    <rect width="1280" height="138" rx="16" fill="url(#card)" stroke="url(#card-border)"/>
+    <g transform="translate(28 28)">
+      <circle r="22" fill="#34D399" fill-opacity=".12" stroke="#34D399" stroke-width="1.6"/>
+      <path d="M-9 0 l7 7 l12 -14" fill="none" stroke="#34D399" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+    <text x="80" y="44" fill="#EDEDED" font-size="18" font-weight="700">Job 2024:42a1 — verified end to end</text>
+    <text x="80" y="68" fill="#94A3B8" font-size="13">6 spans · 4 artifacts · 1 memory entry · 0 policy violations · 0 unsigned events</text>
+
+    <g transform="translate(80 90)" font-size="11" font-family="ui-monospace, 'SF Mono', Menlo, monospace" fill="#6B7280">
+      <text y="0">otel.trace_id  =  4f9c2a18-7b1e-4d04-9c0a-1f8e9d5b21cc</text>
+      <text y="20">artifact.sha256 =  4d77af1c4e9b3a7f… (12.4 KB · lint-report.json)</text>
+    </g>
+
+    <g transform="translate(960 32)" font-size="11" fill="#94A3B8">
+      <text x="0" y="0" font-weight="600" letter-spacing="2" fill="#6B7280">PROVENANCE</text>
+      <text x="0" y="22">·  matrix room event</text>
+      <text x="0" y="40">·  postgres ledger row</text>
+      <text x="0" y="58">·  R2 object + sha256</text>
+      <text x="0" y="76">·  OTel span tree</text>
+    </g>
+  </g>
+</svg>

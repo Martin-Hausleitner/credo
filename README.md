@@ -1,8 +1,29 @@
-# Credo
+<p align="center">
+  <img src="assets/hero.svg" alt="Credo — the operating system for your agents" width="100%"/>
+</p>
+
+<h1 align="center">Credo</h1>
+
+<p align="center">
+  <strong>The operating system for your agents.</strong><br/>
+  Self-hosted Matrix backbone · verifiable memory · policy-gated tool calls.
+</p>
+
+<p align="center">
+  <a href="#-architektur">Architecture</a> ·
+  <a href="#%EF%B8%8F-mvp-scope">MVP</a> ·
+  <a href="#-roadmap">Roadmap</a> ·
+  <a href="docs/">Docs</a> ·
+  <a href="site/index.html">Landing page</a>
+</p>
+
+---
 
 **Credo** ist Martins Architekturdeck fuer einen selbst gehosteten Agent-Kommunikationsstack: **Matrix** als Raum-, Identity-, State- und Audit-Kontext; **Hermes/OpenClaw/Codex** als Agent Runtime; **Postgres, Obsidian, ActivityWatch und lokale Skills** als Memory-, Kontext- und Tool-Schicht.
 
 > 🎯 **MVP:** Synapse als konservativer Start + Element/Cinny + Hermes Matrix-Bot + Redis + Postgres/pgvector + S3/R2 + Obsidian + ActivityWatch + Tailscale-only Admin. Tuwunel bleibt ein schlanker Kandidat, sobald Bot-, Bridge-, MatrixRTC- und MAS-Kompatibilitaet validiert sind.
+
+> 🌐 **Landing page:** `site/index.html` ist eine eigenstaendige Vercel/Linear-style Marketing-Seite. Lokal oeffnen oder via GitHub Pages (Settings → Pages → Branch `main` /site) ausliefern.
 
 ## 🧭 Start Here
 
@@ -13,9 +34,15 @@
 | Was baue ich zuerst? | Text-MVP mit Synapse, Clients, Bot, Redis, Postgres, R2/S3 und Tailscale. | [MVP Scope](#%EF%B8%8F-mvp-scope) |
 | Wo sind Details? | Entscheidungen, Inventare, Roadmap und Research sind in `docs/` gesplittet. | [Detail-Dokumente](#-detail-dokumente) |
 
-![Credo logo board](assets/logo-board.svg)
+![Credo nine planes](assets/credo-planes.svg)
 
-![Credo stack planes](assets/credo-planes.svg)
+![Credo stack layers](assets/layers.svg)
+
+![Credo agent mesh](assets/agent-mesh.svg)
+
+![Credo audit trail](assets/audit-trail.svg)
+
+![Credo brand mark](assets/logo-board.svg)
 
 ## 🎛️ Operating Model
 

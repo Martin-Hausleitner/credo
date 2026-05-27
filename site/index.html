@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Credo — the operating system for your agents</title>
+  <meta name="description" content="Self-hosted Matrix backbone, verifiable memory and policy-gated tool calls. Configure agents that consult, decide and collaborate — with a full audit trail." />
+  <meta name="theme-color" content="#06060A" />
+
+  <meta property="og:title" content="Credo — the operating system for your agents" />
+  <meta property="og:description" content="Self-hosted Matrix backbone, verifiable memory and policy-gated tool calls." />
+  <meta property="og:image" content="../assets/hero.svg" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SF Mono', 'Menlo', 'monospace'],
+          },
+          colors: {
+            ink: {
+              900: '#06060A', 800: '#0A0A14', 700: '#0F0F18', 600: '#15151F',
+              500: '#1C1C28', 400: '#26263A', 300: '#3A3A52',
+            },
+            mute: { 100: '#EDEDED', 200: '#CBD5E1', 300: '#94A3B8', 400: '#6B7280', 500: '#4B5563' },
+            brand: { violet: '#A78BFA', indigo: '#6366F1', cyan: '#22D3EE', emerald: '#34D399', pink: '#F472B6', amber: '#FBBF24', sky: '#60A5FA' },
+          },
+          letterSpacing: { tightest: '-0.06em' },
+        },
+      },
+    };
+  </script>
+  <style>
+    html, body { background: #06060A; color: #EDEDED; }
+    body { font-feature-settings: "ss01","ss02","cv02","cv11"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    .mesh {
+      background:
+        radial-gradient(60rem 40rem at 12% 8%, rgba(99,102,241,.32), transparent 60%),
+        radial-gradient(48rem 36rem at 88% 22%, rgba(34,211,238,.22), transparent 60%),
+        radial-gradient(56rem 40rem at 55% 90%, rgba(167,139,250,.20), transparent 60%),
+        linear-gradient(180deg, #06060A 0%, #0A0A14 100%);
+    }
+    .mesh-soft {
+      background:
+        radial-gradient(40rem 28rem at 18% 10%, rgba(99,102,241,.18), transparent 60%),
+        radial-gradient(40rem 28rem at 85% 80%, rgba(34,211,238,.14), transparent 60%),
+        linear-gradient(180deg, #06060A 0%, #0A0A14 100%);
+    }
+    .grid-overlay {
+      background-image: linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(12px);
+    }
+    .card:hover { border-color: rgba(255,255,255,.16); }
+    .chip {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .gradient-text {
+      background: linear-gradient(120deg, #FFFFFF 0%, #DDD6FE 50%, #A5F3FC 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .gradient-stroke {
+      background: linear-gradient(120deg, #A78BFA, #6366F1, #22D3EE);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .btn-primary {
+      background: #EDEDED; color: #0A0A0A;
+      transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+    }
+    .btn-primary:hover { background: #FFFFFF; transform: translateY(-1px); box-shadow: 0 12px 32px -12px rgba(255,255,255,.4); }
+    .btn-ghost {
+      background: rgba(255,255,255,.05); color: #EDEDED; border: 1px solid rgba(255,255,255,.14);
+      transition: background .15s ease, border-color .15s ease, transform .15s ease;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.28); transform: translateY(-1px); }
+    .glow-ring {
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 30px 80px -20px rgba(99,102,241,.35), 0 12px 40px -10px rgba(34,211,238,.20);
+    }
+    .ring-stop {
+      stroke-dasharray: 4 4;
+    }
+    .marquee {
+      mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    }
+    .marquee-track {
+      display: flex; gap: 56px; animation: marquee 36s linear infinite;
+      width: max-content;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-item { color: #94A3B8; font-weight: 600; letter-spacing: .15em; font-size: 12px; }
+    .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: #3A3A52; align-self: center; }
+
+    .pulse-dot { animation: pulse 2.2s ease-in-out infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: .55; transform: scale(1); }
+      50%      { opacity: 1;   transform: scale(1.25); }
+    }
+
+    .nav-link { color: #94A3B8; transition: color .15s ease; }
+    .nav-link:hover { color: #EDEDED; }
+
+    details[open] summary .chev { transform: rotate(90deg); }
+    summary { list-style: none; cursor: pointer; }
+    summary::-webkit-details-marker { display: none; }
+
+    .tilt {
+      transform: perspective(1200px) rotateX(8deg) translateY(0);
+      transition: transform .4s cubic-bezier(.2,.7,.2,1);
+    }
+    .tilt:hover { transform: perspective(1200px) rotateX(2deg) translateY(-4px); }
+  </style>
+</head>
+<body class="font-sans">
+
+  <!-- nav -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-ink-900/70 border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <svg width="28" height="28" viewBox="0 0 64 64" fill="none">
+          <defs>
+            <linearGradient id="nav-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset=".5" stop-color="#6366F1"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+          </defs>
+          <path d="M47.56 16.44 A22 22 0 1 0 47.56 47.56" fill="none" stroke="url(#nav-mark)" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="32" cy="32" r="4.5" fill="#A5F3FC"/>
+        </svg>
+        <span class="text-[19px] font-bold tracking-tightest text-mute-100">credo</span>
+        <span class="hidden sm:inline-flex items-center gap-1 text-[10px] uppercase tracking-[.18em] text-mute-300 px-2 py-0.5 rounded-full border border-white/10">v0.1 · MVP</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
+        <a href="#pillars" class="nav-link">Why</a>
+        <a href="#planes" class="nav-link">Architecture</a>
+        <a href="#mesh" class="nav-link">Agent mesh</a>
+        <a href="#audit" class="nav-link">Audit</a>
+        <a href="#roadmap" class="nav-link">Roadmap</a>
+        <a href="https://github.com/Martin-Hausleitner/Credo" class="nav-link">Docs</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <a href="https://github.com/Martin-Hausleitner/Credo" class="btn-ghost text-sm font-medium px-3.5 h-9 rounded-full inline-flex items-center gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.69-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.45.11-3.02 0 0 .97-.31 3.18 1.18A11 11 0 0 1 12 6.8c.98 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.57.23 2.73.12 3.02.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56C20.21 21.39 23.5 17.07 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <section id="top" class="relative overflow-hidden">
+    <div class="mesh absolute inset-0"></div>
+    <div class="grid-overlay absolute inset-0 opacity-60"></div>
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-28 lg:pt-28 lg:pb-36 grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7">
+        <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-[.18em] text-brand-indigo">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-indigo pulse-dot"></span>
+          AGENT OPERATING SYSTEM
+        </div>
+        <h1 class="mt-6 text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tightest">
+          <span class="gradient-text">The operating system</span><br/>
+          <span class="gradient-text">for your agents.</span>
+        </h1>
+        <p class="mt-7 text-lg sm:text-xl text-mute-300 max-w-xl leading-relaxed">
+          Self-hosted Matrix backbone, verifiable memory and policy-gated tool calls.
+          Configure agents that consult each other, decide together, and leave a trail you can audit.
+        </p>
+        <div class="mt-9 flex flex-wrap items-center gap-3">
+          <a href="#planes" class="btn-primary px-5 h-12 rounded-full font-semibold text-sm inline-flex items-center gap-2">
+            Read the architecture
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="https://github.com/Martin-Hausleitner/Credo" class="btn-ghost px-5 h-12 rounded-full font-medium text-sm inline-flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.36H22l-6.18 4.49L18.21 21 12 16.52 5.79 21l2.39-7.15L2 9.36h7.61z"/></svg>
+            Star on GitHub
+          </a>
+          <a href="#roadmap" class="text-mute-300 hover:text-mute-100 text-sm font-medium px-3 h-12 inline-flex items-center gap-1.5">
+            Read the roadmap →
+          </a>
+        </div>
+
+        <!-- proof row -->
+        <div class="mt-12 pt-8 border-t border-white/5">
+          <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400 mb-4">BUILT ON OPEN, BORING TECH</div>
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] font-semibold tracking-[.15em] text-mute-300">
+            <span>MATRIX</span><span class="text-mute-500">·</span>
+            <span>POSTGRES</span><span class="text-mute-500">·</span>
+            <span>pgvector</span><span class="text-mute-500">·</span>
+            <span>REDIS</span><span class="text-mute-500">·</span>
+            <span>S3 / R2</span><span class="text-mute-500">·</span>
+            <span>LIVEKIT</span><span class="text-mute-500">·</span>
+            <span>TAILSCALE</span><span class="text-mute-500">·</span>
+            <span>OPENTELEMETRY</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- hero visual: orbiting agents -->
+      <div class="lg:col-span-5 relative">
+        <div class="relative aspect-square max-w-[520px] mx-auto">
+          <svg viewBox="-260 -260 520 520" class="w-full h-full">
+            <defs>
+              <linearGradient id="hv-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset=".5" stop-color="#6366F1"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+              <linearGradient id="hv-edge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6366F1" stop-opacity=".05"/><stop offset=".5" stop-color="#22D3EE" stop-opacity=".55"/><stop offset="1" stop-color="#6366F1" stop-opacity=".05"/></linearGradient>
+              <radialGradient id="hv-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#6366F1" stop-opacity=".6"/><stop offset="1" stop-color="#6366F1" stop-opacity="0"/></radialGradient>
+              <filter id="hv-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
+            </defs>
+            <circle r="240" fill="none" stroke="rgba(255,255,255,.06)"/>
+            <circle r="180" fill="none" stroke="rgba(255,255,255,.06)"/>
+            <circle r="120" fill="none" stroke="rgba(255,255,255,.06)" stroke-dasharray="2 6"/>
+            <g stroke="url(#hv-edge)" stroke-width="1.4" fill="none">
+              <line x1="0" y1="0" x2="180" y2="-60"/>
+              <line x1="0" y1="0" x2="-180" y2="80"/>
+              <line x1="0" y1="0" x2="120" y2="160"/>
+              <line x1="0" y1="0" x2="-120" y2="-160"/>
+              <line x1="0" y1="0" x2="200" y2="80"/>
+              <line x1="0" y1="0" x2="-200" y2="-30"/>
+              <line x1="0" y1="0" x2="-50" y2="200"/>
+              <line x1="0" y1="0" x2="60" y2="-200"/>
+            </g>
+            <circle r="80" fill="url(#hv-glow)" filter="url(#hv-soft)"/>
+            <g>
+              <circle r="48" fill="#0F0F18" stroke="url(#hv-mark)" stroke-width="2"/>
+              <text y="-4" text-anchor="middle" font-size="10" fill="#94A3B8" letter-spacing="2.6" font-weight="600">MATRIX</text>
+              <text y="14" text-anchor="middle" font-size="11" fill="#EDEDED" font-weight="600">credo bus</text>
+            </g>
+            <g font-size="10" font-weight="700" letter-spacing="1.2" text-anchor="middle" fill="#EDEDED">
+              <g transform="translate(180 -60)"><circle r="26" fill="#0F0F18" stroke="#A78BFA" stroke-width="1.6"/><text y="3">HERMES</text></g>
+              <g transform="translate(-180 80)"><circle r="26" fill="#0F0F18" stroke="#22D3EE" stroke-width="1.6"/><text y="3">CODEX</text></g>
+              <g transform="translate(120 160)"><circle r="26" fill="#0F0F18" stroke="#34D399" stroke-width="1.6"/><text y="3">SKILLS</text></g>
+              <g transform="translate(-120 -160)"><circle r="26" fill="#0F0F18" stroke="#F472B6" stroke-width="1.6"/><text y="3">VOICE</text></g>
+              <g transform="translate(200 80)"><circle r="22" fill="#0F0F18" stroke="#FBBF24" stroke-width="1.6"/><text y="3">MCP</text></g>
+              <g transform="translate(-200 -30)"><circle r="22" fill="#0F0F18" stroke="#60A5FA" stroke-width="1.6"/><text y="3">BRIDGE</text></g>
+              <g transform="translate(-50 200)"><circle r="20" fill="#0F0F18" stroke="#A5B4FC" stroke-width="1.6"/><text y="3">MEM</text></g>
+              <g transform="translate(60 -200)"><circle r="20" fill="#0F0F18" stroke="#22D3EE" stroke-width="1.6"/><text y="3">OPS</text></g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- marquee -->
+    <div class="relative border-t border-white/5 bg-ink-900/40">
+      <div class="marquee py-5">
+        <div class="marquee-track">
+          <!-- duplicated for seamless loop -->
+          <span class="marquee-item">MATRIX SYNAPSE</span><span class="marquee-dot"></span>
+          <span class="marquee-item">TUWUNEL</span><span class="marquee-dot"></span>
+          <span class="marquee-item">ELEMENT WEB</span><span class="marquee-dot"></span>
+          <span class="marquee-item">CINNY</span><span class="marquee-dot"></span>
+          <span class="marquee-item">POSTGRES + PGVECTOR</span><span class="marquee-dot"></span>
+          <span class="marquee-item">REDIS</span><span class="marquee-dot"></span>
+          <span class="marquee-item">CLOUDFLARE R2</span><span class="marquee-dot"></span>
+          <span class="marquee-item">OBSIDIAN</span><span class="marquee-dot"></span>
+          <span class="marquee-item">ACTIVITYWATCH</span><span class="marquee-dot"></span>
+          <span class="marquee-item">LIVEKIT</span><span class="marquee-dot"></span>
+          <span class="marquee-item">ELEMENT CALL</span><span class="marquee-dot"></span>
+          <span class="marquee-item">TAILSCALE</span><span class="marquee-dot"></span>
+          <span class="marquee-item">PROMETHEUS</span><span class="marquee-dot"></span>
+          <span class="marquee-item">GRAFANA</span><span class="marquee-dot"></span>
+          <span class="marquee-item">LOKI</span><span class="marquee-dot"></span>
+          <span class="marquee-item">OPENTELEMETRY</span><span class="marquee-dot"></span>
+          <span class="marquee-item">MAUTRIX</span><span class="marquee-dot"></span>
+          <span class="marquee-item">CHATWOOT</span><span class="marquee-dot"></span>
+          <span class="marquee-item">HERMES AGENT</span><span class="marquee-dot"></span>
+          <span class="marquee-item">OPENCLAW</span><span class="marquee-dot"></span>
+          <span class="marquee-item">CODEX</span><span class="marquee-dot"></span>
+          <span class="marquee-item">MCP</span><span class="marquee-dot"></span>
+          <!-- repeat -->
+          <span class="marquee-item">MATRIX SYNAPSE</span><span class="marquee-dot"></span>
+          <span class="marquee-item">TUWUNEL</span><span class="marquee-dot"></span>
+          <span class="marquee-item">ELEMENT WEB</span><span class="marquee-dot"></span>
+          <span class="marquee-item">CINNY</span><span class="marquee-dot"></span>
+          <span class="marquee-item">POSTGRES + PGVECTOR</span><span class="marquee-dot"></span>
+          <span class="marquee-item">REDIS</span><span class="marquee-dot"></span>
+          <span class="marquee-item">CLOUDFLARE R2</span><span class="marquee-dot"></span>
+          <span class="marquee-item">OBSIDIAN</span><span class="marquee-dot"></span>
+          <span class="marquee-item">ACTIVITYWATCH</span><span class="marquee-dot"></span>
+          <span class="marquee-item">LIVEKIT</span><span class="marquee-dot"></span>
+          <span class="marquee-item">ELEMENT CALL</span><span class="marquee-dot"></span>
+          <span class="marquee-item">TAILSCALE</span><span class="marquee-dot"></span>
+          <span class="marquee-item">PROMETHEUS</span><span class="marquee-dot"></span>
+          <span class="marquee-item">GRAFANA</span><span class="marquee-dot"></span>
+          <span class="marquee-item">LOKI</span><span class="marquee-dot"></span>
+          <span class="marquee-item">OPENTELEMETRY</span><span class="marquee-dot"></span>
+          <span class="marquee-item">MAUTRIX</span><span class="marquee-dot"></span>
+          <span class="marquee-item">CHATWOOT</span><span class="marquee-dot"></span>
+          <span class="marquee-item">HERMES AGENT</span><span class="marquee-dot"></span>
+          <span class="marquee-item">OPENCLAW</span><span class="marquee-dot"></span>
+          <span class="marquee-item">CODEX</span><span class="marquee-dot"></span>
+          <span class="marquee-item">MCP</span><span class="marquee-dot"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- pillars -->
+  <section id="pillars" class="relative py-28 lg:py-32">
+    <div class="mesh-soft absolute inset-0"></div>
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="max-w-3xl">
+        <div class="text-xs font-semibold tracking-[.22em] text-brand-cyan">WHY CREDO</div>
+        <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Three things, done seriously.</h2>
+        <p class="mt-5 text-lg text-mute-300">No mystery framework, no closed cloud. A small set of decisions that hold up under load and under audit.</p>
+      </div>
+
+      <div class="mt-14 grid lg:grid-cols-3 gap-5">
+        <!-- Pillar 1 -->
+        <div class="card rounded-2xl p-7">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#A78BFA,#6366F1);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.6"/><circle cx="18" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="18" r="2.6"/><path d="M8.4 6.6h7.2M8.4 17.4h7.2M6.6 8.4v7.2M17.4 8.4v7.2"/></svg>
+          </div>
+          <h3 class="mt-5 text-xl font-bold text-mute-100">Multi-agent by default</h3>
+          <p class="mt-3 text-mute-300 text-[15px] leading-relaxed">
+            Each agent is a Matrix participant. They talk to you, and to each other,
+            in real rooms with real history. Add a new agent without writing glue.
+          </p>
+          <ul class="mt-5 space-y-2 text-sm text-mute-200">
+            <li class="flex gap-2"><span class="text-brand-violet">›</span> Rooms as the message bus</li>
+            <li class="flex gap-2"><span class="text-brand-violet">›</span> Agents consult, hand off, escalate</li>
+            <li class="flex gap-2"><span class="text-brand-violet">›</span> Humans stay in the loop, never out of it</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="card rounded-2xl p-7">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#22D3EE,#06B6D4);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.6 8.7-8 10-4.4-1.3-8-5-8-10v-6z"/><path d="M9 12l2.2 2.2L15 10.4"/></svg>
+          </div>
+          <h3 class="mt-5 text-xl font-bold text-mute-100">Every byte is checkable</h3>
+          <p class="mt-3 text-mute-300 text-[15px] leading-relaxed">
+            Each job carries the same id from the chat event through Redis, the tool
+            call, the artifact and the memory row. You can follow it, you can verify it.
+          </p>
+          <ul class="mt-5 space-y-2 text-sm text-mute-200">
+            <li class="flex gap-2"><span class="text-brand-cyan">›</span> Postgres ledger for state</li>
+            <li class="flex gap-2"><span class="text-brand-cyan">›</span> Object storage with sha256</li>
+            <li class="flex gap-2"><span class="text-brand-cyan">›</span> OpenTelemetry spans across every tool</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="card rounded-2xl p-7">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#34D399,#10B981);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.08A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06A2 2 0 1 1 4.24 16.97l.06-.06A1.7 1.7 0 0 0 4.64 15a1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.08A1.7 1.7 0 0 0 4.64 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06A2 2 0 1 1 7.07 4.24l.06.06A1.7 1.7 0 0 0 9 4.64h.04A1.7 1.7 0 0 0 10.07 3.08V3a2 2 0 1 1 4 0v.08A1.7 1.7 0 0 0 15 4.64a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9v.04A1.7 1.7 0 0 0 20.92 10.07H21a2 2 0 1 1 0 4h-.08a1.7 1.7 0 0 0-1.52 1.03Z"/></svg>
+          </div>
+          <h3 class="mt-5 text-xl font-bold text-mute-100">Configurable advisors</h3>
+          <p class="mt-3 text-mute-300 text-[15px] leading-relaxed">
+            Each agent has a written brief: who they advise, which tools they touch,
+            which memories they recall. Tune them like profiles, not like code.
+          </p>
+          <ul class="mt-5 space-y-2 text-sm text-mute-200">
+            <li class="flex gap-2"><span class="text-brand-emerald">›</span> Role &amp; scope per agent</li>
+            <li class="flex gap-2"><span class="text-brand-emerald">›</span> Skill bundles &amp; MCP servers</li>
+            <li class="flex gap-2"><span class="text-brand-emerald">›</span> Memory access by status (canonical / reviewed / ephemeral)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- operating model -->
+  <section class="relative py-24 lg:py-28 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 items-end">
+        <div class="lg:col-span-7">
+          <div class="text-xs font-semibold tracking-[.22em] text-brand-violet">OPERATING MODEL</div>
+          <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Six rules. Always on.</h2>
+        </div>
+        <p class="lg:col-span-5 text-mute-300 text-[15px] leading-relaxed">
+          Credo is not a tool, it is an operating model. These six rules apply to every
+          run, every agent, every artifact — and they are checked in code, not in slides.
+        </p>
+      </div>
+
+      <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- rule 1 -->
+        <div class="card rounded-2xl p-6">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 01</span>
+            <span class="w-2 h-2 rounded-full bg-brand-emerald"></span>
+          </div>
+          <h3 class="mt-4 text-lg font-bold text-mute-100">Every job has a room</h3>
+          <p class="mt-2 text-sm text-mute-300 leading-relaxed">Matrix gives you context, people, state, and a timeline you can read.</p>
+        </div>
+        <div class="card rounded-2xl p-6">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 02</span>
+            <span class="w-2 h-2 rounded-full bg-brand-amber"></span>
+          </div>
+          <h3 class="mt-4 text-lg font-bold text-mute-100">Every action has a policy</h3>
+          <p class="mt-2 text-sm text-mute-300 leading-relaxed">Roles, approvals and risks are decided in the backend before Redis and again before each risky tool call.</p>
+        </div>
+        <div class="card rounded-2xl p-6">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 03</span>
+            <span class="w-2 h-2 rounded-full bg-brand-cyan"></span>
+          </div>
+          <h3 class="mt-4 text-lg font-bold text-mute-100">Every run has a job-id</h3>
+          <p class="mt-2 text-sm text-mute-300 leading-relaxed">Redis and workers decouple long agent work from the chat event. The id ties them back together.</p>
+        </div>
+        <div class="card rounded-2xl p-6">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 04</span>
+            <span class="w-2 h-2 rounded-full bg-brand-pink"></span>
+          </div>
+          <h3 class="mt-4 text-lg font-bold text-mute-100">Every result has an artifact</h3>
+          <p class="mt-2 text-sm text-mute-300 leading-relaxed">S3 or R2, Postgres rows and Matrix links keep results reachable — and signable.</p>
+        </div>
+        <div class="card rounded-2xl p-6">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 05</span>
+            <span class="w-2 h-2 rounded-full bg-brand-violet"></span>
+          </div>
+          <h3 class="mt-4 text-lg font-bold text-mute-100">Every memory has a status</h3>
+          <p class="mt-2 text-sm text-mute-300 leading-relaxed">Ephemeral, reviewed or canonical — never an unchecked long-term memory you can’t explain.</p>
+        </div>
+        <div class="card rounded-2xl p-6">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 06</span>
+            <span class="w-2 h-2 rounded-full bg-brand-sky"></span>
+          </div>
+          <h3 class="mt-4 text-lg font-bold text-mute-100">Every tool call has a span</h3>
+          <p class="mt-2 text-sm text-mute-300 leading-relaxed">OpenTelemetry + Grafana make LLM, MCP, tool, RAG and sub-agent calls debuggable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- planes -->
+  <section id="planes" class="relative py-24 lg:py-32 border-t border-white/5">
+    <div class="mesh-soft absolute inset-0 opacity-90"></div>
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="max-w-3xl">
+        <div class="text-xs font-semibold tracking-[.22em] text-brand-indigo">ARCHITECTURE</div>
+        <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Nine planes. One operating model.</h2>
+        <p class="mt-5 text-lg text-mute-300">Access, Matrix, Bridges, Gateway, Runtime, Data, Context, Voice, Ops — each plane does one job, well.</p>
+      </div>
+      <div class="mt-14 rounded-2xl overflow-hidden glow-ring">
+        <img src="../assets/credo-planes.svg" alt="Credo nine planes architecture" class="w-full block"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- layers -->
+  <section class="relative py-24 lg:py-32 border-t border-white/5">
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="max-w-3xl">
+        <div class="text-xs font-semibold tracking-[.22em] text-brand-emerald">STACK</div>
+        <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Five layers, plain to read.</h2>
+        <p class="mt-5 text-lg text-mute-300">From the human who asks, down to the disk that remembers. No magic, no surprises.</p>
+      </div>
+      <div class="mt-14 rounded-2xl overflow-hidden glow-ring">
+        <img src="../assets/layers.svg" alt="Credo stack layers" class="w-full block"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- agent mesh deep dive -->
+  <section id="mesh" class="relative py-24 lg:py-32 border-t border-white/5">
+    <div class="mesh-soft absolute inset-0"></div>
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-5">
+          <div class="text-xs font-semibold tracking-[.22em] text-brand-cyan">AGENT MESH</div>
+          <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Many agents.<br/>One audited room.</h2>
+          <p class="mt-5 text-lg text-mute-300 leading-relaxed">
+            Spin up a researcher, a coder, an inbox triage, a voice concierge, a calendar pro,
+            a personal advisor. Each lives in a Matrix room. You see who said what and why,
+            and you can yank the plug on any single one without touching the rest.
+          </p>
+          <div class="mt-8 grid sm:grid-cols-2 gap-3">
+            <div class="chip rounded-xl px-4 py-3">
+              <div class="text-[11px] tracking-[.18em] text-mute-400 font-semibold">CONSULT</div>
+              <div class="mt-1 text-sm text-mute-100">Agent → agent dialogue, recorded.</div>
+            </div>
+            <div class="chip rounded-xl px-4 py-3">
+              <div class="text-[11px] tracking-[.18em] text-mute-400 font-semibold">HANDOFF</div>
+              <div class="mt-1 text-sm text-mute-100">Escalate when out of scope.</div>
+            </div>
+            <div class="chip rounded-xl px-4 py-3">
+              <div class="text-[11px] tracking-[.18em] text-mute-400 font-semibold">CONFIG</div>
+              <div class="mt-1 text-sm text-mute-100">Brief per agent, not per call.</div>
+            </div>
+            <div class="chip rounded-xl px-4 py-3">
+              <div class="text-[11px] tracking-[.18em] text-mute-400 font-semibold">KILL-SWITCH</div>
+              <div class="mt-1 text-sm text-mute-100">Pause one, the rest keep running.</div>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-7">
+          <div class="rounded-2xl overflow-hidden glow-ring">
+            <img src="../assets/agent-mesh.svg" alt="Agent mesh on Matrix" class="w-full block"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- audit -->
+  <section id="audit" class="relative py-24 lg:py-32 border-t border-white/5">
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-7">
+          <div class="rounded-2xl overflow-hidden glow-ring">
+            <img src="../assets/audit-trail.svg" alt="Audit trail per job" class="w-full block"/>
+          </div>
+        </div>
+        <div class="lg:col-span-5">
+          <div class="text-xs font-semibold tracking-[.22em] text-brand-emerald">AUDIT TRAIL</div>
+          <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Every job<br/>is a story you can check.</h2>
+          <p class="mt-5 text-lg text-mute-300 leading-relaxed">
+            Intent, policy, queue, tool call, artifact, memory — the same job-id carries
+            you through. Each stop is signed: a Matrix event, a Postgres row, an R2
+            object with sha256, an OpenTelemetry span tree.
+          </p>
+          <div class="mt-8 space-y-3">
+            <div class="chip rounded-xl px-4 py-3 flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full bg-brand-emerald"></span>
+              <span class="text-sm text-mute-100">No silent tool calls</span>
+              <span class="ml-auto font-mono text-[11px] text-mute-400">otel.trace_id</span>
+            </div>
+            <div class="chip rounded-xl px-4 py-3 flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full bg-brand-cyan"></span>
+              <span class="text-sm text-mute-100">No unsigned artifacts</span>
+              <span class="ml-auto font-mono text-[11px] text-mute-400">sha256</span>
+            </div>
+            <div class="chip rounded-xl px-4 py-3 flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full bg-brand-violet"></span>
+              <span class="text-sm text-mute-100">No unreviewed memories</span>
+              <span class="ml-auto font-mono text-[11px] text-mute-400">status: reviewed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- roadmap -->
+  <section id="roadmap" class="relative py-24 lg:py-32 border-t border-white/5">
+    <div class="mesh-soft absolute inset-0 opacity-80"></div>
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="max-w-3xl">
+        <div class="text-xs font-semibold tracking-[.22em] text-brand-amber">ROADMAP</div>
+        <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Conservative MVP, ambitious arc.</h2>
+        <p class="mt-5 text-lg text-mute-300">Start boring with Synapse. Add bridges. Add voice. Keep the audit trail untouched.</p>
+      </div>
+
+      <div class="mt-16 grid lg:grid-cols-3 gap-5">
+        <div class="card rounded-2xl p-7 tilt">
+          <div class="flex items-center gap-3">
+            <span class="px-2.5 py-1 text-[10px] font-bold tracking-[.18em] rounded-full bg-brand-emerald/15 text-brand-emerald border border-brand-emerald/30">SHIPPING</span>
+            <span class="text-xs text-mute-400 font-mono">v0.1 · MVP</span>
+          </div>
+          <h3 class="mt-5 text-xl font-bold text-mute-100">Text MVP</h3>
+          <ul class="mt-4 space-y-2.5 text-sm text-mute-300">
+            <li class="flex gap-2"><span class="text-brand-emerald">✓</span> Synapse + Element / Cinny</li>
+            <li class="flex gap-2"><span class="text-brand-emerald">✓</span> Hermes Matrix bot + policy gate</li>
+            <li class="flex gap-2"><span class="text-brand-emerald">✓</span> Redis queue + Postgres ledger</li>
+            <li class="flex gap-2"><span class="text-brand-emerald">✓</span> R2 artifacts + Obsidian vault</li>
+            <li class="flex gap-2"><span class="text-brand-emerald">✓</span> Tailscale-only admin</li>
+          </ul>
+        </div>
+
+        <div class="card rounded-2xl p-7 tilt">
+          <div class="flex items-center gap-3">
+            <span class="px-2.5 py-1 text-[10px] font-bold tracking-[.18em] rounded-full bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30">NEXT</span>
+            <span class="text-xs text-mute-400 font-mono">v0.2 · expansion</span>
+          </div>
+          <h3 class="mt-5 text-xl font-bold text-mute-100">Bridges, MCP, voice MVP</h3>
+          <ul class="mt-4 space-y-2.5 text-sm text-mute-300">
+            <li class="flex gap-2"><span class="text-brand-cyan">→</span> mautrix bridges · Telegram / WA / Signal</li>
+            <li class="flex gap-2"><span class="text-brand-cyan">→</span> Native MCP across skills</li>
+            <li class="flex gap-2"><span class="text-brand-cyan">→</span> Discord voice MVP</li>
+            <li class="flex gap-2"><span class="text-brand-cyan">→</span> ActivityWatch + Whoop context</li>
+            <li class="flex gap-2"><span class="text-brand-cyan">→</span> OpenTelemetry across every tool call</li>
+          </ul>
+        </div>
+
+        <div class="card rounded-2xl p-7 tilt">
+          <div class="flex items-center gap-3">
+            <span class="px-2.5 py-1 text-[10px] font-bold tracking-[.18em] rounded-full bg-brand-violet/15 text-brand-violet border border-brand-violet/30">LATER</span>
+            <span class="text-xs text-mute-400 font-mono">v1.0 · resilient</span>
+          </div>
+          <h3 class="mt-5 text-xl font-bold text-mute-100">Tuwunel · LiveKit · MAS</h3>
+          <ul class="mt-4 space-y-2.5 text-sm text-mute-300">
+            <li class="flex gap-2"><span class="text-brand-violet">∗</span> Validate Tuwunel for bots, bridges, MatrixRTC</li>
+            <li class="flex gap-2"><span class="text-brand-violet">∗</span> Element Call + LiveKit SFU + lk-jwt</li>
+            <li class="flex gap-2"><span class="text-brand-violet">∗</span> Matrix Authentication Service</li>
+            <li class="flex gap-2"><span class="text-brand-violet">∗</span> Memory promotion: reviewed → canonical</li>
+            <li class="flex gap-2"><span class="text-brand-violet">∗</span> Multi-operator inboxes via Chatwoot</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="relative py-24 lg:py-28 border-t border-white/5">
+    <div class="relative max-w-4xl mx-auto px-6 lg:px-10">
+      <div class="text-xs font-semibold tracking-[.22em] text-brand-pink">FAQ</div>
+      <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Common questions.</h2>
+
+      <div class="mt-12 divide-y divide-white/5 border-y border-white/5">
+        <details class="py-5 group">
+          <summary class="flex items-center justify-between gap-4 text-mute-100">
+            <span class="text-lg font-semibold">Is this a product I can install?</span>
+            <span class="chev text-mute-400 transition-transform">›</span>
+          </summary>
+          <p class="mt-3 text-mute-300 text-[15px] leading-relaxed">Not yet. Credo is an architectural deck and a working MVP. The README links each component to its real repo. You can install Synapse, Hermes, Postgres and Redis today and you have the stack’s foundation running.</p>
+        </details>
+        <details class="py-5 group">
+          <summary class="flex items-center justify-between gap-4 text-mute-100">
+            <span class="text-lg font-semibold">Why Matrix and not Slack or Discord?</span>
+            <span class="chev text-mute-400 transition-transform">›</span>
+          </summary>
+          <p class="mt-3 text-mute-300 text-[15px] leading-relaxed">Because Matrix is self-hostable, federated, has rooms with strong state, and an audit-friendly event model. You own the data and the keys. Bridges let you reach Slack, Discord, Telegram and WhatsApp from the same Matrix homeserver.</p>
+        </details>
+        <details class="py-5 group">
+          <summary class="flex items-center justify-between gap-4 text-mute-100">
+            <span class="text-lg font-semibold">What does “verifiable memory” mean?</span>
+            <span class="chev text-mute-400 transition-transform">›</span>
+          </summary>
+          <p class="mt-3 text-mute-300 text-[15px] leading-relaxed">Every memory entry has a status — ephemeral, reviewed, or canonical — plus a provenance trail (which job, which agent, which evidence). Agents recall by status, and humans can promote or revoke entries. No hidden, unchecked long-term memory.</p>
+        </details>
+        <details class="py-5 group">
+          <summary class="flex items-center justify-between gap-4 text-mute-100">
+            <span class="text-lg font-semibold">How is this different from a single agent framework?</span>
+            <span class="chev text-mute-400 transition-transform">›</span>
+          </summary>
+          <p class="mt-3 text-mute-300 text-[15px] leading-relaxed">Credo isn’t a framework. It’s the operating model around it. Plug Hermes, OpenClaw, Codex, or your own runtime in — Credo gives you the rooms, policy gate, queue, ledger and trace. Swap one component without rewriting the others.</p>
+        </details>
+        <details class="py-5 group">
+          <summary class="flex items-center justify-between gap-4 text-mute-100">
+            <span class="text-lg font-semibold">Where do I read the details?</span>
+            <span class="chev text-mute-400 transition-transform">›</span>
+          </summary>
+          <p class="mt-3 text-mute-300 text-[15px] leading-relaxed">The <a class="text-brand-cyan underline-offset-2 hover:underline" href="https://github.com/Martin-Hausleitner/Credo">README</a> is the deck. The <a class="text-brand-cyan underline-offset-2 hover:underline" href="https://github.com/Martin-Hausleitner/Credo/tree/main/docs">docs/</a> folder splits inventories, repos, runbooks, roadmap and research.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative py-24 lg:py-28 border-t border-white/5">
+    <div class="mesh absolute inset-0 opacity-90"></div>
+    <div class="relative max-w-5xl mx-auto px-6 lg:px-10 text-center">
+      <h2 class="text-4xl sm:text-6xl font-bold tracking-tightest gradient-text">Build agents you can audit.</h2>
+      <p class="mt-6 text-lg text-mute-300 max-w-2xl mx-auto">Clone the repo. Read the architecture. Spin up Synapse and start sending events.</p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <a href="https://github.com/Martin-Hausleitner/Credo" class="btn-primary px-6 h-12 rounded-full font-semibold text-sm inline-flex items-center gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.69-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.45.11-3.02 0 0 .97-.31 3.18 1.18A11 11 0 0 1 12 6.8c.98 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.57.23 2.73.12 3.02.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56C20.21 21.39 23.5 17.07 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
+          github.com/Martin-Hausleitner/Credo
+        </a>
+        <a href="https://github.com/Martin-Hausleitner/Credo/tree/main/docs" class="btn-ghost px-6 h-12 rounded-full font-medium text-sm inline-flex items-center gap-2">
+          Open the docs
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="border-t border-white/5 py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 grid md:grid-cols-12 gap-8 items-start">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-2.5">
+          <svg width="24" height="24" viewBox="0 0 64 64" fill="none">
+            <defs><linearGradient id="f-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset=".5" stop-color="#6366F1"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs>
+            <path d="M47.56 16.44 A22 22 0 1 0 47.56 47.56" fill="none" stroke="url(#f-mark)" stroke-width="9" stroke-linecap="round"/>
+            <circle cx="32" cy="32" r="4.5" fill="#A5F3FC"/>
+          </svg>
+          <span class="text-base font-bold tracking-tightest text-mute-100">credo</span>
+        </div>
+        <p class="mt-4 text-sm text-mute-400 max-w-sm leading-relaxed">An architectural deck for self-hosted, multi-agent operations. Maintained by <a class="text-mute-200 hover:text-mute-100" href="https://github.com/Martin-Hausleitner">@Martin-Hausleitner</a>.</p>
+      </div>
+      <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
+        <div>
+          <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">DOCS</div>
+          <ul class="mt-4 space-y-2.5">
+            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo#-detail-dokumente">Detail docs</a></li>
+            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo/blob/main/docs/architecture-flows.md">Architecture flows</a></li>
+            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo/blob/main/docs/implementation-roadmap.md">Implementation roadmap</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">STACK</div>
+          <ul class="mt-4 space-y-2.5">
+            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo/blob/main/docs/target-stack.md">Target stack</a></li>
+            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo/blob/main/docs/service-catalog.md">Service catalog</a></li>
+            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo/blob/main/docs/matrix-ops-runbook.md">Matrix runbook</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">PROJECT</div>
+          <ul class="mt-4 space-y-2.5">
+            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo">Repository</a></li>
+            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo/issues">Issues</a></li>
+            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner">Author</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-mute-500">
+      <div>© 2026 Credo · self-hosted · open architecture.</div>
+      <div class="flex items-center gap-4 font-mono">
+        <span>matrix.org</span>
+        <span class="text-mute-500/60">·</span>
+        <span>postgres.org</span>
+        <span class="text-mute-500/60">·</span>
+        <span>livekit.io</span>
+        <span class="text-mute-500/60">·</span>
+        <span>tailscale.com</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

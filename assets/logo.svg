@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" role="img" aria-label="Credo logo">
+  <defs>
+    <linearGradient id="credo-mark" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#A78BFA"/>
+      <stop offset=".5" stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <radialGradient id="credo-dot" cx="32" cy="32" r="6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#A5F3FC"/>
+    </radialGradient>
+  </defs>
+  <path d="M47.56 16.44 A22 22 0 1 0 47.56 47.56" stroke="url(#credo-mark)" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="32" cy="32" r="4.5" fill="url(#credo-dot)"/>
+</svg>
