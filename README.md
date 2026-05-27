@@ -38,6 +38,8 @@
 
 > 🌌 **Horizon 2026–2035:** Boring Foundations jetzt (Foundation · Crypto · Generative UI) → Sovereignty Mitte des Jahrzehnts (Local-first · Federated mesh · ZK governance · Self-authoring skills) → Civic Infrastructure zum Ende (Personal charter · Inter-DAO settlement · Co-ops &amp; Staedte auf dem gleichen Stack).
 
+> 🟢 **Open Source First:** Jede Schicht zeigt auf ein OSS-Projekt mit bekanntem Repo und Lizenz — Matrix Synapse (AGPL-3.0) · PostgreSQL · Valkey (BSD-3, Redis-Fork) · MinIO (AGPL-3.0) · NetBird + WireGuard + Headscale (BSD-3 / GPL-2.0) · Caddy · Coturn · LiveKit (Apache-2.0) · OpenTelemetry · Prometheus · Loki · Grafana · Logseq (AGPL-3.0, Obsidian-Alternative) · Cal.com (AGPL-3.0) · libsodium/Ed25519 · IPFS · Safe (LGPL-3.0) · Snapshot · ENS. Tailscale ist raus (Coordination-Server closed); NetBird + Headscale sind die fully-OSS Mesh-Alternativen. *Decentralisation without open source is just outsourcing.*
+
 > 🌐 **Landing page:** Live unter [martin-hausleitner.github.io/credo](https://martin-hausleitner.github.io/credo/). Source: `index.html` im Repo-Root, ausgeliefert via GitHub Pages auf `main`.
 
 ## 🧭 Start Here

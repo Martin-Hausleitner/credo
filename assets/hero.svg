@@ -155,7 +155,7 @@
     <text x="412" y="0" fill="#94A3B8">·  REDIS</text>
     <text x="492" y="0" fill="#94A3B8">·  S3 / R2</text>
     <text x="584" y="0" fill="#94A3B8">·  LIVEKIT</text>
-    <text x="676" y="0" fill="#94A3B8">·  TAILSCALE</text>
+    <text x="676" y="0" fill="#94A3B8">·  NETBIRD</text>
     <text x="788" y="0" fill="#94A3B8">·  OPENTELEMETRY</text>
   </g>
 </svg>
