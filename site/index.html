@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Credo — the operating system for your agents</title>
-  <meta name="description" content="Self-hosted Matrix backbone, verifiable memory and policy-gated tool calls. Configure agents that consult, decide and collaborate — with a full audit trail." />
+  <title>Credo — the agent OS for DAOs</title>
+  <meta name="description" content="Self-hosted Matrix backbone, Ed25519-signed actions, m-of-n DAO governance, verifiable memory. The cryptographically-verified operating system for multi-agent organizations." />
   <meta name="theme-color" content="#06060A" />
 
   <meta property="og:title" content="Credo — the operating system for your agents" />
@@ -106,6 +106,15 @@
     }
     .marquee-item { color: #94A3B8; font-weight: 600; letter-spacing: .15em; font-size: 12px; }
     .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: #3A3A52; align-self: center; }
+    .marquee-icon {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 8px 16px; border-radius: 999px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: 13px; font-weight: 600; letter-spacing: .02em; white-space: nowrap;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .marquee-icon:hover { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
 
     .pulse-dot { animation: pulse 2.2s ease-in-out infinite; }
     @keyframes pulse {
@@ -129,6 +138,48 @@
 </head>
 <body class="font-sans">
 
+  <!-- inline brand-icon sprite library: 24x24 viewBox, stroke=currentColor -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-matrix" viewBox="0 0 24 24"><path d="M5 4 L1 12 L5 20 M5 4 V20 M12 4 V20 M19 4 L23 12 L19 20 M19 4 V20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-ethereum" viewBox="0 0 24 24"><path d="M12 2 L4 13 L12 17 L20 13 Z" fill="currentColor" opacity=".55"/><path d="M12 17 L4 13 L12 22 L20 13 Z" fill="currentColor"/></symbol>
+      <symbol id="i-ipfs" viewBox="0 0 24 24"><path d="M12 2 L21 7 L21 17 L12 22 L3 17 L3 7 Z M3 7 L12 12 L21 7 M12 12 L12 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-safe" viewBox="0 0 24 24"><path d="M12 2 L21 5 V12 C21 17 17 21 12 22 C7 21 3 17 3 12 V5 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 12 L11 15 L16 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-snapshot" viewBox="0 0 24 24"><path d="M13 2 L4 14 H11 L10 22 L20 9 H12 Z" fill="currentColor"/></symbol>
+      <symbol id="i-ens" viewBox="0 0 24 24"><path d="M12 2 L4 8 L12 13 L20 8 Z M4 16 L12 22 L20 16 M4 8 V16 M20 8 V16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-postgres" viewBox="0 0 24 24"><path d="M3 8 C3 5 6 3 12 3 C18 3 21 5 21 8 V16 C21 19 18 21 12 21 C6 21 3 19 3 16 Z M8 8 V19 M16 8 V19 M3 12 H21" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+      <symbol id="i-redis" viewBox="0 0 24 24"><path d="M3 8 L12 4 L21 8 L12 12 Z M3 12 L12 16 L21 12 M3 16 L12 20 L21 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-livekit" viewBox="0 0 24 24"><path d="M4 6 L4 18 L20 12 Z" fill="currentColor"/></symbol>
+      <symbol id="i-tailscale" viewBox="0 0 24 24"><circle cx="5" cy="5" r="2.4" fill="currentColor" opacity=".25"/><circle cx="12" cy="5" r="2.4" fill="currentColor" opacity=".25"/><circle cx="19" cy="5" r="2.4" fill="currentColor"/><circle cx="5" cy="12" r="2.4" fill="currentColor" opacity=".25"/><circle cx="12" cy="12" r="2.4" fill="currentColor"/><circle cx="19" cy="12" r="2.4" fill="currentColor" opacity=".25"/><circle cx="5" cy="19" r="2.4" fill="currentColor"/><circle cx="12" cy="19" r="2.4" fill="currentColor" opacity=".25"/><circle cx="19" cy="19" r="2.4" fill="currentColor" opacity=".25"/></symbol>
+      <symbol id="i-grafana" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 6 C9 6 6 9 6 12 C6 15 9 18 12 18 M12 6 C14 7 15 9 15 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-prometheus" viewBox="0 0 24 24"><path d="M12 2 C9 5 11 8 12 10 C13 8 15 5 12 2 Z" fill="currentColor"/><path d="M4 12 C4 17 7 21 12 21 C17 21 20 17 20 12 C20 15 17 17 15 16 L12 14 L9 16 C7 17 4 15 4 12 Z" fill="currentColor" opacity=".7"/></symbol>
+      <symbol id="i-otel" viewBox="0 0 24 24"><path d="M12 2 L21 7 V17 L12 22 L3 17 V7 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 12 H21 M12 2 V22" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6"/></symbol>
+      <symbol id="i-obsidian" viewBox="0 0 24 24"><path d="M12 2 L6 9 L12 22 L18 9 Z M6 9 L18 9 M12 2 L12 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7" cy="14" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 14 H22 M18 14 V18 M20 14 V16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-cosmos" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="3.6" fill="none" stroke="currentColor" stroke-width="1.4"/><ellipse cx="12" cy="12" rx="9" ry="3.6" fill="none" stroke="currentColor" stroke-width="1.4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" fill="none" stroke="currentColor" stroke-width="1.4" transform="rotate(-60 12 12)"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></symbol>
+      <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.69-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.45.11-3.02 0 0 .97-.31 3.18 1.18A11 11 0 0 1 12 6.8c.98 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.57.23 2.73.12 3.02.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56C20.21 21.39 23.5 17.07 23.5 12 23.5 5.65 18.35.5 12 .5Z" fill="currentColor"/></symbol>
+      <symbol id="i-calcom" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 10 H21 M8 3 V7 M16 3 V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="15" r="1" fill="currentColor"/><circle cx="13" cy="15" r="1" fill="currentColor"/><circle cx="17" cy="15" r="1" fill="currentColor"/></symbol>
+      <symbol id="i-chatwoot" viewBox="0 0 24 24"><path d="M3 5 H21 V17 H10 L5 21 V17 H3 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="9" cy="11" r="1.2" fill="currentColor"/><circle cx="13" cy="11" r="1.2" fill="currentColor"/><circle cx="17" cy="11" r="1.2" fill="currentColor"/></symbol>
+      <symbol id="i-element" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 8 H15 V10 H11 V11.5 H14 V13.5 H11 V15 H15 V17 H9 Z" fill="currentColor"/></symbol>
+      <symbol id="i-discord" viewBox="0 0 24 24"><path d="M5 6 C7 5 10 4.5 12 4.5 C14 4.5 17 5 19 6 C20 9 20.5 13 20 17 C18 18 16 19 14 19 L13 17.5 C14 17.5 15 17 16 16.5 C15.5 16 15 16 14.5 16 C13 16.5 11 16.5 9.5 16 C9 16 8.5 16 8 16.5 C9 17 10 17.5 11 17.5 L10 19 C8 19 6 18 4 17 C3.5 13 4 9 5 6 Z" fill="currentColor"/><circle cx="9.5" cy="11.5" r="1.4" fill="#0F0F18"/><circle cx="14.5" cy="11.5" r="1.4" fill="#0F0F18"/></symbol>
+      <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M22 3 L1.5 11.2 L8 13.5 L10 21 L13 17 L19 22 L22 3 Z M8 13.5 L19 6 L11.5 14.5" fill="currentColor"/></symbol>
+      <symbol id="i-signal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></symbol>
+      <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M4 20 L5.5 15 C4.5 13.5 4 11.8 4 10 C4 5.5 7.5 2 12 2 C16.5 2 20 5.5 20 10 C20 14.5 16.5 18 12 18 C10.5 18 9 17.5 7.8 16.7 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8 C9 9 9.5 10.5 10.5 11.5 C11.5 12.5 13 13 14 13 L15 12 L13.5 11 L13 11.5 C12.5 11 12 10.5 11.5 10 L12 9.5 L11 8 Z" fill="currentColor"/></symbol>
+      <symbol id="i-slack" viewBox="0 0 24 24"><rect x="3" y="10" width="11" height="4" rx="2" fill="currentColor"/><rect x="10" y="3" width="4" height="11" rx="2" fill="currentColor" opacity=".7"/><rect x="10" y="14" width="11" height="4" rx="2" fill="currentColor" opacity=".5"/><rect x="14" y="10" width="4" height="11" rx="2" fill="currentColor" opacity=".85"/></symbol>
+      <symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M12 2 L21 5 V12 C21 17 17 21 12 22 C7 21 3 17 3 12 V5 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 12 L11 15 L16 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 2 L21 7 V17 L12 22 L3 17 V7 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 7 L12 12 L21 7 M12 12 V22" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+      <symbol id="i-sig" viewBox="0 0 24 24"><path d="M2 18 C5 18 6 14 8 14 C10 14 11 18 13 18 C15 18 16 14 18 14 C19.5 14 20 16 22 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16 8 L20 8 M18 6 L18 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-vault" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 8 V6 M12 18 V16 M8 12 H6 M18 12 H16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-orbit" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="4" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="22" cy="12" r="1.4" fill="currentColor"/></symbol>
+      <symbol id="i-bridge" viewBox="0 0 24 24"><path d="M2 18 V14 C2 11 5 9 8 9 C10 9 12 10 12 12 C12 10 14 9 16 9 C19 9 22 11 22 14 V18 M2 18 H22 M6 18 V14 M18 18 V14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-skill" viewBox="0 0 24 24"><path d="M12 2 L14.5 8 L21 9 L16.5 13.5 L18 20 L12 16.5 L6 20 L7.5 13.5 L3 9 L9.5 8 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-mcp" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="3" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="13" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="13" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 7 H13 M11 17 H13 M7 11 V13 M17 11 V13" stroke="currentColor" stroke-width="1.6"/></symbol>
+      <symbol id="i-credo" viewBox="0 0 64 64"><path d="M47.56 16.44 A22 22 0 1 0 47.56 47.56" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/><circle cx="32" cy="32" r="4.5" fill="currentColor"/></symbol>
+      <symbol id="i-mautrix" viewBox="0 0 24 24"><path d="M3 16 L8 6 L12 14 L16 6 L21 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12 H19 M13 6 L19 12 L13 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    </defs>
+  </svg>
+
   <!-- nav -->
   <header class="sticky top-0 z-50 backdrop-blur-xl bg-ink-900/70 border-b border-white/5">
     <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
@@ -143,10 +194,11 @@
         <span class="text-[19px] font-bold tracking-tightest text-mute-100">credo</span>
         <span class="hidden sm:inline-flex items-center gap-1 text-[10px] uppercase tracking-[.18em] text-mute-300 px-2 py-0.5 rounded-full border border-white/10">v0.1 · MVP</span>
       </a>
-      <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
         <a href="#pillars" class="nav-link">Why</a>
         <a href="#planes" class="nav-link">Architecture</a>
-        <a href="#mesh" class="nav-link">Agent mesh</a>
+        <a href="#mesh" class="nav-link">Agents</a>
+        <a href="#dao" class="nav-link inline-flex items-center gap-1.5">DAO <span class="px-1.5 py-px text-[9px] tracking-[.15em] rounded bg-brand-amber/15 text-brand-amber border border-brand-amber/30">NEW</span></a>
         <a href="#audit" class="nav-link">Audit</a>
         <a href="#roadmap" class="nav-link">Roadmap</a>
         <a href="https://github.com/Martin-Hausleitner/Credo" class="nav-link">Docs</a>
@@ -168,16 +220,25 @@
       <div class="lg:col-span-7">
         <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-[.18em] text-brand-indigo">
           <span class="w-1.5 h-1.5 rounded-full bg-brand-indigo pulse-dot"></span>
-          AGENT OPERATING SYSTEM
+          AGENT OS  ·  DAO-NATIVE  ·  CRYPTOGRAPHICALLY VERIFIED
         </div>
         <h1 class="mt-6 text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tightest">
-          <span class="gradient-text">The operating system</span><br/>
-          <span class="gradient-text">for your agents.</span>
+          <span class="gradient-text">The agent OS</span><br/>
+          <span class="gradient-text">for DAOs.</span>
         </h1>
         <p class="mt-7 text-lg sm:text-xl text-mute-300 max-w-xl leading-relaxed">
-          Self-hosted Matrix backbone, verifiable memory and policy-gated tool calls.
-          Configure agents that consult each other, decide together, and leave a trail you can audit.
+          Self-hosted Matrix backbone. Every action signed <span class="font-mono text-mute-200">Ed25519</span>.
+          Proposals, m-of-n quorum and execution — on Matrix, on Safe, on L2.
+          Multi-agent operations your DAO can actually verify.
         </p>
+
+        <div class="mt-6 flex flex-wrap items-center gap-2 text-[11px] font-mono text-mute-400">
+          <span class="chip rounded-full px-3 py-1 inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-emerald"><use href="#i-shield-check"/></svg> Ed25519 signed</span>
+          <span class="chip rounded-full px-3 py-1 inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-violet"><use href="#i-safe"/></svg> Safe multisig</span>
+          <span class="chip rounded-full px-3 py-1 inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-cyan"><use href="#i-ipfs"/></svg> IPFS anchored</span>
+          <span class="chip rounded-full px-3 py-1 inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-sky"><use href="#i-ethereum"/></svg> L2 settlement</span>
+          <span class="chip rounded-full px-3 py-1 inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-amber"><use href="#i-matrix"/></svg> Matrix-native</span>
+        </div>
         <div class="mt-9 flex flex-wrap items-center gap-3">
           <a href="#planes" class="btn-primary px-5 h-12 rounded-full font-semibold text-sm inline-flex items-center gap-2">
             Read the architecture
@@ -194,16 +255,29 @@
 
         <!-- proof row -->
         <div class="mt-12 pt-8 border-t border-white/5">
-          <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400 mb-4">BUILT ON OPEN, BORING TECH</div>
-          <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] font-semibold tracking-[.15em] text-mute-300">
-            <span>MATRIX</span><span class="text-mute-500">·</span>
-            <span>POSTGRES</span><span class="text-mute-500">·</span>
-            <span>pgvector</span><span class="text-mute-500">·</span>
-            <span>REDIS</span><span class="text-mute-500">·</span>
-            <span>S3 / R2</span><span class="text-mute-500">·</span>
-            <span>LIVEKIT</span><span class="text-mute-500">·</span>
-            <span>TAILSCALE</span><span class="text-mute-500">·</span>
-            <span>OPENTELEMETRY</span>
+          <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400 mb-5">BUILT ON OPEN, BORING TECH  ·  GOVERNED BY OPEN CRYPTO</div>
+          <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-6 gap-x-5 gap-y-4 text-mute-300">
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-emerald"><use href="#i-matrix"/></svg> Matrix</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-sky"><use href="#i-postgres"/></svg> Postgres</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-pink"><use href="#i-redis"/></svg> Redis</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-amber"><use href="#i-livekit"/></svg> LiveKit</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-cyan"><use href="#i-tailscale"/></svg> Tailscale</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-violet"><use href="#i-otel"/></svg> OpenTelemetry</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-amber"><use href="#i-grafana"/></svg> Grafana</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-pink"><use href="#i-prometheus"/></svg> Prometheus</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-violet"><use href="#i-obsidian"/></svg> Obsidian</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-sky"><use href="#i-calcom"/></svg> Cal.com</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-mute-200"><use href="#i-github"/></svg> GitHub</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-cyan"><use href="#i-mcp"/></svg> MCP</span>
+          </div>
+          <div class="mt-5 text-[11px] font-semibold tracking-[.22em] text-mute-500">+  CRYPTO LAYER</div>
+          <div class="mt-3 grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-6 gap-x-5 gap-y-4 text-mute-300">
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-emerald"><use href="#i-key"/></svg> Ed25519</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-sky"><use href="#i-ethereum"/></svg> Ethereum / L2</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-emerald"><use href="#i-safe"/></svg> Safe</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-amber"><use href="#i-snapshot"/></svg> Snapshot</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-cyan"><use href="#i-ipfs"/></svg> IPFS</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[.08em]"><svg class="w-4 h-4 text-brand-violet"><use href="#i-ens"/></svg> ENS</span>
           </div>
         </div>
       </div>
@@ -252,56 +326,66 @@
       </div>
     </div>
 
-    <!-- marquee -->
+    <!-- marquee: real icon items -->
     <div class="relative border-t border-white/5 bg-ink-900/40">
-      <div class="marquee py-5">
-        <div class="marquee-track">
-          <!-- duplicated for seamless loop -->
-          <span class="marquee-item">MATRIX SYNAPSE</span><span class="marquee-dot"></span>
-          <span class="marquee-item">TUWUNEL</span><span class="marquee-dot"></span>
-          <span class="marquee-item">ELEMENT WEB</span><span class="marquee-dot"></span>
-          <span class="marquee-item">CINNY</span><span class="marquee-dot"></span>
-          <span class="marquee-item">POSTGRES + PGVECTOR</span><span class="marquee-dot"></span>
-          <span class="marquee-item">REDIS</span><span class="marquee-dot"></span>
-          <span class="marquee-item">CLOUDFLARE R2</span><span class="marquee-dot"></span>
-          <span class="marquee-item">OBSIDIAN</span><span class="marquee-dot"></span>
-          <span class="marquee-item">ACTIVITYWATCH</span><span class="marquee-dot"></span>
-          <span class="marquee-item">LIVEKIT</span><span class="marquee-dot"></span>
-          <span class="marquee-item">ELEMENT CALL</span><span class="marquee-dot"></span>
-          <span class="marquee-item">TAILSCALE</span><span class="marquee-dot"></span>
-          <span class="marquee-item">PROMETHEUS</span><span class="marquee-dot"></span>
-          <span class="marquee-item">GRAFANA</span><span class="marquee-dot"></span>
-          <span class="marquee-item">LOKI</span><span class="marquee-dot"></span>
-          <span class="marquee-item">OPENTELEMETRY</span><span class="marquee-dot"></span>
-          <span class="marquee-item">MAUTRIX</span><span class="marquee-dot"></span>
-          <span class="marquee-item">CHATWOOT</span><span class="marquee-dot"></span>
-          <span class="marquee-item">HERMES AGENT</span><span class="marquee-dot"></span>
-          <span class="marquee-item">OPENCLAW</span><span class="marquee-dot"></span>
-          <span class="marquee-item">CODEX</span><span class="marquee-dot"></span>
-          <span class="marquee-item">MCP</span><span class="marquee-dot"></span>
-          <!-- repeat -->
-          <span class="marquee-item">MATRIX SYNAPSE</span><span class="marquee-dot"></span>
-          <span class="marquee-item">TUWUNEL</span><span class="marquee-dot"></span>
-          <span class="marquee-item">ELEMENT WEB</span><span class="marquee-dot"></span>
-          <span class="marquee-item">CINNY</span><span class="marquee-dot"></span>
-          <span class="marquee-item">POSTGRES + PGVECTOR</span><span class="marquee-dot"></span>
-          <span class="marquee-item">REDIS</span><span class="marquee-dot"></span>
-          <span class="marquee-item">CLOUDFLARE R2</span><span class="marquee-dot"></span>
-          <span class="marquee-item">OBSIDIAN</span><span class="marquee-dot"></span>
-          <span class="marquee-item">ACTIVITYWATCH</span><span class="marquee-dot"></span>
-          <span class="marquee-item">LIVEKIT</span><span class="marquee-dot"></span>
-          <span class="marquee-item">ELEMENT CALL</span><span class="marquee-dot"></span>
-          <span class="marquee-item">TAILSCALE</span><span class="marquee-dot"></span>
-          <span class="marquee-item">PROMETHEUS</span><span class="marquee-dot"></span>
-          <span class="marquee-item">GRAFANA</span><span class="marquee-dot"></span>
-          <span class="marquee-item">LOKI</span><span class="marquee-dot"></span>
-          <span class="marquee-item">OPENTELEMETRY</span><span class="marquee-dot"></span>
-          <span class="marquee-item">MAUTRIX</span><span class="marquee-dot"></span>
-          <span class="marquee-item">CHATWOOT</span><span class="marquee-dot"></span>
-          <span class="marquee-item">HERMES AGENT</span><span class="marquee-dot"></span>
-          <span class="marquee-item">OPENCLAW</span><span class="marquee-dot"></span>
-          <span class="marquee-item">CODEX</span><span class="marquee-dot"></span>
-          <span class="marquee-item">MCP</span><span class="marquee-dot"></span>
+      <div class="marquee py-6">
+        <div class="marquee-track items-center">
+          <!-- pass 1 -->
+          <span class="marquee-icon" style="color:#34D399"><svg class="w-5 h-5"><use href="#i-matrix"/></svg> Matrix</span>
+          <span class="marquee-icon" style="color:#60A5FA"><svg class="w-5 h-5"><use href="#i-postgres"/></svg> Postgres + pgvector</span>
+          <span class="marquee-icon" style="color:#F472B6"><svg class="w-5 h-5"><use href="#i-redis"/></svg> Redis</span>
+          <span class="marquee-icon" style="color:#FBBF24"><svg class="w-5 h-5"><use href="#i-livekit"/></svg> LiveKit</span>
+          <span class="marquee-icon" style="color:#22D3EE"><svg class="w-5 h-5"><use href="#i-tailscale"/></svg> Tailscale</span>
+          <span class="marquee-icon" style="color:#A78BFA"><svg class="w-5 h-5"><use href="#i-otel"/></svg> OpenTelemetry</span>
+          <span class="marquee-icon" style="color:#FBBF24"><svg class="w-5 h-5"><use href="#i-grafana"/></svg> Grafana</span>
+          <span class="marquee-icon" style="color:#F472B6"><svg class="w-5 h-5"><use href="#i-prometheus"/></svg> Prometheus</span>
+          <span class="marquee-icon" style="color:#A78BFA"><svg class="w-5 h-5"><use href="#i-obsidian"/></svg> Obsidian</span>
+          <span class="marquee-icon" style="color:#60A5FA"><svg class="w-5 h-5"><use href="#i-calcom"/></svg> Cal.com</span>
+          <span class="marquee-icon" style="color:#EDEDED"><svg class="w-5 h-5"><use href="#i-github"/></svg> GitHub</span>
+          <span class="marquee-icon" style="color:#22D3EE"><svg class="w-5 h-5"><use href="#i-mcp"/></svg> MCP</span>
+          <span class="marquee-icon" style="color:#22D3EE"><svg class="w-5 h-5"><use href="#i-chatwoot"/></svg> Chatwoot</span>
+          <span class="marquee-icon" style="color:#34D399"><svg class="w-5 h-5"><use href="#i-element"/></svg> Element</span>
+          <span class="marquee-icon" style="color:#A5B4FC"><svg class="w-5 h-5"><use href="#i-mautrix"/></svg> mautrix</span>
+          <span class="marquee-icon" style="color:#5865F2"><svg class="w-5 h-5"><use href="#i-discord"/></svg> Discord</span>
+          <span class="marquee-icon" style="color:#0088CC"><svg class="w-5 h-5"><use href="#i-telegram"/></svg> Telegram</span>
+          <span class="marquee-icon" style="color:#3A76F0"><svg class="w-5 h-5"><use href="#i-signal"/></svg> Signal</span>
+          <span class="marquee-icon" style="color:#25D366"><svg class="w-5 h-5"><use href="#i-whatsapp"/></svg> WhatsApp</span>
+          <span class="marquee-icon" style="color:#E01E5A"><svg class="w-5 h-5"><use href="#i-slack"/></svg> Slack</span>
+          <span class="marquee-icon" style="color:#34D399"><svg class="w-5 h-5"><use href="#i-key"/></svg> Ed25519</span>
+          <span class="marquee-icon" style="color:#22D3EE"><svg class="w-5 h-5"><use href="#i-ipfs"/></svg> IPFS</span>
+          <span class="marquee-icon" style="color:#A78BFA"><svg class="w-5 h-5"><use href="#i-ethereum"/></svg> Ethereum / L2</span>
+          <span class="marquee-icon" style="color:#34D399"><svg class="w-5 h-5"><use href="#i-safe"/></svg> Safe</span>
+          <span class="marquee-icon" style="color:#FBBF24"><svg class="w-5 h-5"><use href="#i-snapshot"/></svg> Snapshot</span>
+          <span class="marquee-icon" style="color:#60A5FA"><svg class="w-5 h-5"><use href="#i-ens"/></svg> ENS</span>
+          <span class="marquee-icon" style="color:#A78BFA"><svg class="w-5 h-5"><use href="#i-cosmos"/></svg> Cosmos</span>
+          <!-- pass 2 -->
+          <span class="marquee-icon" style="color:#34D399"><svg class="w-5 h-5"><use href="#i-matrix"/></svg> Matrix</span>
+          <span class="marquee-icon" style="color:#60A5FA"><svg class="w-5 h-5"><use href="#i-postgres"/></svg> Postgres + pgvector</span>
+          <span class="marquee-icon" style="color:#F472B6"><svg class="w-5 h-5"><use href="#i-redis"/></svg> Redis</span>
+          <span class="marquee-icon" style="color:#FBBF24"><svg class="w-5 h-5"><use href="#i-livekit"/></svg> LiveKit</span>
+          <span class="marquee-icon" style="color:#22D3EE"><svg class="w-5 h-5"><use href="#i-tailscale"/></svg> Tailscale</span>
+          <span class="marquee-icon" style="color:#A78BFA"><svg class="w-5 h-5"><use href="#i-otel"/></svg> OpenTelemetry</span>
+          <span class="marquee-icon" style="color:#FBBF24"><svg class="w-5 h-5"><use href="#i-grafana"/></svg> Grafana</span>
+          <span class="marquee-icon" style="color:#F472B6"><svg class="w-5 h-5"><use href="#i-prometheus"/></svg> Prometheus</span>
+          <span class="marquee-icon" style="color:#A78BFA"><svg class="w-5 h-5"><use href="#i-obsidian"/></svg> Obsidian</span>
+          <span class="marquee-icon" style="color:#60A5FA"><svg class="w-5 h-5"><use href="#i-calcom"/></svg> Cal.com</span>
+          <span class="marquee-icon" style="color:#EDEDED"><svg class="w-5 h-5"><use href="#i-github"/></svg> GitHub</span>
+          <span class="marquee-icon" style="color:#22D3EE"><svg class="w-5 h-5"><use href="#i-mcp"/></svg> MCP</span>
+          <span class="marquee-icon" style="color:#22D3EE"><svg class="w-5 h-5"><use href="#i-chatwoot"/></svg> Chatwoot</span>
+          <span class="marquee-icon" style="color:#34D399"><svg class="w-5 h-5"><use href="#i-element"/></svg> Element</span>
+          <span class="marquee-icon" style="color:#A5B4FC"><svg class="w-5 h-5"><use href="#i-mautrix"/></svg> mautrix</span>
+          <span class="marquee-icon" style="color:#5865F2"><svg class="w-5 h-5"><use href="#i-discord"/></svg> Discord</span>
+          <span class="marquee-icon" style="color:#0088CC"><svg class="w-5 h-5"><use href="#i-telegram"/></svg> Telegram</span>
+          <span class="marquee-icon" style="color:#3A76F0"><svg class="w-5 h-5"><use href="#i-signal"/></svg> Signal</span>
+          <span class="marquee-icon" style="color:#25D366"><svg class="w-5 h-5"><use href="#i-whatsapp"/></svg> WhatsApp</span>
+          <span class="marquee-icon" style="color:#E01E5A"><svg class="w-5 h-5"><use href="#i-slack"/></svg> Slack</span>
+          <span class="marquee-icon" style="color:#34D399"><svg class="w-5 h-5"><use href="#i-key"/></svg> Ed25519</span>
+          <span class="marquee-icon" style="color:#22D3EE"><svg class="w-5 h-5"><use href="#i-ipfs"/></svg> IPFS</span>
+          <span class="marquee-icon" style="color:#A78BFA"><svg class="w-5 h-5"><use href="#i-ethereum"/></svg> Ethereum / L2</span>
+          <span class="marquee-icon" style="color:#34D399"><svg class="w-5 h-5"><use href="#i-safe"/></svg> Safe</span>
+          <span class="marquee-icon" style="color:#FBBF24"><svg class="w-5 h-5"><use href="#i-snapshot"/></svg> Snapshot</span>
+          <span class="marquee-icon" style="color:#60A5FA"><svg class="w-5 h-5"><use href="#i-ens"/></svg> ENS</span>
+          <span class="marquee-icon" style="color:#A78BFA"><svg class="w-5 h-5"><use href="#i-cosmos"/></svg> Cosmos</span>
         </div>
       </div>
     </div>
@@ -378,20 +462,19 @@
       <div class="grid lg:grid-cols-12 gap-10 items-end">
         <div class="lg:col-span-7">
           <div class="text-xs font-semibold tracking-[.22em] text-brand-violet">OPERATING MODEL</div>
-          <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Six rules. Always on.</h2>
+          <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Seven rules. Always on.</h2>
         </div>
         <p class="lg:col-span-5 text-mute-300 text-[15px] leading-relaxed">
-          Credo is not a tool, it is an operating model. These six rules apply to every
-          run, every agent, every artifact — and they are checked in code, not in slides.
+          Credo is not a tool, it is an operating model. These seven rules apply to every
+          run, every agent, every artifact — checked in code, signed in crypto, never just in slides.
         </p>
       </div>
 
       <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- rule 1 -->
         <div class="card rounded-2xl p-6">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 01</span>
-            <span class="w-2 h-2 rounded-full bg-brand-emerald"></span>
+            <svg class="w-5 h-5 text-brand-emerald"><use href="#i-matrix"/></svg>
           </div>
           <h3 class="mt-4 text-lg font-bold text-mute-100">Every job has a room</h3>
           <p class="mt-2 text-sm text-mute-300 leading-relaxed">Matrix gives you context, people, state, and a timeline you can read.</p>
@@ -399,7 +482,7 @@
         <div class="card rounded-2xl p-6">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 02</span>
-            <span class="w-2 h-2 rounded-full bg-brand-amber"></span>
+            <svg class="w-5 h-5 text-brand-amber"><use href="#i-shield-check"/></svg>
           </div>
           <h3 class="mt-4 text-lg font-bold text-mute-100">Every action has a policy</h3>
           <p class="mt-2 text-sm text-mute-300 leading-relaxed">Roles, approvals and risks are decided in the backend before Redis and again before each risky tool call.</p>
@@ -407,7 +490,7 @@
         <div class="card rounded-2xl p-6">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 03</span>
-            <span class="w-2 h-2 rounded-full bg-brand-cyan"></span>
+            <svg class="w-5 h-5 text-brand-cyan"><use href="#i-redis"/></svg>
           </div>
           <h3 class="mt-4 text-lg font-bold text-mute-100">Every run has a job-id</h3>
           <p class="mt-2 text-sm text-mute-300 leading-relaxed">Redis and workers decouple long agent work from the chat event. The id ties them back together.</p>
@@ -415,7 +498,7 @@
         <div class="card rounded-2xl p-6">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 04</span>
-            <span class="w-2 h-2 rounded-full bg-brand-pink"></span>
+            <svg class="w-5 h-5 text-brand-pink"><use href="#i-cube"/></svg>
           </div>
           <h3 class="mt-4 text-lg font-bold text-mute-100">Every result has an artifact</h3>
           <p class="mt-2 text-sm text-mute-300 leading-relaxed">S3 or R2, Postgres rows and Matrix links keep results reachable — and signable.</p>
@@ -423,7 +506,7 @@
         <div class="card rounded-2xl p-6">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 05</span>
-            <span class="w-2 h-2 rounded-full bg-brand-violet"></span>
+            <svg class="w-5 h-5 text-brand-violet"><use href="#i-vault"/></svg>
           </div>
           <h3 class="mt-4 text-lg font-bold text-mute-100">Every memory has a status</h3>
           <p class="mt-2 text-sm text-mute-300 leading-relaxed">Ephemeral, reviewed or canonical — never an unchecked long-term memory you can’t explain.</p>
@@ -431,10 +514,32 @@
         <div class="card rounded-2xl p-6">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 06</span>
-            <span class="w-2 h-2 rounded-full bg-brand-sky"></span>
+            <svg class="w-5 h-5 text-brand-sky"><use href="#i-otel"/></svg>
           </div>
           <h3 class="mt-4 text-lg font-bold text-mute-100">Every tool call has a span</h3>
           <p class="mt-2 text-sm text-mute-300 leading-relaxed">OpenTelemetry + Grafana make LLM, MCP, tool, RAG and sub-agent calls debuggable.</p>
+        </div>
+        <!-- new rule 07: DAO / cryptography -->
+        <div class="card rounded-2xl p-6 md:col-span-2 lg:col-span-3" style="background: linear-gradient(135deg, rgba(167,139,250,.07), rgba(34,211,238,.04));">
+          <div class="flex flex-wrap items-center gap-4 justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-[11px] font-semibold tracking-[.22em] text-mute-400">RULE 07  ·  GOVERNANCE</span>
+              <span class="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[.18em] rounded-full px-2.5 py-1 bg-brand-violet/15 text-brand-violet border border-brand-violet/30">DAO-NATIVE</span>
+            </div>
+            <div class="flex items-center gap-2 text-mute-400">
+              <svg class="w-5 h-5 text-brand-emerald"><use href="#i-key"/></svg>
+              <svg class="w-5 h-5 text-brand-violet"><use href="#i-safe"/></svg>
+              <svg class="w-5 h-5 text-brand-cyan"><use href="#i-ipfs"/></svg>
+              <svg class="w-5 h-5 text-brand-sky"><use href="#i-ethereum"/></svg>
+              <svg class="w-5 h-5 text-brand-amber"><use href="#i-snapshot"/></svg>
+            </div>
+          </div>
+          <h3 class="mt-4 text-2xl font-bold text-mute-100">Every action is signed.</h3>
+          <p class="mt-3 text-[15px] text-mute-300 leading-relaxed max-w-3xl">
+            High-risk actions become proposals. m-of-n members sign with their <span class="font-mono text-mute-200">Ed25519</span> device keys.
+            Quorum is anchored to a Matrix event, an IPFS blob and — for treasury or contract changes — a Safe multisig tx on L2.
+            No more invisible agent actions. Your DAO can verify, replay and revoke.
+          </p>
         </div>
       </div>
     </div>
@@ -504,6 +609,125 @@
         <div class="lg:col-span-7">
           <div class="rounded-2xl overflow-hidden glow-ring">
             <img src="../assets/agent-mesh.svg" alt="Agent mesh on Matrix" class="w-full block"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAO Governance -->
+  <section id="dao" class="relative py-24 lg:py-32 border-t border-white/5 overflow-hidden">
+    <div class="absolute inset-0" style="background: radial-gradient(40rem 28rem at 15% 18%, rgba(245,158,11,.16), transparent 60%), radial-gradient(40rem 28rem at 85% 82%, rgba(34,211,238,.14), transparent 60%), linear-gradient(180deg, #06060A 0%, #0A0A14 100%);"></div>
+    <div class="grid-overlay absolute inset-0 opacity-50"></div>
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 items-end">
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-[.22em] text-brand-amber">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-amber pulse-dot"></span>
+            DAO GOVERNANCE
+          </div>
+          <h2 class="mt-4 text-4xl sm:text-5xl font-bold tracking-tightest gradient-text">Your agents propose.<br/>Your DAO signs.</h2>
+        </div>
+        <p class="lg:col-span-5 text-mute-300 text-[15px] leading-relaxed">
+          Forget hidden tool calls. Every risky action is a proposal: discussed in a Matrix room,
+          signed by m-of-n members with their device keys, anchored on IPFS — and for treasury or
+          contract changes, settled with a Safe multisig tx on L2.
+        </p>
+      </div>
+
+      <!-- crypto stack proof row -->
+      <div class="mt-10 flex flex-wrap items-center gap-3">
+        <span class="chip rounded-full px-3.5 py-2 inline-flex items-center gap-2 text-sm text-mute-100"><svg class="w-4 h-4 text-brand-emerald"><use href="#i-key"/></svg> Ed25519 device keys</span>
+        <span class="chip rounded-full px-3.5 py-2 inline-flex items-center gap-2 text-sm text-mute-100"><svg class="w-4 h-4 text-brand-cyan"><use href="#i-ipfs"/></svg> IPFS proposal blobs</span>
+        <span class="chip rounded-full px-3.5 py-2 inline-flex items-center gap-2 text-sm text-mute-100"><svg class="w-4 h-4 text-brand-violet"><use href="#i-safe"/></svg> Safe multisig</span>
+        <span class="chip rounded-full px-3.5 py-2 inline-flex items-center gap-2 text-sm text-mute-100"><svg class="w-4 h-4 text-brand-sky"><use href="#i-ethereum"/></svg> Ethereum + L2 (OP, Arbitrum, Base)</span>
+        <span class="chip rounded-full px-3.5 py-2 inline-flex items-center gap-2 text-sm text-mute-100"><svg class="w-4 h-4 text-brand-amber"><use href="#i-snapshot"/></svg> Snapshot (off-chain, gasless)</span>
+        <span class="chip rounded-full px-3.5 py-2 inline-flex items-center gap-2 text-sm text-mute-100"><svg class="w-4 h-4 text-brand-violet"><use href="#i-ens"/></svg> ENS identities</span>
+      </div>
+
+      <div class="mt-12 rounded-2xl overflow-hidden glow-ring">
+        <img src="../assets/dao-governance.svg" alt="DAO governance flow for agent actions" class="w-full block"/>
+      </div>
+
+      <!-- 3 feature cards -->
+      <div class="mt-12 grid md:grid-cols-3 gap-5">
+        <div class="card rounded-2xl p-6">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg,#FBBF24,#D97706);">
+            <svg class="w-5 h-5 text-ink-900"><use href="#i-sig"/></svg>
+          </div>
+          <h3 class="mt-5 text-lg font-bold text-mute-100">Risk-classed proposals</h3>
+          <p class="mt-2 text-sm text-mute-300 leading-relaxed">Every agent action carries a risk class. Low-risk runs immediately. Medium-risk waits for the policy gate. High-risk becomes a signed DAO proposal.</p>
+          <div class="mt-4 flex items-center gap-2 text-[11px] font-mono text-mute-400">
+            <span class="px-2 py-0.5 rounded-md bg-brand-emerald/15 text-brand-emerald">low</span>
+            <span class="px-2 py-0.5 rounded-md bg-brand-amber/15 text-brand-amber">medium</span>
+            <span class="px-2 py-0.5 rounded-md bg-brand-pink/15 text-brand-pink">high</span>
+          </div>
+        </div>
+
+        <div class="card rounded-2xl p-6">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg,#A78BFA,#7C3AED);">
+            <svg class="w-5 h-5 text-ink-900"><use href="#i-safe"/></svg>
+          </div>
+          <h3 class="mt-5 text-lg font-bold text-mute-100">m-of-n quorum</h3>
+          <p class="mt-2 text-sm text-mute-300 leading-relaxed">Configurable quorum per room and per risk class. Members sign with their device-bound Ed25519 keys — the same crypto that secures Matrix end-to-end.</p>
+          <div class="mt-4 grid grid-cols-5 gap-1.5">
+            <span class="h-2 rounded-full bg-brand-emerald/70"></span>
+            <span class="h-2 rounded-full bg-brand-emerald/70"></span>
+            <span class="h-2 rounded-full bg-brand-emerald/70"></span>
+            <span class="h-2 rounded-full bg-white/10"></span>
+            <span class="h-2 rounded-full bg-white/10"></span>
+          </div>
+          <div class="mt-2 text-[11px] font-mono text-mute-400">3 of 5  ·  quorum reached</div>
+        </div>
+
+        <div class="card rounded-2xl p-6">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg,#22D3EE,#0891B2);">
+            <svg class="w-5 h-5 text-ink-900"><use href="#i-cube"/></svg>
+          </div>
+          <h3 class="mt-5 text-lg font-bold text-mute-100">Decentralized anchors</h3>
+          <p class="mt-2 text-sm text-mute-300 leading-relaxed">Matrix event + IPFS blob is always recorded. Treasury actions add a Safe multisig tx. The result: a record no single operator can rewrite.</p>
+          <div class="mt-4 flex items-center gap-3">
+            <span class="inline-flex items-center gap-1 text-[11px] font-mono text-mute-400"><svg class="w-3.5 h-3.5 text-brand-emerald"><use href="#i-matrix"/></svg> Matrix</span>
+            <span class="inline-flex items-center gap-1 text-[11px] font-mono text-mute-400"><svg class="w-3.5 h-3.5 text-brand-cyan"><use href="#i-ipfs"/></svg> IPFS</span>
+            <span class="inline-flex items-center gap-1 text-[11px] font-mono text-mute-400"><svg class="w-3.5 h-3.5 text-brand-sky"><use href="#i-ethereum"/></svg> L2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- proposal lifecycle mini -->
+      <div class="mt-14 card rounded-2xl p-8 lg:p-10">
+        <div class="flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <div class="text-[11px] font-semibold tracking-[.22em] text-brand-amber">PROPOSAL LIFECYCLE</div>
+            <h3 class="mt-2 text-2xl font-bold text-mute-100">From chat message to signed execution.</h3>
+          </div>
+          <div class="font-mono text-xs text-mute-400">avg 8 min · 0 trusted middleware</div>
+        </div>
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div class="rounded-xl border border-white/8 p-4 bg-white/[.02]">
+            <div class="text-[10px] font-mono text-mute-500">01 · PROPOSE</div>
+            <div class="mt-2 text-sm font-semibold text-mute-100">Agent drafts</div>
+            <div class="mt-1 text-[12px] text-mute-300">action + risk class</div>
+          </div>
+          <div class="rounded-xl border border-white/8 p-4 bg-white/[.02]">
+            <div class="text-[10px] font-mono text-mute-500">02 · DISCUSS</div>
+            <div class="mt-2 text-sm font-semibold text-mute-100">Matrix thread</div>
+            <div class="mt-1 text-[12px] text-mute-300">members + amendments</div>
+          </div>
+          <div class="rounded-xl border border-white/8 p-4 bg-white/[.02]">
+            <div class="text-[10px] font-mono text-mute-500">03 · SIGN</div>
+            <div class="mt-2 text-sm font-semibold text-mute-100">Ed25519 m-of-n</div>
+            <div class="mt-1 text-[12px] text-mute-300">device-bound keys</div>
+          </div>
+          <div class="rounded-xl border border-white/8 p-4 bg-white/[.02]">
+            <div class="text-[10px] font-mono text-mute-500">04 · ANCHOR</div>
+            <div class="mt-2 text-sm font-semibold text-mute-100">Matrix · IPFS</div>
+            <div class="mt-1 text-[12px] text-mute-300">+ Safe on L2 (treasury)</div>
+          </div>
+          <div class="rounded-xl border border-white/8 p-4 bg-white/[.02]">
+            <div class="text-[10px] font-mono text-mute-500">05 · EXECUTE</div>
+            <div class="mt-2 text-sm font-semibold text-mute-100">Agent runs</div>
+            <div class="mt-1 text-[12px] text-mute-300">with signed proof</div>
           </div>
         </div>
       </div>
@@ -631,6 +855,20 @@
         </details>
         <details class="py-5 group">
           <summary class="flex items-center justify-between gap-4 text-mute-100">
+            <span class="text-lg font-semibold">How does the DAO layer actually work?</span>
+            <span class="chev text-mute-400 transition-transform">›</span>
+          </summary>
+          <p class="mt-3 text-mute-300 text-[15px] leading-relaxed">Risk-classed actions become proposals. The proposal lives as a Matrix room event + an IPFS blob (deterministic CID). Members sign with their Ed25519 device keys — the same keys Matrix already uses end-to-end. When the m-of-n threshold is met, the agent gets executable authorization. Treasury or contract changes additionally settle on a Safe multisig on L2 (OP, Arbitrum or Base) so no single operator can rewrite history.</p>
+        </details>
+        <details class="py-5 group">
+          <summary class="flex items-center justify-between gap-4 text-mute-100">
+            <span class="text-lg font-semibold">Do I need an on-chain DAO to use this?</span>
+            <span class="chev text-mute-400 transition-transform">›</span>
+          </summary>
+          <p class="mt-3 text-mute-300 text-[15px] leading-relaxed">No. The baseline is Matrix + Ed25519 signatures + IPFS — fully off-chain, no gas. On-chain anchoring (Safe, Snapshot, ENS) is opt-in per room and per risk class. Use it for treasury actions, ignore it for everything else.</p>
+        </details>
+        <details class="py-5 group">
+          <summary class="flex items-center justify-between gap-4 text-mute-100">
             <span class="text-lg font-semibold">What does “verifiable memory” mean?</span>
             <span class="chev text-mute-400 transition-transform">›</span>
           </summary>
@@ -687,13 +925,13 @@
         </div>
         <p class="mt-4 text-sm text-mute-400 max-w-sm leading-relaxed">An architectural deck for self-hosted, multi-agent operations. Maintained by <a class="text-mute-200 hover:text-mute-100" href="https://github.com/Martin-Hausleitner">@Martin-Hausleitner</a>.</p>
       </div>
-      <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
+      <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-8 text-sm">
         <div>
           <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">DOCS</div>
           <ul class="mt-4 space-y-2.5">
             <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo#-detail-dokumente">Detail docs</a></li>
             <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo/blob/main/docs/architecture-flows.md">Architecture flows</a></li>
-            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo/blob/main/docs/implementation-roadmap.md">Implementation roadmap</a></li>
+            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo/blob/main/docs/implementation-roadmap.md">Roadmap</a></li>
           </ul>
         </div>
         <div>
@@ -705,9 +943,18 @@
           </ul>
         </div>
         <div>
+          <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">DAO</div>
+          <ul class="mt-4 space-y-2.5">
+            <li><a class="nav-link inline-flex items-center gap-1.5" href="#dao"><svg class="w-3.5 h-3.5 text-brand-amber"><use href="#i-snapshot"/></svg> Governance flow</a></li>
+            <li><a class="nav-link inline-flex items-center gap-1.5" href="#audit"><svg class="w-3.5 h-3.5 text-brand-emerald"><use href="#i-key"/></svg> Ed25519 audit</a></li>
+            <li><a class="nav-link inline-flex items-center gap-1.5" href="https://safe.global"><svg class="w-3.5 h-3.5 text-brand-violet"><use href="#i-safe"/></svg> Safe.global</a></li>
+            <li><a class="nav-link inline-flex items-center gap-1.5" href="https://snapshot.org"><svg class="w-3.5 h-3.5 text-brand-amber"><use href="#i-snapshot"/></svg> Snapshot.org</a></li>
+          </ul>
+        </div>
+        <div>
           <div class="text-[11px] font-semibold tracking-[.22em] text-mute-400">PROJECT</div>
           <ul class="mt-4 space-y-2.5">
-            <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo">Repository</a></li>
+            <li><a class="nav-link inline-flex items-center gap-1.5" href="https://github.com/Martin-Hausleitner/Credo"><svg class="w-3.5 h-3.5"><use href="#i-github"/></svg> Repository</a></li>
             <li><a class="nav-link" href="https://github.com/Martin-Hausleitner/Credo/issues">Issues</a></li>
             <li><a class="nav-link" href="https://github.com/Martin-Hausleitner">Author</a></li>
           </ul>
@@ -715,15 +962,19 @@
       </div>
     </div>
     <div class="max-w-7xl mx-auto px-6 lg:px-10 mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-mute-500">
-      <div>© 2026 Credo · self-hosted · open architecture.</div>
-      <div class="flex items-center gap-4 font-mono">
-        <span>matrix.org</span>
-        <span class="text-mute-500/60">·</span>
-        <span>postgres.org</span>
-        <span class="text-mute-500/60">·</span>
-        <span>livekit.io</span>
-        <span class="text-mute-500/60">·</span>
-        <span>tailscale.com</span>
+      <div>© 2026 Credo · self-hosted · open architecture · DAO-native.</div>
+      <div class="flex items-center gap-3 text-mute-400">
+        <svg class="w-4 h-4"><use href="#i-matrix"/></svg>
+        <svg class="w-4 h-4"><use href="#i-postgres"/></svg>
+        <svg class="w-4 h-4"><use href="#i-redis"/></svg>
+        <svg class="w-4 h-4"><use href="#i-livekit"/></svg>
+        <svg class="w-4 h-4"><use href="#i-tailscale"/></svg>
+        <svg class="w-4 h-4"><use href="#i-otel"/></svg>
+        <svg class="w-4 h-4"><use href="#i-calcom"/></svg>
+        <svg class="w-4 h-4"><use href="#i-key"/></svg>
+        <svg class="w-4 h-4"><use href="#i-safe"/></svg>
+        <svg class="w-4 h-4"><use href="#i-ipfs"/></svg>
+        <svg class="w-4 h-4"><use href="#i-ethereum"/></svg>
       </div>
     </div>
   </footer>

@@ -5,13 +5,14 @@
 <h1 align="center">Credo</h1>
 
 <p align="center">
-  <strong>The operating system for your agents.</strong><br/>
-  Self-hosted Matrix backbone · verifiable memory · policy-gated tool calls.
+  <strong>The agent OS for DAOs.</strong><br/>
+  Self-hosted Matrix backbone · Ed25519-signed actions · m-of-n quorum · verifiable memory.
 </p>
 
 <p align="center">
   <a href="#-architektur">Architecture</a> ·
   <a href="#%EF%B8%8F-mvp-scope">MVP</a> ·
+  <a href="#-dao--krypto">DAO</a> ·
   <a href="#-roadmap">Roadmap</a> ·
   <a href="docs/">Docs</a> ·
   <a href="site/index.html">Landing page</a>
@@ -19,9 +20,11 @@
 
 ---
 
-**Credo** ist Martins Architekturdeck fuer einen selbst gehosteten Agent-Kommunikationsstack: **Matrix** als Raum-, Identity-, State- und Audit-Kontext; **Hermes/OpenClaw/Codex** als Agent Runtime; **Postgres, Obsidian, ActivityWatch und lokale Skills** als Memory-, Kontext- und Tool-Schicht.
+**Credo** ist Martins Architekturdeck fuer einen selbst gehosteten, **DAO-nativen** Agent-Kommunikationsstack: **Matrix** als Raum-, Identity-, State- und Audit-Kontext; **Ed25519 + Safe + IPFS** als kryptografische Governance-Schicht; **Hermes/OpenClaw/Codex** als Agent Runtime; **Postgres, Obsidian, Cal.com, ActivityWatch und lokale Skills** als Memory-, Kontext- und Tool-Schicht.
 
-> 🎯 **MVP:** Synapse als konservativer Start + Element/Cinny + Hermes Matrix-Bot + Redis + Postgres/pgvector + S3/R2 + Obsidian + ActivityWatch + Tailscale-only Admin. Tuwunel bleibt ein schlanker Kandidat, sobald Bot-, Bridge-, MatrixRTC- und MAS-Kompatibilitaet validiert sind.
+> 🎯 **MVP:** Synapse als konservativer Start + Element/Cinny + Hermes Matrix-Bot + Redis + Postgres/pgvector + S3/R2 + Obsidian + Cal.com + ActivityWatch + Tailscale-only Admin. Tuwunel bleibt ein schlanker Kandidat, sobald Bot-, Bridge-, MatrixRTC- und MAS-Kompatibilitaet validiert sind.
+
+> 🪪 **DAO &amp; Krypto:** Hochriskante Agenten-Aktionen werden zu Proposals — diskutiert im Matrix-Raum, **Ed25519-signiert** durch m-of-n Mitglieder, auf **IPFS** verankert, und fuer Treasury/Contract-Aktionen zusaetzlich via **Safe multisig** auf L2 (OP, Arbitrum, Base) abgesegnet. Optionales **Snapshot** fuer gasless Off-chain Votes.
 
 > 🌐 **Landing page:** `site/index.html` ist eine eigenstaendige Vercel/Linear-style Marketing-Seite. Lokal oeffnen oder via GitHub Pages (Settings → Pages → Branch `main` /site) ausliefern.
 
@@ -39,6 +42,8 @@
 ![Credo stack layers](assets/layers.svg)
 
 ![Credo agent mesh](assets/agent-mesh.svg)
+
+![Credo DAO governance](assets/dao-governance.svg)
 
 ![Credo audit trail](assets/audit-trail.svg)
 

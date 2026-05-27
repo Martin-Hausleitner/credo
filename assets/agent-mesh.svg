@@ -157,7 +157,7 @@
       <circle cx="22" cy="42" r="8" fill="#FBBF24" filter="url(#glow)" opacity=".7"/>
       <circle cx="22" cy="42" r="6" fill="#0F0F18" stroke="#FBBF24" stroke-width="1.4"/>
       <text x="42" y="36" fill="#EDEDED" font-size="13" font-weight="700">Calendar pro</text>
-      <text x="42" y="52" fill="#94A3B8" font-size="10">gcal · MCP · habits</text>
+      <text x="42" y="52" fill="#94A3B8" font-size="10">Cal.com · gcal · MCP</text>
       <text x="42" y="68" fill="#6B7280" font-size="9">status: planning week</text>
       <circle cx="174" cy="14" r="3" fill="#FBBF24"/>
     </g>
