@@ -1,0 +1,25 @@
+================================================================
+E2E-VERIFIKATION: OpenHuman-Integration + Architektur-Diagramm
+================================================================
+[PASS] cal.com entfernt (README)  (0 Treffer)
+[PASS] cal.rs vorhanden (README)  (4 Treffer)
+[PASS] OpenHuman im README  (23 Erwaehnungen)
+[PASS] Plan-Doc verlinkt in README
+[PASS] OpenHuman-Sektion existiert
+[PASS] Plan verlinkt zurueck auf README
+[PASS] Genau 1 Mermaid-Block im README  (1 Bloecke)
+[PASS] Diagramm: 9 Ebenen (subgraphs)  (9 subgraphs)
+[PASS] Diagramm: Write-Gate sichtbar
+[PASS] Diagramm: Happy-Path-Spine (==>)  (7 dicke Kanten)
+[PASS] Diagramm: cal.rs-Knoten
+[PASS] Diagramm: kein cal.com
+[PASS] Diagramm: balancierte subgraph/end  (9 subgraph vs 0 end)
+[PASS] architecture.mmd hat OpenHuman
+[PASS] architecture.mmd hat cal.rs
+[PASS] architecture.mmd kein Tailscale (stale-Check)
+[PASS] architecture.mmd: 9 Ebenen  (9 subgraphs)
+[PASS] Alle internen Links/Anchor aufloesbar
+[PASS] proof PNG existiert
+[PASS] proof SVG existiert
+----------------------------------------------------------------
+20/20 Checks bestanden
