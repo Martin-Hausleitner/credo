@@ -13,6 +13,7 @@
   <a href="https://martin-hausleitner.github.io/credo/"><strong>🌐 Live site</strong></a> ·
   <a href="#-vision">Vision</a> ·
   <a href="#-stack--open-source-first">Stack</a> ·
+  <a href="#-openhuman-als-personal-edge-schicht">OpenHuman</a> ·
   <a href="#%EF%B8%8F-mvp-scope">MVP</a> ·
   <a href="docs/">Docs</a>
 </p>
@@ -26,13 +27,14 @@
 
 ---
 
-**credo** ist Martins Architekturdeck fuer einen selbst gehosteten, DAO-nativen Agent-Kommunikationsstack. **Matrix** als Raum-, Identity-, State- und Audit-Schicht. **Ed25519 + Safe + IPFS** als kryptografische Governance. **Hermes / OpenClaw / Codex** als Agent-Runtime. **PostgreSQL + pgvector + MinIO + Logseq/Obsidian + Cal.com + ActivityWatch** als Memory- und Kontext-Schicht. Alles **Open Source first**, alles selbst hostbar.
+**credo** ist Martins Architekturdeck fuer einen selbst gehosteten, DAO-nativen Agent-Kommunikationsstack. **Matrix** als Raum-, Identity-, State- und Audit-Schicht. **Ed25519 + Safe + IPFS** als kryptografische Governance. **Hermes / OpenClaw / Codex** als Agent-Runtime. **[OpenHuman](https://github.com/tinyhumansai/openhuman)** als Personal-/Edge-Schicht: Desktop-UX, 118+ OAuth-Integrationen, Memory Tree / Vault und Voice. **PostgreSQL + pgvector + MinIO + cal.rs** als kanonisches Runtime-Ledger. Selbst hostbar, OSS-first im Backbone — OpenHuman-Edge mit bewussten Ausnahmen ([Details](docs/openhuman-integration.md)).
 
 ## ✨ Vision
 
 | Pillar | TL;DR |
 |---|---|
-| 🎯 **MVP** | Synapse + Element/Cinny · Hermes Matrix-Bot · Valkey · Postgres/pgvector · MinIO · Cal.com · ActivityWatch · NetBird mesh. |
+| 🎯 **MVP** | Synapse + Element/Cinny + **OpenHuman Desktop** · Hermes Matrix-Bot · Valkey · Postgres/pgvector · MinIO · cal.rs · NetBird mesh. |
+| 🧬 **OpenHuman Edge** | Lokaler Personal-Agent als zweite Surface: Memory Tree / Vault, 118+ OAuth-Integrationen, Voice. Schreibt nur ueber Credos Write-Gates und Ed25519-Signatur. |
 | 🪪 **DAO &amp; Krypto** | Risk-classed proposals · m-of-n **Ed25519** quorum · **IPFS** anchor · **Safe** multisig auf L2 (OP / Arbitrum / Base) · optional **Snapshot**. |
 | 🎨 **Generative UI** | DesignSkill entwirft ein UI pro Action · Like-Loop refined · stabile Varianten werden zu kanonischen, "offizialisierten" Interfaces. |
 | 🛡️ **Local-first** | Kein zentraler Server. Jeder Knoten haelt die volle Chronik, E2E verschluesselt. Keys verlassen das Geraet nicht. |
@@ -65,10 +67,8 @@ flowchart TB
   subgraph UX["💬 01 Zugänge und UX"]
     Element["Element Web · Admin + Debug"]
     ElementX["Element X · Matrix 2.0"]
-    HermesDesktop["Hermes Desktop · Agent Companion"]
+    OpenHuman["OpenHuman Desktop · Personal Agent + Voice"]
     Cinny["Cinny / Sable / Commet"]
-    Chatwoot["Chatwoot · Operator Inbox"]
-    Cognitor["Cognitor · Tray / Web / Mobile"]
   end
 
   subgraph Matrix["🟢 02 Matrix-Kern"]
@@ -77,10 +77,9 @@ flowchart TB
     Admin["synadm · reports · purges"]
   end
 
-  subgraph Bridge["📬 03 Bridges & Inbox"]
-    Mautrix["mautrix · TG / WA / Signal / Slack"]
-    Beeper["beeper-matrix-proxy"]
-    Mail["Himalaya · Maildir · notmuch"]
+  subgraph Bridge["📬 03 Integrationen (OpenHuman)"]
+    Integrations["OpenHuman · 118+ OAuth-Integrationen"]
+    AutoFetch["Auto-Fetch · 20-Min-Sync je Connection"]
   end
 
   subgraph Gateway["🚦 04 Gateway & Jobs"]
@@ -99,7 +98,7 @@ flowchart TB
   subgraph Data["🧠 06 Daten & Memory"]
     Pg["Postgres + pgvector"]
     S3["MinIO / R2"]
-    Vault["Logseq / Obsidian + Git"]
+    Vault["OpenHuman Memory Tree / Vault + Git"]
   end
 
   subgraph DAO["🪪 07 Governance"]
@@ -112,7 +111,7 @@ flowchart TB
     Discord["Discord Voice MVP"]
     ElementCall["Element Call"]
     LiveKit["LiveKit SFU"]
-    VoiceAgent["Hermes Voice Agent"]
+    VoiceAgent["OpenHuman Voice · STT / TTS"]
   end
 
   subgraph Ops["📊 09 Ops & Security"]
@@ -122,8 +121,7 @@ flowchart TB
   end
 
   UX --> Homeserver --> Rooms --> Bot
-  Mautrix --> Homeserver
-  Mail --> Chatwoot --> Bot
+  Integrations --> AutoFetch --> Vault
   Bot --> Policy --> Queue --> Hermes
   Hermes --> OpenClaw & Codex & Skills
   Hermes --> Pg & S3 & Vault
@@ -151,26 +149,42 @@ flowchart TB
 
 | Layer | Projekte | Lizenz |
 |---|---|---|
-| 🟢 Communication | Matrix Synapse · Element Web · mautrix bridges · Chatwoot | AGPL-3.0 · Apache-2.0 · MIT |
+| 🟢 Communication | Matrix Synapse · Element Web · Cinny | AGPL-3.0 · Apache-2.0 |
+| 🧬 Edge & Integrationen | OpenHuman Desktop · 118+ OAuth-Integrationen (Composio) · Voice | GPL-3.0 · (Composio managed) |
 | 🤖 Runtime & Queue | Hermes · OpenClaw · Codex · MCP · Valkey · Ollama | MIT · BSD-3 |
-| 🧠 Data & Memory | PostgreSQL + pgvector · MinIO · IPFS / Kubo · Logseq · Cal.com | PG-Lic · AGPL-3.0 · MIT + Apache-2.0 |
+| 🧠 Data & Memory | PostgreSQL + pgvector · MinIO · IPFS / Kubo · OpenHuman Memory Tree · cal.rs | PG-Lic · AGPL-3.0 · GPL-3.0 · MIT |
 | 🛡️ Network & Edge | NetBird · WireGuard · Headscale · Caddy · Coturn · LiveKit | BSD-3 · GPL-2.0 · Apache-2.0 |
 | 📊 Observability | OpenTelemetry · Prometheus · Loki · Grafana · Tempo | Apache-2.0 · AGPL-3.0 |
 | 🪪 Crypto & Governance | libsodium · Ed25519 · Safe Smart Account · Snapshot · ENS · IPFS | ISC · LGPL-3.0 · MIT · public goods |
 
 > Tailscale ist raus (closed coordinator). **NetBird + WireGuard + Headscale** sind die fully-OSS Mesh-Alternativen. Wenn ein Projekt seine Lizenz aendert, haben wir den Fork bereit — **Valkey** statt Redis, **Headscale** statt Tailscale-Coordinator.
+>
+> **OpenHuman** (GPL-3.0) ist OSS, aber sein **Composio**-Connector und die **ElevenLabs**-TTS sind managed/proprietaer. Sie laufen nur als isolierte Edge-Schicht im MCP-Untrusted-Regime, mit OSS-Fallbacks (native Bridges, Piper/Coqui-TTS) und Write-Gates. Details: [docs/openhuman-integration.md](docs/openhuman-integration.md).
+
+## 🧬 OpenHuman als Personal-/Edge-Schicht
+
+[OpenHuman](https://github.com/tinyhumansai/openhuman) (tinyhumansai, GPL-3.0) ist ein reifer, lokaler Personal-Agent. In credo wird es die **Edge-Schicht**: Desktop-UX, Integrationen, lokales Memory und Voice — der governte Matrix-Backbone, die Jobs, die Signatur und das Audit bleiben credo.
+
+| credo-Baustein (alt) | Jetzt: OpenHuman |
+|---|---|
+| Hermes Desktop · Cognitor Companion | **OpenHuman Desktop** (Tauri) als zweite Human-Surface |
+| mautrix Bridges · Beeper · Mail-Inbox · Chatwoot | **118+ OAuth-Integrationen** mit 20-Min-Auto-Fetch |
+| Logseq / Obsidian + ActivityWatch | **Memory Tree / Vault** (komprimierte Markdown-Chunks) |
+| Hermes Voice Agent (STT/TTS) | **OpenHuman Voice** ueber Element Call / LiveKit |
+
+**Leitplanken:** OpenHuman schreibt nie direkt kanonisch. Auto-Fetch-Daten sind *ephemeral und untrusted*, laufen durch Credos Write-Gates (Quellenlink, Review-Status, Loeschpfad) und werden vom Edge-Node **Ed25519-signiert**, bevor sie nach Postgres/pgvector kanonisieren. Composio + ElevenLabs bleiben isolierte, optionale Managed-Ausnahmen mit OSS-Fallbacks. Vollstaendiger Plan: [docs/openhuman-integration.md](docs/openhuman-integration.md).
 
 ## 🛣️ MVP Scope
 
 1. 🟢 Matrix Homeserver (Synapse) aufsetzen.
-2. 💬 Element Web + Cinny/Sable bereitstellen.
+2. 💬 Element Web + Cinny/Sable + OpenHuman Desktop bereitstellen.
 3. 🤖 Hermes/OpenClaw Matrix-Bot registrieren (Bot vs. Appservice, Power Levels, Rate Limits, Invite-Policy, E2EE-Keys).
 4. 🚦 Matrix-Nachrichten in Valkey-Jobs verwandeln (Policy-Gate davor).
 5. 🧠 Postgres + pgvector fuer Memory/RAG.
 6. 🗄️ MinIO oder Cloudflare R2 fuer Artefakte.
 7. 🪪 Ed25519-Signaturen pro Job (libsodium); IPFS-Anchor fuer high-risk.
 8. 📊 Redigierte Logs/Metriken intern sichtbar; Trace-ID zurueck in Matrix posten.
-9. 🔐 Public vs. Admin Plane trennen: Clients/Federation/Bridges kontrolliert oeffentlich; Admin-APIs, Grafana, Loki, Prometheus, Postgres, Valkey und MinIO-Admin nur ueber **NetBird/WireGuard**.
+9. 🔐 Public vs. Admin Plane trennen: Clients/Federation/OpenHuman-Integrationen kontrolliert oeffentlich; Admin-APIs, Grafana, Loki, Prometheus, Postgres, Valkey und MinIO-Admin nur ueber **NetBird/WireGuard**.
 
 ## ⏳ Nicht im MVP
 
@@ -178,7 +192,6 @@ flowchart TB
 |---|---|
 | 🔒 E2EE Recording | Bots brauchen echte Teilnehmer-Keys; hoher Engineering-Aufwand |
 | 🎥 4K60 MatrixRTC | Bandbreite, Codecs, Simulcast und Browser-Limits |
-| 🧱 Eigener Matrix Client | UI-/Crypto-/Sync-Komplexitaet zu hoch |
 | 📱 Meta/Instagram Bridges | Ban-, Proxy-, Session- und Cookie-Risiko |
 | 🗝️ Agenten mit Admin-Tokens | Nur in eng begrenzten Ops-Raeumen mit Audit |
 | ☸️ Kubernetes | Fuer den Start Overkill; Ansible + Docker reicht |
@@ -198,6 +211,7 @@ flowchart TB
 | Repos | [docs/repository-map.md](docs/repository-map.md) · [local](docs/local-repositories.md) · [github](docs/github-repositories.md) · [matrix](docs/matrix-repositories.md) | Inventar |
 | Stack-Vergleich | [docs/stack-comparison.md](docs/stack-comparison.md) | Vergleich |
 | Research-Backlog | [docs/research-improvements.md](docs/research-improvements.md) | Synthese |
+| OpenHuman-Integration | [docs/openhuman-integration.md](docs/openhuman-integration.md) | Plan |
 
 ## 🧼 Pflege-Regeln
 
