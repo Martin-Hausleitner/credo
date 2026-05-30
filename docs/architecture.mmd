@@ -1,126 +1,116 @@
-flowchart LR
-  subgraph Clients["Client Layer"]
-    Human["Human / Team"]
-    Element["Element Web / Element X"]
-    Cinny["Cinny / Sable"]
-    HermesDesktop["Hermes Desktop"]
-    Discord["Discord Voice MVP"]
-    ObsidianUI["Obsidian Notion UI"]
-    ChatwootUI["Chatwoot Operator Inbox"]
+%%{init:{"theme":"base","themeVariables":{"fontFamily":"ui-sans-serif, system-ui, sans-serif","background":"#0A0A14","primaryColor":"#0F0F18","primaryBorderColor":"#334155","primaryTextColor":"#E5E7EB","lineColor":"#64748B","clusterBkg":"#0B0B16","clusterBorder":"#1F2937","fontSize":"14px"},"flowchart":{"curve":"basis","nodeSpacing":48,"rankSpacing":64,"padding":12}}%%
+flowchart TB
+  Human(["Martin / Team"])
+
+  subgraph UX["01 Zugaenge und UX"]
+    direction LR
+    Element["Element Web - Admin + Debug"]
+    ElementX["Element X - Matrix 2.0"]
+    OpenHuman["OpenHuman Desktop - Personal Agent + Voice"]
+    Cinny["Cinny / Sable / Commet"]
   end
 
-  subgraph MatrixLayer["Matrix Communication Layer"]
-    Homeserver["Synapse or Tuwunel"]
-    Rooms["Rooms: intake / ops / research / memory / alerts"]
-    Bridges["mautrix Bridges"]
-    Beeper["beeper-matrix-proxy"]
+  subgraph Edge["03 Edge-Integrationen (OpenHuman)"]
+    direction LR
+    Integrations["118+ OAuth-Integrationen - Composio / MCP-Untrusted"]
+    AutoFetch["Auto-Fetch - 20-Min-Sync je Connection"]
   end
 
-  subgraph AgentLayer["Hermes Agent Layer"]
-    Bot["Matrix Bot Gateway"]
-    Authz["Backend Policy Gate"]
-    Queue["Redis Job Queue"]
-    Runtime["Hermes + OpenClaw + Codex"]
-    RuntimePolicy["Runtime Policy Enforcement"]
-    Workers["Codex / Claude / Gemini"]
-    Skills["Skills + MCP Tools + ClawHub"]
-    EmailCtrl["openclaw-hermes-email-control"]
-    WidgetShare["Cognitor Widget Sharing"]
-    ComputerUseControl["codex-computer-use-control"]
-    SkyClient["SkyComputerUseClient MCP"]
+  subgraph Matrix["02 Matrix-Kern"]
+    direction LR
+    Homeserver["Synapse / Tuwunel"]
+    Rooms["Room-Topologie - intake / research / ops / memory / alerts"]
+    Admin["synadm - reports / purges"]
   end
 
-  subgraph KnowledgeLayer["Memory + Knowledge"]
-    Postgres["Postgres + pgvector"]
-    Supabase["Supabase optional: dashboards / auth / realtime"]
-    Vault["Obsidian Markdown Vault"]
-    Git["Git Audit Trail"]
-    Artifacts["S3 / R2 Artifacts"]
-    Maildir["Maildir + notmuch"]
+  subgraph Gateway["04 Gateway und Jobs"]
+    direction LR
+    Bot["Hermes Matrix-Bot"]
+    Policy{{"Policy- und Write-Gate - Rollen / m-of-n / Audit"}}
+    Queue["Valkey Queue - Job-ID / Retry"]
   end
 
-  subgraph ContextLayer["Presence + Personal Context"]
-    AW["ActivityWatch"]
-    Whoop["WHOOP Importer"]
-    ScreenTime["Apple Screen Time Importer"]
-    Health["Apple Health Importer"]
-    YouTube["YouTube Importer"]
-    Door["Nuki + Ring Context"]
-    Cognitor["Cognitor Tray / Web / Mobile"]
-    NativeUI["Native macOS Apps"]
+  subgraph Runtime["05 Agent-Runtime"]
+    direction LR
+    Hermes["Hermes Agent"]
+    OpenClaw["OpenClaw / ClawHub"]
+    Codex["Codex Computer-Use"]
+    Skills["Skills - GitHub / Notion / Mail / MCP"]
   end
 
-  subgraph VoiceLayer["Voice / RTC"]
+  subgraph Data["06 Daten und Memory"]
+    direction LR
+    Pg[("Postgres + pgvector")]
+    S3[("MinIO / R2")]
+    Vault[("OpenHuman Memory Tree - Vault + Git")]
+    Cal[("cal.rs")]
+  end
+
+  subgraph DAO["07 Governance"]
+    direction LR
+    Sig["Ed25519 - m-of-n"]
+    Ipfs["IPFS Anchor"]
+    Safe["Safe Multisig - L2"]
+  end
+
+  subgraph Voice["08 Voice und RTC"]
+    direction LR
+    Discord["Discord Voice-MVP"]
     ElementCall["Element Call"]
     LiveKit["LiveKit SFU"]
-    JWT["lk-jwt-service"]
-    VoiceAgents["Hermes Voice Agent / discord.py"]
+    VoiceAgent["OpenHuman Voice - STT / TTS"]
   end
 
-  subgraph OpsLayer["Ops + Admin"]
+  subgraph Ops["09 Ops und Security"]
+    direction LR
     OTel["OpenTelemetry"]
-    Metrics["Prometheus + Loki + Grafana"]
-    Tail["Tailscale-only Admin"]
+    Grafana["Prometheus / Loki / Grafana"]
+    Net["NetBird / WireGuard / Headscale"]
   end
 
-  subgraph OwnRepos["Maintained Repos"]
-    StackRepo["Credo"]
-    HermesRepo["hermes-agent fork"]
-    SkillsRepo["martins-awesome-skills"]
-    ObsidianRepo["obsidian-notion-ui-customization"]
-    VoiceRepo["discord-voice-obsidian-agent"]
-    AWRepos["aw-* importers"]
-    CognitorRepos["cognitor-launcher / cloakwright"]
-  end
+  Human ==> UX
+  UX ==> Homeserver
+  Homeserver ==> Rooms
+  Rooms ==> Bot
+  Bot ==> Policy
+  Policy ==> Queue
+  Queue ==> Hermes
 
-  Human --> Element
-  Human --> Cinny
-  Human --> HermesDesktop
-  Human --> Discord
-  Human --> ObsidianUI
-  Human --> ChatwootUI
-  Human --> Cognitor
-  Element --> Homeserver
-  Cinny --> Homeserver
-  Homeserver --> Rooms
-  Homeserver --> Bot
-  Homeserver --> Bridges
-  Homeserver --> Beeper
-  Bot --> Authz --> Queue --> Runtime
-  HermesDesktop --> Runtime
-  Runtime --> RuntimePolicy
-  Runtime --> Workers
-  RuntimePolicy --> Skills
-  Runtime --> EmailCtrl
-  Runtime --> WidgetShare
-  Runtime --> ComputerUseControl --> SkyClient --> NativeUI
-  EmailCtrl --> ChatwootUI
-  EmailCtrl --> Maildir
-  WidgetShare --> Cognitor
-  Runtime --> Postgres
-  Postgres -. optional app layer .-> Supabase
-  Runtime --> Vault --> Git
-  Runtime --> Artifacts
-  Runtime --> AW
-  Cognitor --> AW
-  Cognitor --> Vault
-  Whoop --> AW
-  ScreenTime --> AW
-  Health --> AW
-  YouTube --> AW
-  Door --> AW
-  ElementCall --> JWT
-  Homeserver --> JWT
-  JWT --> LiveKit
+  OpenHuman --> Integrations
+  Integrations --> AutoFetch
+  AutoFetch -. "Write-Gate" .-> Policy
+
+  Hermes --> OpenClaw
+  Hermes --> Codex
+  Hermes --> Skills
+  Hermes --> Pg
+  Hermes --> S3
+  Hermes --> Vault
+  Hermes --> Cal
+
+  Policy --> Sig
+  Sig --> Ipfs
+  Ipfs --> Safe
+
+  Discord --> Hermes
   ElementCall --> LiveKit
-  VoiceAgents --> LiveKit
-  VoiceAgents --> Runtime
-  Discord --> VoiceAgents
-  Runtime --> OTel --> Metrics --> Tail
-  StackRepo -. documents .-> MatrixLayer
-  HermesRepo -. customizes .-> Runtime
-  SkillsRepo -. extends .-> Skills
-  ObsidianRepo -. configures .-> Vault
-  VoiceRepo -. prototypes .-> VoiceLayer
-  AWRepos -. feed .-> ContextLayer
-  CognitorRepos -. package .-> Clients
+  LiveKit --> VoiceAgent
+  VoiceAgent --> Hermes
+
+  Hermes --> OTel
+  OTel --> Grafana
+  Admin --> Net
+
+  style UX fill:#0B1220,stroke:#60A5FA,color:#BFDBFE
+  style Edge fill:#0F0B1E,stroke:#6366F1,color:#C7D2FE
+  style Matrix fill:#08140F,stroke:#34D399,color:#A7F3D0
+  style Gateway fill:#1A1505,stroke:#FBBF24,color:#FDE68A
+  style Runtime fill:#140C20,stroke:#A78BFA,color:#DDD6FE
+  style Data fill:#06141A,stroke:#22D3EE,color:#A5F3FC
+  style DAO fill:#1A0A16,stroke:#F472B6,color:#FBCFE8
+  style Voice fill:#1A0810,stroke:#FB7185,color:#FECDD3
+  style Ops fill:#0E1116,stroke:#94A3B8,color:#CBD5E1
+  style Human fill:#E5E7EB,stroke:#94A3B8,color:#0A0A14
+
+  linkStyle 0,1,2,3,4,5,6 stroke:#34D399,stroke-width:2.5px
+  linkStyle 9 stroke:#FBBF24,stroke-width:2px,stroke-dasharray:5 4

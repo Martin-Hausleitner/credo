@@ -61,75 +61,130 @@ Die anderen Diagramme (Hero, Stack-Layers, Agent-Mesh, DAO-Governance, Audit-Tra
 <summary>📐 Komplettes Mermaid-Gesamtbild (klicken zum Ausklappen)</summary>
 
 ```mermaid
+%%{init:{"theme":"base","themeVariables":{"fontFamily":"ui-sans-serif, system-ui, sans-serif","background":"#0A0A14","primaryColor":"#0F0F18","primaryBorderColor":"#334155","primaryTextColor":"#E5E7EB","lineColor":"#64748B","clusterBkg":"#0B0B16","clusterBorder":"#1F2937","fontSize":"14px"},"flowchart":{"curve":"basis","nodeSpacing":48,"rankSpacing":64,"padding":12}}}%%
 flowchart TB
-  Human["👤 Martin / Team"] --> UX
+  Human(["👤 Martin / Team"])
 
-  subgraph UX["💬 01 Zugänge und UX"]
-    Element["Element Web · Admin + Debug"]
-    ElementX["Element X · Matrix 2.0"]
-    OpenHuman["OpenHuman Desktop · Personal Agent + Voice"]
+  subgraph UX["💬 01 · Zugaenge &amp; UX"]
+    direction LR
+    Element["Element Web<br/><small>Admin + Debug</small>"]
+    ElementX["Element X<br/><small>Matrix 2.0</small>"]
+    OpenHuman["🧬 OpenHuman Desktop<br/><small>Personal Agent + Voice</small>"]
     Cinny["Cinny / Sable / Commet"]
   end
 
-  subgraph Matrix["🟢 02 Matrix-Kern"]
-    Homeserver["Synapse oder Tuwunel"]
-    Rooms["Room Topology · intake / research / ops / memory / alerts"]
-    Admin["synadm · reports · purges"]
+  subgraph Edge["🧬 03 · Edge-Integrationen <small>(OpenHuman)</small>"]
+    direction LR
+    Integrations["118+ OAuth-Integrationen<br/><small>Composio · MCP-Untrusted</small>"]
+    AutoFetch["Auto-Fetch<br/><small>20-Min-Sync je Connection</small>"]
   end
 
-  subgraph Bridge["📬 03 Integrationen (OpenHuman)"]
-    Integrations["OpenHuman · 118+ OAuth-Integrationen"]
-    AutoFetch["Auto-Fetch · 20-Min-Sync je Connection"]
+  subgraph Matrix["🟢 02 · Matrix-Kern"]
+    direction LR
+    Homeserver["Synapse / Tuwunel"]
+    Rooms["Room-Topologie<br/><small>intake · research · ops · memory · alerts</small>"]
+    Admin["synadm<br/><small>reports · purges</small>"]
   end
 
-  subgraph Gateway["🚦 04 Gateway & Jobs"]
-    Bot["Hermes Matrix Bot"]
-    Policy["Policy Gate · Rollen · Audit"]
-    Queue["Valkey Queue · Job-ID · Retry"]
+  subgraph Gateway["🚦 04 · Gateway &amp; Jobs"]
+    direction LR
+    Bot["Hermes Matrix-Bot"]
+    Policy{{"Policy- &amp; Write-Gate<br/>Rollen · m-of-n · Audit"}}
+    Queue["Valkey Queue<br/><small>Job-ID · Retry</small>"]
   end
 
-  subgraph Runtime["🤖 05 Agent Runtime"]
+  subgraph Runtime["🤖 05 · Agent-Runtime"]
+    direction LR
     Hermes["Hermes Agent"]
     OpenClaw["OpenClaw / ClawHub"]
-    Codex["Codex Computer Use"]
-    Skills["Skills · GitHub / Notion / Mail / MCP"]
+    Codex["Codex Computer-Use"]
+    Skills["Skills<br/><small>GitHub · Notion · Mail · MCP</small>"]
   end
 
-  subgraph Data["🧠 06 Daten & Memory"]
-    Pg["Postgres + pgvector"]
-    S3["MinIO / R2"]
-    Vault["OpenHuman Memory Tree / Vault + Git"]
+  subgraph Data["🧠 06 · Daten &amp; Memory"]
+    direction LR
+    Pg[("Postgres + pgvector")]
+    S3[("MinIO / R2")]
+    Vault[("🧬 OpenHuman Memory Tree<br/><small>Vault + Git</small>")]
+    Cal[("cal.rs")]
   end
 
-  subgraph DAO["🪪 07 Governance"]
-    Sig["Ed25519 m-of-n"]
-    Ipfs["IPFS anchor"]
-    Safe["Safe multisig · L2"]
+  subgraph DAO["🪪 07 · Governance"]
+    direction LR
+    Sig["Ed25519 · m-of-n"]
+    Ipfs["IPFS Anchor"]
+    Safe["Safe Multisig · L2"]
   end
 
-  subgraph Voice["🎙️ 08 Voice & RTC"]
-    Discord["Discord Voice MVP"]
+  subgraph Voice["🎙️ 08 · Voice &amp; RTC"]
+    direction LR
+    Discord["Discord Voice-MVP"]
     ElementCall["Element Call"]
     LiveKit["LiveKit SFU"]
-    VoiceAgent["OpenHuman Voice · STT / TTS"]
+    VoiceAgent["🧬 OpenHuman Voice<br/><small>STT / TTS</small>"]
   end
 
-  subgraph Ops["📊 09 Ops & Security"]
+  subgraph Ops["📊 09 · Ops &amp; Security"]
+    direction LR
     OTel["OpenTelemetry"]
     Grafana["Prometheus · Loki · Grafana"]
     Net["NetBird · WireGuard · Headscale"]
   end
 
-  UX --> Homeserver --> Rooms --> Bot
-  Integrations --> AutoFetch --> Vault
-  Bot --> Policy --> Queue --> Hermes
-  Hermes --> OpenClaw & Codex & Skills
-  Hermes --> Pg & S3 & Vault
-  Policy --> Sig --> Ipfs --> Safe
-  Hermes --> OTel --> Grafana
+  %% --- Happy Path (Spine, idx 0-6) ---
+  Human ==> UX
+  UX ==> Homeserver
+  Homeserver ==> Rooms
+  Rooms ==> Bot
+  Bot ==> Policy
+  Policy ==> Queue
+  Queue ==> Hermes
+
+  %% --- Edge writes laufen durch das Gate (idx 7-9) ---
+  OpenHuman --> Integrations
+  Integrations --> AutoFetch
+  AutoFetch -. "Write-Gate" .-> Policy
+
+  %% --- Runtime Fan-out (idx 10-16) ---
+  Hermes --> OpenClaw
+  Hermes --> Codex
+  Hermes --> Skills
+  Hermes --> Pg
+  Hermes --> S3
+  Hermes --> Vault
+  Hermes --> Cal
+
+  %% --- Governance (idx 17-19) ---
+  Policy --> Sig
+  Sig --> Ipfs
+  Ipfs --> Safe
+
+  %% --- Voice (idx 20-23) ---
   Discord --> Hermes
-  ElementCall --> LiveKit --> VoiceAgent --> Hermes
+  ElementCall --> LiveKit
+  LiveKit --> VoiceAgent
+  VoiceAgent --> Hermes
+
+  %% --- Ops (idx 24-26) ---
+  Hermes --> OTel
+  OTel --> Grafana
   Admin --> Net
+
+  %% --- Plane-Styling ---
+  style UX fill:#0B1220,stroke:#60A5FA,color:#BFDBFE
+  style Edge fill:#0F0B1E,stroke:#6366F1,color:#C7D2FE
+  style Matrix fill:#08140F,stroke:#34D399,color:#A7F3D0
+  style Gateway fill:#1A1505,stroke:#FBBF24,color:#FDE68A
+  style Runtime fill:#140C20,stroke:#A78BFA,color:#DDD6FE
+  style Data fill:#06141A,stroke:#22D3EE,color:#A5F3FC
+  style DAO fill:#1A0A16,stroke:#F472B6,color:#FBCFE8
+  style Voice fill:#1A0810,stroke:#FB7185,color:#FECDD3
+  style Ops fill:#0E1116,stroke:#94A3B8,color:#CBD5E1
+  style Human fill:#E5E7EB,stroke:#94A3B8,color:#0A0A14
+
+  %% --- Spine fett-gruen, Write-Gate amber ---
+  linkStyle 0,1,2,3,4,5,6 stroke:#34D399,stroke-width:2.5px
+  linkStyle 9 stroke:#FBBF24,stroke-width:2px,stroke-dasharray:5 4
 ```
 </details>
 
