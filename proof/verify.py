@@ -75,6 +75,15 @@ ok("architecture.mmd hat cal.rs", "cal.rs" in arch)
 ok("architecture.mmd kein Tailscale (stale-Check)", "Tailscale" not in arch)
 ok("architecture.mmd: 9 Ebenen", arch.count("subgraph ") == 9, f"{arch.count('subgraph ')} subgraphs")
 
+# ---- Plan-Schritt 1: Memory-Bruecke in target-stack.md ----
+tgt = (ROOT / "docs/target-stack.md").read_text(encoding="utf-8")
+ok("Schritt 1: Memory-Bruecke-Sektion", "Memory-Bruecke" in tgt and "Write-Gate" in tgt)
+ok("Schritt 1: Vault->Gate->pgvector-Fluss", "OpenHuman Vault-Chunk" in tgt and "pgvector Embedding" in tgt)
+mem_types = ["Decision", "Project", "Person", "Meeting", "Task", "Source", "Runbook"]
+missing_types = [t for t in mem_types if t not in tgt]
+ok("Schritt 1: alle 7 Memory-Typen gemappt", not missing_types, f"fehlt: {missing_types}")
+ok("Schritt 1: Memory-Modi referenziert", all(m in tgt for m in ["proposed-write", "approved-write", "read-only"]))
+
 # ---- 5. internal links resolve (files + anchors) across README + docs ----
 md_files = [ROOT / "README.md"] + sorted((ROOT / "docs").glob("*.md"))
 link_re = re.compile(r"\[[^\]]+\]\(([^)]+)\)")

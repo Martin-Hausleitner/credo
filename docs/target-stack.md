@@ -102,6 +102,42 @@ Jeder Agentenlauf soll als kleiner Vertrag modelliert werden. Das macht spaeter 
 | <img src="https://cdn.simpleicons.org/supabase/3FCF8E" width="24"> | Supabase | schnelle Dashboards, Auth, Realtime, Studio | optional, nicht Core-DB-Ersatz |
 | <img src="https://www.google.com/s2/favicons?domain=cloudflare.com&sz=64" width="24"> | S3 / Cloudflare R2 | Artefakte, Exporte, Matrix-Medien | Core |
 
+## 🌉 Memory-Bruecke: OpenHuman Vault → Write-Gate → pgvector
+
+OpenHuman bringt einen lokalen **Memory Tree / Vault** mit (komprimierte Markdown-Chunks ≤3k Tokens, Obsidian-kompatibel). Dieser bleibt die Edge-Quelle, aber **kein Chunk wird ungeprueft kanonisch**. Die Bruecke ist genau der Pfad, ueber den Edge-Memory zu auditiertem Runtime-Memory wird.
+
+```text
+OpenHuman Vault-Chunk
+  -> Write-Gate (Policy: memory_mode + Quelle + Retention)
+  -> Klassifikation auf Memory-Typ
+  -> pgvector Embedding + Postgres Audit-Zeile
+  -> optional Rueckschrieb als kuratierter Vault-Eintrag
+```
+
+Schritte je Memory-Schreibung:
+
+1. Vault-Chunk wird als `proposed-write` mit Quelle, Hash und OpenHuman-Node-Key vorgelegt.
+2. Write-Gate prueft `memory_mode` aus dem Run Contract und die Raumklasse (`#agent-memory`).
+3. Chunk wird auf einen Memory-Typ gemappt; fehlt der Typ, bleibt es Ephemeral.
+4. Bei `approved-write` entsteht eine pgvector-Embedding-Zeile plus Postgres-Audit-Zeile mit `run_id`, `approval_id` und `source_hash`.
+5. Loeschpfad und Retention-Klasse werden mitgeschrieben, damit Memory revidierbar bleibt.
+
+Memory-Typen-Mapping (OpenHuman-Chunk → Credo-Memory-Typ):
+
+| OpenHuman Vault-Chunk | Credo Memory-Typ | Default `memory_mode` | Ziel |
+|---|---|---|---|
+| Entscheidung / Beschluss | Decision | proposed-write | pgvector + Audit |
+| Projekt-/Arbeitskontext | Project | proposed-write | pgvector + Audit |
+| Personen-/Kontaktnotiz | Person | read-only bis Review | Vault-only bis Freigabe |
+| Meeting-/Gespraechsnotiz | Meeting | proposed-write | pgvector + Audit |
+| Aufgabe / To-do | Task | approved-write | pgvector + Job-Link |
+| Quelle / Link / Zitat | Source | proposed-write | pgvector + URL-Hash |
+| Runbook / Anleitung | Runbook | read-only bis Review | Vault + Git, kuratiert |
+
+Die Memory-Modi (`none`, `read-only`, `proposed-write`, `approved-write`) stammen aus dem [Run Contract](#-run-contract). Kein OpenHuman-Connector darf direkt `approved-write` ausloesen — der Edge-Default bleibt `proposed-write` mit Review im Memory-Raum.
+
+Mehr Details: [openhuman-integration.md](openhuman-integration.md), [Roadmap Phase 2](implementation-roadmap.md). Quellen: [OpenHuman](https://github.com/tinyhumansai/openhuman), [pgvector](https://github.com/pgvector/pgvector).
+
 ## 🧩 Wissen und Kontext
 
 | Logo | Komponente | Zweck | Empfehlung |

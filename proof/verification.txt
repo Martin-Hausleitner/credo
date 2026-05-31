@@ -18,8 +18,12 @@ E2E-VERIFIKATION: OpenHuman-Integration + Architektur-Diagramm
 [PASS] architecture.mmd hat cal.rs
 [PASS] architecture.mmd kein Tailscale (stale-Check)
 [PASS] architecture.mmd: 9 Ebenen  (9 subgraphs)
+[PASS] Schritt 1: Memory-Bruecke-Sektion
+[PASS] Schritt 1: Vault->Gate->pgvector-Fluss
+[PASS] Schritt 1: alle 7 Memory-Typen gemappt  (fehlt: [])
+[PASS] Schritt 1: Memory-Modi referenziert
 [PASS] Alle internen Links/Anchor aufloesbar
 [PASS] proof PNG existiert
 [PASS] proof SVG existiert
 ----------------------------------------------------------------
-20/20 Checks bestanden
+24/24 Checks bestanden
