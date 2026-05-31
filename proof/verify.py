@@ -93,6 +93,16 @@ ok("Schritt 2: Migrations-Tabelle (Connector-Klassen)",
 ok("Schritt 2: Untrusted-Regeln (Audit/Sanitize/Scope)",
    all(s in runbook for s in ["sanitizen", "run_id", "Kill-Switch", "ambient Secrets"]))
 
+# ---- Plan-Schritt 3: OpenHuman-Node-Identitaet + Write-Gate-Flow ----
+flows = (ROOT / "docs/architecture-flows.md").read_text(encoding="utf-8")
+ok("Schritt 3: Edge-Identity-Sektion", "OpenHuman Edge Identity" in flows and "Ed25519 Device Key" in flows)
+ok("Schritt 3: Write-Gate-Flow (sig verify)", "verify sig" in flows and "node_id" in flows)
+ok("Schritt 3: Quorum + High-Risk-Approval", "m-of-n Quorum" in flows and "Approval Room" in flows)
+ok("Schritt 3: Key-Rotation/Revocation", "Rotation" in flows and "Revocation" in flows)
+fl_mm = re.findall(r"```mermaid\n(.*?)```", flows, re.S)
+ok("Schritt 3: neuer Mermaid-Edge-Flow vorhanden", any("OpenHuman Edge Node" in b for b in fl_mm))
+ok("Schritt 3: Render-Proof PNG", (ROOT / "proof/edge-identity-flow.png").exists())
+
 # ---- 5. internal links resolve (files + anchors) across README + docs ----
 md_files = [ROOT / "README.md"] + sorted((ROOT / "docs").glob("*.md"))
 link_re = re.compile(r"\[[^\]]+\]\(([^)]+)\)")

@@ -26,8 +26,14 @@ E2E-VERIFIKATION: OpenHuman-Integration + Architektur-Diagramm
 [PASS] Schritt 2: OSS-Migrationsziel definiert
 [PASS] Schritt 2: Migrations-Tabelle (Connector-Klassen)
 [PASS] Schritt 2: Untrusted-Regeln (Audit/Sanitize/Scope)
+[PASS] Schritt 3: Edge-Identity-Sektion
+[PASS] Schritt 3: Write-Gate-Flow (sig verify)
+[PASS] Schritt 3: Quorum + High-Risk-Approval
+[PASS] Schritt 3: Key-Rotation/Revocation
+[PASS] Schritt 3: neuer Mermaid-Edge-Flow vorhanden
+[PASS] Schritt 3: Render-Proof PNG
 [PASS] Alle internen Links/Anchor aufloesbar
 [PASS] proof PNG existiert
 [PASS] proof SVG existiert
 ----------------------------------------------------------------
-28/28 Checks bestanden
+34/34 Checks bestanden
