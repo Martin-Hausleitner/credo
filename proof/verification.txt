@@ -22,8 +22,12 @@ E2E-VERIFIKATION: OpenHuman-Integration + Architektur-Diagramm
 [PASS] Schritt 1: Vault->Gate->pgvector-Fluss
 [PASS] Schritt 1: alle 7 Memory-Typen gemappt  (fehlt: [])
 [PASS] Schritt 1: Memory-Modi referenziert
+[PASS] Schritt 2: Composio-Untrusted-Sektion
+[PASS] Schritt 2: OSS-Migrationsziel definiert
+[PASS] Schritt 2: Migrations-Tabelle (Connector-Klassen)
+[PASS] Schritt 2: Untrusted-Regeln (Audit/Sanitize/Scope)
 [PASS] Alle internen Links/Anchor aufloesbar
 [PASS] proof PNG existiert
 [PASS] proof SVG existiert
 ----------------------------------------------------------------
-24/24 Checks bestanden
+28/28 Checks bestanden

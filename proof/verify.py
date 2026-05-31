@@ -84,6 +84,15 @@ missing_types = [t for t in mem_types if t not in tgt]
 ok("Schritt 1: alle 7 Memory-Typen gemappt", not missing_types, f"fehlt: {missing_types}")
 ok("Schritt 1: Memory-Modi referenziert", all(m in tgt for m in ["proposed-write", "approved-write", "read-only"]))
 
+# ---- Plan-Schritt 2: Composio-Untrusted-Regime im Bridge-Runbook ----
+runbook = (ROOT / "docs/matrix-ops-runbook.md").read_text(encoding="utf-8")
+ok("Schritt 2: Composio-Untrusted-Sektion", "Composio-Untrusted-Regime" in runbook and "MCP-Untrusted-Regime" in runbook)
+ok("Schritt 2: OSS-Migrationsziel definiert", "Migrationsziel" in runbook and "OSS-Migrationsziel" in runbook)
+ok("Schritt 2: Migrations-Tabelle (Connector-Klassen)",
+   all(k in runbook for k in ["Chat / Messaging", "Mail", "Kalender", "Dev / Issues", "Storage / Files"]))
+ok("Schritt 2: Untrusted-Regeln (Audit/Sanitize/Scope)",
+   all(s in runbook for s in ["sanitizen", "run_id", "Kill-Switch", "ambient Secrets"]))
+
 # ---- 5. internal links resolve (files + anchors) across README + docs ----
 md_files = [ROOT / "README.md"] + sorted((ROOT / "docs").glob("*.md"))
 link_re = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
