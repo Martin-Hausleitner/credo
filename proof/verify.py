@@ -103,6 +103,16 @@ fl_mm = re.findall(r"```mermaid\n(.*?)```", flows, re.S)
 ok("Schritt 3: neuer Mermaid-Edge-Flow vorhanden", any("OpenHuman Edge Node" in b for b in fl_mm))
 ok("Schritt 3: Render-Proof PNG", (ROOT / "proof/edge-identity-flow.png").exists())
 
+# ---- Plan-Schritt 4: OpenHuman-Tools als risikoklassifizierte Skills ----
+skills = (ROOT / "docs/hermes-skills.md").read_text(encoding="utf-8")
+ok("Schritt 4: Risiko-Skill-Sektion", "risikoklassifizierte Skills" in skills and "OpenHuman-Core-Tools" in skills)
+risk_classes = ["read-only", "local-write", "external-write", "account-impacting", "public/posting"]
+ok("Schritt 4: alle 5 Risiko-Klassen genutzt", all(c in skills for c in risk_classes),
+   f"fehlt: {[c for c in risk_classes if c not in skills]}")
+ok("Schritt 4: Tools registriert (Memory/Composio/Voice)",
+   all(t in skills for t in ["Memory Tree", "Composio Connector", "Voice TTS", "OAuth Connect"]))
+ok("Schritt 4: OSS-Fallback/Migration vermerkt", "Piper/Coqui" in skills and "OSS-Bridge-Ziel" in skills)
+
 # ---- 5. internal links resolve (files + anchors) across README + docs ----
 md_files = [ROOT / "README.md"] + sorted((ROOT / "docs").glob("*.md"))
 link_re = re.compile(r"\[[^\]]+\]\(([^)]+)\)")

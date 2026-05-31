@@ -65,6 +65,31 @@ flowchart LR
 
 Empfohlene Regel: Agenten duerfen E-Mail-Inhalte lesen und Entwuerfe vorbereiten. Externer Versand braucht Approval, Rollencheck und Audit.
 
+## OpenHuman-Core-Tools als risikoklassifizierte Skills
+
+Die OpenHuman-Edge-Faehigkeiten werden nicht als Blackbox eingebunden, sondern als einzelne Skills mit Risiko-Klasse, Gate und Audit registriert. Die Klassen folgen den Side-Effect-Gates des Stacks: `read-only`, `local-write`, `external-write`, `account-impacting`, `public/posting`.
+
+| OpenHuman-Tool | Risiko-Klasse | Gate | OSS-Hinweis |
+|---|---|---|---|
+| Memory Tree Suche (Vault read) | read-only | kein Approval, nur Audit | nativ (lokaler Vault) |
+| Memory Tree Vorschlag (Chunk write) | local-write | Write-Gate, `proposed-write` | nativ |
+| Composio Connector Fetch (Mail/Kalender/Chat lesen) | read-only | Scope + Output-Sanitizing | managed → OSS-Bridge-Ziel |
+| Composio Connector Action (Mail senden, Issue/PR) | external-write | Approval + Rollencheck + Audit | managed → OSS-Bridge-Ziel |
+| Composio Social Post (Posting) | public/posting | Approval + Quorum + Audit | managed → OSS-Bridge-Ziel |
+| OAuth Connect (neue Integration verbinden) | account-impacting | Approval + isolierte Credentials | managed → minimaler Scope |
+| Voice STT (ElevenLabs/Whisper) | read-only | Audio bleibt lokal, sonst Audit | proprietaer → Piper/Coqui-Fallback |
+| Voice TTS (ElevenLabs) | external-write | Gate fuer ausgehende Synthese | proprietaer → Piper/Coqui-Fallback |
+| Model Routing / TokenJuice Compression | read-only | intern, nur Kosten-/Trace-Audit | nativ |
+
+Regeln fuer die Registrierung:
+
+1. Jedes Tool bekommt einen festen Skill-Eintrag mit Risiko-Klasse, erlaubtem Scope und Audit-Feldern.
+2. Alles ab `external-write` braucht Approval, Rollencheck und einen Eintrag mit `run_id` und `approval_id`.
+3. Managed/proprietaere Tools (Composio, ElevenLabs) laufen im Untrusted-Regime mit dokumentiertem OSS-Migrationsziel.
+4. Neue OpenHuman-Tools werden erst nach Risiko-Klassifikation freigeschaltet und hier eingetragen.
+
+Mehr Details: [openhuman-integration.md](openhuman-integration.md), [Composio-Untrusted-Regime](matrix-ops-runbook.md), [research-improvements.md](research-improvements.md). Quellen: [OpenHuman](https://github.com/tinyhumansai/openhuman), [MCP Security Best Practices](https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices).
+
 ## Skill-Governance
 
 | Regel | Umsetzung |

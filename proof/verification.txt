@@ -32,8 +32,12 @@ E2E-VERIFIKATION: OpenHuman-Integration + Architektur-Diagramm
 [PASS] Schritt 3: Key-Rotation/Revocation
 [PASS] Schritt 3: neuer Mermaid-Edge-Flow vorhanden
 [PASS] Schritt 3: Render-Proof PNG
+[PASS] Schritt 4: Risiko-Skill-Sektion
+[PASS] Schritt 4: alle 5 Risiko-Klassen genutzt  (fehlt: [])
+[PASS] Schritt 4: Tools registriert (Memory/Composio/Voice)
+[PASS] Schritt 4: OSS-Fallback/Migration vermerkt
 [PASS] Alle internen Links/Anchor aufloesbar
 [PASS] proof PNG existiert
 [PASS] proof SVG existiert
 ----------------------------------------------------------------
-34/34 Checks bestanden
+38/38 Checks bestanden
