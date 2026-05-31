@@ -151,6 +151,55 @@ ok("Alle internen Links/Anchor aufloesbar", not broken, "; ".join(broken) if bro
 ok("proof PNG existiert", (ROOT / "proof/architecture-diagram.png").exists())
 ok("proof SVG existiert", (ROOT / "proof/architecture-diagram.svg").exists())
 
+# ---- Landing-Page-Sync: index.html (Pflege-Regel README <-> index.html) ----
+from html.parser import HTMLParser
+
+class Collector(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.text = []
+        self.stack = []
+        self.void = {"br", "img", "hr", "meta", "link", "input", "use", "path",
+                     "circle", "rect", "line", "polygon", "stop", "source", "col"}
+        self.unbalanced = 0
+    def handle_starttag(self, tag, attrs):
+        if tag not in self.void:
+            self.stack.append(tag)
+    def handle_startendtag(self, tag, attrs):
+        pass
+    def handle_endtag(self, tag):
+        if tag in self.void:
+            return
+        if self.stack and self.stack[-1] == tag:
+            self.stack.pop()
+        elif tag in self.stack:
+            while self.stack and self.stack.pop() != tag:
+                self.unbalanced += 1
+        else:
+            self.unbalanced += 1
+    def handle_data(self, data):
+        if data.strip():
+            self.text.append(data.strip())
+
+idx_raw = (ROOT / "index.html").read_text(encoding="utf-8")
+parser = Collector()
+parser.feed(idx_raw)
+idx_text = "\n".join(parser.text)
+
+ok("index.html: HTML parsebar (kein Crash)", True)  # feed() ohne Exception
+ok("index.html: cal.com im sichtbaren Text entfernt", "cal.com" not in idx_text.lower(),
+   "Treffer im Textknoten" if "cal.com" in idx_text.lower() else "")
+ok("index.html: cal.rs sichtbar", "cal.rs" in idx_text)
+ok("index.html: OpenHuman sichtbar", "OpenHuman" in idx_text)
+ok("index.html: EDGE & INTEGRATIONS Stack-Card", "EDGE & INTEGRATIONS" in idx_text)
+ok("index.html: OpenHuman-Edge-Komponenten gelistet",
+   all(c in idx_text for c in ["OpenHuman Desktop", "118+ OAuth", "Memory Tree"]))
+ok("index.html: div-Tags balanciert", idx_raw.count("<div") == idx_raw.count("</div>"),
+   f"{idx_raw.count('<div')} vs {idx_raw.count('</div>')}")
+lp = ROOT / "proof/landing-page.png"
+ok("index.html: Headless-Chrome-Screenshot vorhanden", lp.exists() and lp.stat().st_size > 50000,
+   f"{lp.stat().st_size} bytes" if lp.exists() else "fehlt")
+
 # ---- report ----
 print("=" * 64)
 print("E2E-VERIFIKATION: OpenHuman-Integration + Architektur-Diagramm")

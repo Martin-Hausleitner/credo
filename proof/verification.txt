@@ -44,5 +44,13 @@ E2E-VERIFIKATION: OpenHuman-Integration + Architektur-Diagramm
 [PASS] Alle internen Links/Anchor aufloesbar
 [PASS] proof PNG existiert
 [PASS] proof SVG existiert
+[PASS] index.html: HTML parsebar (kein Crash)
+[PASS] index.html: cal.com im sichtbaren Text entfernt
+[PASS] index.html: cal.rs sichtbar
+[PASS] index.html: OpenHuman sichtbar
+[PASS] index.html: EDGE & INTEGRATIONS Stack-Card
+[PASS] index.html: OpenHuman-Edge-Komponenten gelistet
+[PASS] index.html: div-Tags balanciert  (469 vs 469)
+[PASS] index.html: Headless-Chrome-Screenshot vorhanden  (1170711 bytes)
 ----------------------------------------------------------------
-43/43 Checks bestanden
+51/51 Checks bestanden

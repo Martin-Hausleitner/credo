@@ -3,7 +3,7 @@
 Dieser Ordner beweist jedes in dieser Arbeitssession gelieferte Feature End-to-End.
 Reproduzierbar via `python3 proof/verify.py` (Exit 0 = alle Checks gruen).
 
-**Stand:** `verify.py` meldet **43/43 Checks bestanden**. Alle drei Mermaid-Diagramme
+**Stand:** `verify.py` meldet **51/51 Checks bestanden**. Alle drei Mermaid-Diagramme
 rendern (`valid: true`, `diagramType: flowchart`) — Bilder liegen hier als Beweis.
 Dies umfasst die urspruengliche OpenHuman-Integration **und** die 5 umgesetzten
 Plan-Schritte aus `docs/openhuman-integration.md`.
@@ -33,6 +33,15 @@ Jeder Schritt ist zusaetzlich ueber die globale Link-/Anchor-Pruefung abgesicher
 (Deep-Links zwischen den Dokumenten loesen auf), und im Plan selbst als „✅ umgesetzt"
 markiert.
 
+## Landing-Page-Sync (Pflege-Regel: README ↔ index.html)
+
+| Feature | Beweis | Status |
+|---|---|---|
+| `cal.com` → `cal.rs` auf der gesamten Landing-Page (Code-Beispiel, Stack-Card, Personal-OS-Card, 3× Marquee/Hero) | `verify.py` „cal.com im sichtbaren Text entfernt" + `landing-page.png` | ✅ PASS |
+| OpenHuman als **EDGE & INTEGRATIONS** Stack-Card (Desktop, 118+ OAuth/Composio, Memory Tree, Voice) | `verify.py` Stack-Card-Checks + `landing-page.png` | ✅ PASS |
+| HTML strukturell intakt (HTMLParser parsebar, div-Tags balanciert) | `verify.py` Parse- + Balance-Check | ✅ PASS |
+| Seite rendert real im Browser | **`landing-page.png`** (Headless Google Chrome, 1440×2400, file://index.html) | ✅ PASS |
+
 ## Bild-Beweise
 
 | Datei | Was es zeigt | Render-Quelle |
@@ -42,11 +51,12 @@ markiert.
 | `architecture-mmd-canonical.png` (600×380) | Canonical `docs/architecture.mmd`, voll gerendert | Mermaid-Validator, `valid: true` |
 | `architecture-mmd-canonical.svg` | Vektor-Version des Canonical-Renders | Mermaid-Validator |
 | `edge-identity-flow.png` (600×1044) | Plan-Schritt 3: OpenHuman Ed25519-Sign → Write-Gate → Quorum/Approval → pgvector+Audit → IPFS/Matrix | Mermaid-Validator, `valid: true` |
+| `landing-page.png` (1440×2400) | Gerenderte `index.html` mit neuer EDGE & INTEGRATIONS Stack-Card (OpenHuman) und cal.rs | Headless Google Chrome |
 
 ## Verifikation reproduzieren
 
 ```bash
-python3 proof/verify.py        # 43/43 Checks, Exit 0
+python3 proof/verify.py        # 51/51 Checks, Exit 0
 ```
 
 Das Skript prueft: cal.com-Entfernung, cal.rs-Praesenz, OpenHuman-Konsistenz &amp;
