@@ -3,8 +3,10 @@
 Dieser Ordner beweist jedes in dieser Arbeitssession gelieferte Feature End-to-End.
 Reproduzierbar via `python3 proof/verify.py` (Exit 0 = alle Checks gruen).
 
-**Stand:** `verify.py` meldet **20/20 Checks bestanden**. Beide Mermaid-Diagramme
+**Stand:** `verify.py` meldet **43/43 Checks bestanden**. Alle drei Mermaid-Diagramme
 rendern (`valid: true`, `diagramType: flowchart`) — Bilder liegen hier als Beweis.
+Dies umfasst die urspruengliche OpenHuman-Integration **und** die 5 umgesetzten
+Plan-Schritte aus `docs/openhuman-integration.md`.
 
 ## Feature → Beweis
 
@@ -17,6 +19,20 @@ rendern (`valid: true`, `diagramType: flowchart`) — Bilder liegen hier als Bew
 | 5 | **`docs/architecture.mmd` synchronisiert** (war stale/pre-OpenHuman) + Klammer-Fix im `init`-Block | `architecture-mmd-canonical.png` / `.svg`, `verification.txt` → „architecture.mmd hat OpenHuman/cal.rs", „kein Tailscale" | ✅ PASS |
 | 6 | **Interne Links/Anchor** in README + `docs/*.md` aufloesbar | `verification.txt` → „Alle internen Links/Anchor aufloesbar" | ✅ PASS |
 
+## Plan-Schritte (docs/openhuman-integration.md → „Naechste konkrete Schritte")
+
+| # | Plan-Schritt | Ziel-Datei | Beweis | Status |
+|---|---|---|---|---|
+| 1 | Memory-Bruecke (Vault → Write-Gate → pgvector, 7 Memory-Typen) | `docs/target-stack.md` | `verify.py` Schritt-1-Checks (4×) | ✅ PASS |
+| 2 | Composio-Untrusted-Regime + OSS-Bridge-Migration | `docs/matrix-ops-runbook.md` | `verify.py` Schritt-2-Checks (4×) | ✅ PASS |
+| 3 | OpenHuman-Node-Identitaet (Ed25519) + Write-Gate-Flow | `docs/architecture-flows.md` | `verify.py` Schritt-3-Checks (6×) + `edge-identity-flow.png` (valid render) | ✅ PASS |
+| 4 | OpenHuman-Core-Tools als risikoklassifizierte Skills | `docs/hermes-skills.md` | `verify.py` Schritt-4-Checks (4×) | ✅ PASS |
+| 5 | GPL-3.0-Kopplungsgrenze + Voice-/TTS-Adapter | `docs/stack-comparison.md` | `verify.py` Schritt-5-Checks (5×) | ✅ PASS |
+
+Jeder Schritt ist zusaetzlich ueber die globale Link-/Anchor-Pruefung abgesichert
+(Deep-Links zwischen den Dokumenten loesen auf), und im Plan selbst als „✅ umgesetzt"
+markiert.
+
 ## Bild-Beweise
 
 | Datei | Was es zeigt | Render-Quelle |
@@ -25,11 +41,12 @@ rendern (`valid: true`, `diagramType: flowchart`) — Bilder liegen hier als Bew
 | `architecture-diagram.svg` | Vektor-Version desselben Renders (104 KB, valides SVG) | Mermaid-Validator |
 | `architecture-mmd-canonical.png` (600×380) | Canonical `docs/architecture.mmd`, voll gerendert | Mermaid-Validator, `valid: true` |
 | `architecture-mmd-canonical.svg` | Vektor-Version des Canonical-Renders | Mermaid-Validator |
+| `edge-identity-flow.png` (600×1044) | Plan-Schritt 3: OpenHuman Ed25519-Sign → Write-Gate → Quorum/Approval → pgvector+Audit → IPFS/Matrix | Mermaid-Validator, `valid: true` |
 
 ## Verifikation reproduzieren
 
 ```bash
-python3 proof/verify.py        # 20/20 Checks, Exit 0
+python3 proof/verify.py        # 43/43 Checks, Exit 0
 ```
 
 Das Skript prueft: cal.com-Entfernung, cal.rs-Praesenz, OpenHuman-Konsistenz &amp;

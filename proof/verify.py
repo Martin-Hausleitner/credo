@@ -113,6 +113,15 @@ ok("Schritt 4: Tools registriert (Memory/Composio/Voice)",
    all(t in skills for t in ["Memory Tree", "Composio Connector", "Voice TTS", "OAuth Connect"]))
 ok("Schritt 4: OSS-Fallback/Migration vermerkt", "Piper/Coqui" in skills and "OSS-Bridge-Ziel" in skills)
 
+# ---- Plan-Schritt 5: GPL-Kopplungsgrenze + Voice/TTS-Adapter ----
+stackcmp = (ROOT / "docs/stack-comparison.md").read_text(encoding="utf-8")
+ok("Schritt 5: GPL-Kopplungsgrenze-Sektion", "GPL-3.0-Kopplungsgrenze" in stackcmp and "Prozess- und Protokollgrenze" in stackcmp)
+ok("Schritt 5: kein Linking / Prozessgrenze", "nicht in den Credo-Core gelinkt" in stackcmp)
+ok("Schritt 5: Voice/TTS-Adapter-Vertrag", "stt(audio) -> text" in stackcmp and "tts(text) -> audio" in stackcmp)
+ok("Schritt 5: OSS-TTS-Alternativen (Piper/Coqui/Whisper)",
+   all(a in stackcmp for a in ["Piper", "Coqui", "Whisper", "ElevenLabs"]))
+ok("Schritt 5: proprietaer nie Default-on", "nie Default-on" in stackcmp)
+
 # ---- 5. internal links resolve (files + anchors) across README + docs ----
 md_files = [ROOT / "README.md"] + sorted((ROOT / "docs").glob("*.md"))
 link_re = re.compile(r"\[[^\]]+\]\(([^)]+)\)")

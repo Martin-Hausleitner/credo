@@ -36,8 +36,13 @@ E2E-VERIFIKATION: OpenHuman-Integration + Architektur-Diagramm
 [PASS] Schritt 4: alle 5 Risiko-Klassen genutzt  (fehlt: [])
 [PASS] Schritt 4: Tools registriert (Memory/Composio/Voice)
 [PASS] Schritt 4: OSS-Fallback/Migration vermerkt
+[PASS] Schritt 5: GPL-Kopplungsgrenze-Sektion
+[PASS] Schritt 5: kein Linking / Prozessgrenze
+[PASS] Schritt 5: Voice/TTS-Adapter-Vertrag
+[PASS] Schritt 5: OSS-TTS-Alternativen (Piper/Coqui/Whisper)
+[PASS] Schritt 5: proprietaer nie Default-on
 [PASS] Alle internen Links/Anchor aufloesbar
 [PASS] proof PNG existiert
 [PASS] proof SVG existiert
 ----------------------------------------------------------------
-38/38 Checks bestanden
+43/43 Checks bestanden

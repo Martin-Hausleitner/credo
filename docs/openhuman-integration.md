@@ -121,12 +121,14 @@ Die Integration erfindet keine neue Phasenstruktur, sondern haengt an bestehende
 
 ## 🚀 Naechste konkrete Schritte
 
-| Prioritaet | Schritt | Ziel-Datei |
-|---:|---|---|
-| 1 | Memory-Bruecke spezifizieren: Vault -> Write-Gate -> pgvector mit Memory-Typen-Mapping | [target-stack.md](target-stack.md) |
-| 2 | Composio-Untrusted-Regime und OSS-Bridge-Migrationsziel im Bridge-Runbook festschreiben | [matrix-ops-runbook.md](matrix-ops-runbook.md) |
-| 3 | OpenHuman-Node-Identitaet (Ed25519 Device Key) und Write-Gate-Flow definieren | [architecture-flows.md](architecture-flows.md) |
-| 4 | OpenHuman-Core-Tools als risikoklassifizierte Skills registrieren | [hermes-skills.md](hermes-skills.md) |
-| 5 | GPL-3.0-Kopplungsgrenze und Voice-/TTS-Adapter dokumentieren | [stack-comparison.md](stack-comparison.md) |
+| Prioritaet | Schritt | Ziel-Datei | Status |
+|---:|---|---|---|
+| 1 | Memory-Bruecke spezifizieren: Vault -> Write-Gate -> pgvector mit Memory-Typen-Mapping | [target-stack.md](target-stack.md#-memory-bruecke-openhuman-vault--write-gate--pgvector) | ✅ umgesetzt |
+| 2 | Composio-Untrusted-Regime und OSS-Bridge-Migrationsziel im Bridge-Runbook festschreiben | [matrix-ops-runbook.md](matrix-ops-runbook.md) | ✅ umgesetzt |
+| 3 | OpenHuman-Node-Identitaet (Ed25519 Device Key) und Write-Gate-Flow definieren | [architecture-flows.md](architecture-flows.md) | ✅ umgesetzt |
+| 4 | OpenHuman-Core-Tools als risikoklassifizierte Skills registrieren | [hermes-skills.md](hermes-skills.md#openhuman-core-tools-als-risikoklassifizierte-skills) | ✅ umgesetzt |
+| 5 | GPL-3.0-Kopplungsgrenze und Voice-/TTS-Adapter dokumentieren | [stack-comparison.md](stack-comparison.md#gpl-30-kopplungsgrenze-und-voice-tts-adapter) | ✅ umgesetzt |
+
+**Status (2026-05-31):** Schritte 1–5 sind umgesetzt — Spezifikationen in den jeweiligen Ziel-Dateien, Beweise (statische Checks + Diagramm-Renders) in [proof/](../proof/).
 
 Quellen: [OpenHuman](https://github.com/tinyhumansai/openhuman), [Composio](https://github.com/ComposioHQ/composio), [MCP Security Best Practices](https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices), [OpenTelemetry GenAI SemConv](https://opentelemetry.io/docs/specs/semconv/gen-ai/).

@@ -38,6 +38,32 @@
 | OpenAI Realtime | Voice MVP | Niedrige Latenz, Tool Calls | Cloud-Audio, Kosten | Discord Voice MVP | [openai-realtime-agents](https://github.com/openai/openai-realtime-agents) |
 | discord.py | Discord Voice Gateway | Schnell produktiv | Discord-Abhaengigkeit | Schnellster Voice-Pfad | [discord.py](https://github.com/Rapptz/discord.py) |
 
+## GPL-3.0-Kopplungsgrenze und Voice-/TTS-Adapter
+
+OpenHuman steht unter **GPL-3.0**. Damit diese Lizenz nicht den ganzen Credo-Stack ansteckt, ist die Kopplung bewusst eine **Prozess- und Protokollgrenze**, kein Linking.
+
+| Aspekt | Regel | Folge |
+|---|---|---|
+| Prozess | OpenHuman laeuft als eigener Tauri-Prozess, nicht in den Credo-Core gelinkt | kein gemeinsames Binary, keine Derivative-Work-Kopplung |
+| Schnittstelle | Kopplung nur ueber Netz/IPC: MCP, HTTP oder Matrix-Events | austauschbar, sprach-/lizenzneutral |
+| Daten | Vault-Chunks und Connector-Outputs sind Daten, kein Code | GPL betrifft OpenHuman selbst, nicht die Inhalte im Gate |
+| Distribution | wird OpenHuman mitverteilt, gilt GPL-3.0 fuer dieses Artefakt; Credo-Core behaelt seine eigene Lizenz | klare Trennung je Artefakt im Repo-/Build-Manifest |
+
+Praktisch heisst das: der Credo-Core ruft OpenHuman nie als Bibliothek auf, sondern spricht ausschliesslich ueber definierte Endpunkte mit ihm. So bleibt die GPL-Pflicht auf den OpenHuman-Node begrenzt.
+
+Voice/TTS laeuft ueber einen **austauschbaren Adapter**, damit der proprietaere ElevenLabs-Pfad jederzeit gegen OSS getauscht werden kann. Adapter-Vertrag: `stt(audio) -> text`, `tts(text) -> audio`, plus Capability-/Lizenz-Flag.
+
+| Adapter | Lizenz | Rolle | Einsatz |
+|---|---|---|---|
+| ElevenLabs TTS | proprietaer | hohe Stimmqualitaet | Default nur bei explizit erlaubtem External-Write-Gate |
+| Piper | MIT | lokales OSS-TTS | OSS-Fallback, Edge-tauglich |
+| Coqui TTS | MPL-2.0 | OSS-TTS mit Voice-Cloning | OSS-Alternative fuer Self-Hosting |
+| Whisper / faster-whisper | MIT | lokales STT | OSS-Default fuer Spracherkennung |
+
+Regel: Der Adapter waehlt per Config; proprietaere Backends sind nie Default-on, sondern nur nach expliziter Freigabe, und jeder ausgehende Synthese-Call laeuft durch das External-Write-Gate mit Audit.
+
+Mehr Details: [openhuman-integration.md](openhuman-integration.md), [Voice-Skills](hermes-skills.md#openhuman-core-tools-als-risikoklassifizierte-skills). Quellen: [OpenHuman](https://github.com/tinyhumansai/openhuman), [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html), [Piper](https://github.com/rhasspy/piper), [Coqui TTS](https://github.com/coqui-ai/TTS).
+
 ## Bridges
 
 | Bridge | Ziel | Reife | Risiko | Empfehlung | GitHub |
